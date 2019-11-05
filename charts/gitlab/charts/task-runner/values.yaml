@@ -14,6 +14,9 @@ init:
 # Tolerations for pod scheduling
 tolerations: []
 
+antiAffinityLabels:
+  app: "gitaly"
+
 enabled: true
 annotations: {}
 global:
