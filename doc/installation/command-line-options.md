@@ -138,15 +138,17 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 
 ## Advanced registry configuration
 
-| Parameter                      | Description                         | Default              |
-|--------------------------------|-------------------------------------|----------------------|
-| `registry.authEndpoint`        | Auth endpoint                       | Undefined by default |
-| `registry.enabled`             | Enable docker registry              | true                 |
-| `registry.httpSecret`          | Https secret                        |                      |
-| `registry.minio.bucket`        | MinIO registry bucket name          | `registry`           |
-| `registry.service.annotations` | Annotations to add to the `Service` | {}                   |
-| `registry.tokenIssuer`         | JWT token issuer                    | `gitlab-issuer`      |
-| `registry.tokenService`        | JWT token service                   | `container_registry` |
+| Parameter                            | Description                                    | Default              |
+|--------------------------------------|------------------------------------------------|----------------------|
+| `registry.authEndpoint`              | Auth endpoint                                  | Undefined by default |
+| `registry.enabled`                   | Enable docker registry                         | true                 |
+| `registry.httpSecret`                | Https secret                                   |                      |
+| `registry.minio.bucket`              | MinIO registry bucket name                     | `registry`           |
+| `registry.service.annotations`       | Annotations to add to the `Service`            | {}                   |
+| `registry.securityContext.fsGroup`   | Group ID under which the pod should be started | `1000`               |
+| `registry.securityContext.runAsUser` | User ID under which the pod should be started  | `1000`               |
+| `registry.tokenIssuer`               | JWT token issuer                               | `gitlab-issuer`      |
+| `registry.tokenService`              | JWT token service                              | `container_registry` |
 
 ## Advanced MinIO configuration
 
@@ -211,6 +213,8 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab-runner.runners.service.memoryLimit`                  | service container limit                        |                                                                  |
 | `gitlab-runner.runners.service.memoryRequests`               | service container limit                        |                                                                  |
 | `gitlab-runner.unregisterRunners`                            | unregister all runners before termination      | true                                                             |
+| `gitlab.geo-logcursor.securityContext.fsGroup`               | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.geo-logcursor.securityContext.runAsUser`             | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.gitaly.authToken.key`                                | Key to Gitaly token in the secret              | `token`                                                          |
 | `gitlab.gitaly.authToken.secret`                             | Gitaly secret name                             | `{.Release.Name}-gitaly-secret`                                  |
 | `gitlab.gitaly.image.pullPolicy`                             | Gitaly image pull policy                       |                                                         |
@@ -234,6 +238,8 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.gitaly.serviceName`                                  | Gitaly service name                            | `gitaly`                                                         |
 | `gitlab.gitaly.shell.authToken.key`                          | Shell key                                      | `secret`                                                         |
 | `gitlab.gitaly.shell.authToken.secret`                       | Shell secret                                   | `{Release.Name}-gitlab-shell-secret`                             |
+| `gitlab.gitlab-exporter.securityContext.fsGroup`             | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.gitlab-exporter.securityContext.runAsUser`           | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.gitlab-shell.authToken.key`                          | Shell auth secret key                          | `secret`                                                         |
 | `gitlab.gitlab-shell.authToken.secret`                       | Shell auth secret                              | `{Release.Name}-gitlab-shell-secret`                             |
 | `gitlab.gitlab-shell.enabled`                                | Shell enable flag                              | true                                                             |
@@ -241,12 +247,16 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.gitlab-shell.image.repository`                       | Shell image repository                         | `registry.gitlab.com/gitlab-org/build/cng/gitlab-shell`          |
 | `gitlab.gitlab-shell.image.tag`                              | Shell image tag                                | `latest`                                                         |
 | `gitlab.gitlab-shell.replicaCount`                           | Shell replicas                                 | `1`                                                              |
+| `gitlab.gitlab-shell.securityContext.fsGroup`                | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.gitlab-shell.securityContext.runAsUser`              | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.gitlab-shell.service.annotations`                    | Annotations to add to the `Service`            | {}                                                               |
 | `gitlab.gitlab-shell.service.externalPort`                   | Shell exposed port                             | `22`                                                             |
 | `gitlab.gitlab-shell.service.internalPort`                   | Shell internal port                            | `22`                                                             |
 | `gitlab.gitlab-shell.service.name`                           | Shell service name                             | `gitlab-shell`                                                   |
 | `gitlab.gitlab-shell.service.type`                           | Shell service type                             | `ClusterIP`                                                      |
 | `gitlab.gitlab-shell.unicorn.serviceName`                    | Unicorn service name                           | `unicorn`                                                        |
+| `gitlab.mailroom.securityContext.fsGroup`                    | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.mailroom.securityContext.runAsUser`                  | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.migrations.bootsnap.enabled`                         | Migrations Bootsnap enable flag                | true                                                             |
 | `gitlab.migrations.enabled`                                  | Migrations enable flag                         | true                                                             |
 | `gitlab.migrations.image.pullPolicy`                         | Migrations pull policy                         |                                                          |
@@ -256,6 +266,8 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.migrations.psql.password.secret`                     | psql secret                                    | `gitlab-postgres`                                                |
 | `gitlab.migrations.psql.port`                                | Set PostgreSQL server port. Takes precedence over `global.psql.port`
 |                                                                  |
+| `gitlab.migrations.securityContext.fsGroup`                  | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.migrations.securityContext.runAsUser`                | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.sidekiq.concurrency`                                 | Sidekiq default concurrency                    | `10`                                                             |
 | `gitlab.sidekiq.enabled`                                     | Sidekiq enabled flag                           | true                                                             |
 | `gitlab.sidekiq.gitaly.authToken.key`                        | key to Gitaly token in Gitaly secret           | `token`                                                          |
@@ -271,6 +283,8 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.sidekiq.replicas`                                    | Sidekiq replicas                               | `1`                                                              |
 | `gitlab.sidekiq.resources.requests.cpu`                      | Sidekiq minimum needed cpu                     | `100m`                                                           |
 | `gitlab.sidekiq.resources.requests.memory`                   | Sidekiq minimum needed memory                  | `600M`                                                           |
+| `gitlab.sidekiq.securityContext.fsGroup`                     | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.sidekiq.securityContext.runAsUser`                   | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.sidekiq.timeout`                                     | Sidekiq job timeout                            | `5`                                                              |
 | `gitlab.task-runner.annotations`                             | Annotations to add to the task runner          | {}                                                               |
 | `gitlab.task-runner.backups.cron.enabled`                      | Backup CronJob enabled flag                  | false                                                            |
@@ -311,6 +325,8 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.task-runner.resources.requests.memory`               | Task runner minimum needed memory              | `350M`                                                           |
 | `gitlab.task-runner.psql.port`                               | Set PostgreSQL server port. Takes precedence over `global.psql.port`
 |                                                                  |
+| `gitlab.task-runner.securityContext.fsGroup`                 | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.task-runner.securityContext.runAsUser`               | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.unicorn.enabled`                                     | Unicorn enabled flag                           | true                                                             |
 | `gitlab.unicorn.gitaly.authToken.key`                        | Key to Gitaly token in Gitaly secret           | `token`                                                          |
 | `gitlab.unicorn.gitaly.authToken.secret`                     | Gitaly secret name                             | `{.Release.Name}-gitaly-secret`                                  |
@@ -329,6 +345,8 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.unicorn.replicaCount`                                | Unicorn number of replicas                     | `1`                                                              |
 | `gitlab.unicorn.resources.requests.cpu`                      | Unicorn minimum cpu                            | `200m`                                                           |
 | `gitlab.unicorn.resources.requests.memory`                   | Unicorn minimum memory                         | `1.4G`                                                           |
+| `gitlab.unicorn.securityContext.fsGroup`                     | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.unicorn.securityContext.runAsUser`                   | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.unicorn.service.annotations`                         | Annotations to add to the `Service`            | {}                                                               |
 | `gitlab.unicorn.service.externalPort`                        | Unicorn exposed port                           | `8080`                                                           |
 | `gitlab.unicorn.service.internalPort`                        | Unicorn internal port                          | `8080`                                                           |
