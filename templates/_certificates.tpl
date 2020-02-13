@@ -17,7 +17,7 @@
     readOnly: true
 {{- end }}
   resources:
-{{ toYaml .Values.init.resources | indent 4 }}
+    {{- toYaml .Values.init.resources | nindent 4 }}
 {{- end -}}
 
 {{- define "gitlab.certificates.volumes" -}}
