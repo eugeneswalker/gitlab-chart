@@ -5,7 +5,7 @@ metadata:
   name: {{ template "fullname" . }}-sshd
   namespace: {{ $.Release.Namespace }}
   labels:
-{{ include "gitlab.standardLabels" . | indent 4 }}
+    {{- include "gitlab.standardLabels" . | nindent 4 }}
 data:
   sshd_config: |
     #	$OpenBSD: sshd_config,v 1.101 2017/03/14 07:19:07 djm Exp $
