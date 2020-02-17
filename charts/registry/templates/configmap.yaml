@@ -5,10 +5,10 @@ metadata:
   name: {{ template "fullname" . }}
   namespace: {{ $.Release.Namespace }}
   labels:
-{{ include "gitlab.standardLabels" . | indent 4 }}
+    {{- include "gitlab.standardLabels" . | nindent 4 }}
 data:
   configure: |-
-{{ .Values.init.script | indent 4 }}
+    {{- .Values.init.script | nindent 4 }}
   config.yml: |
     version: 0.1
     log:
@@ -72,6 +72,6 @@ data:
         disable: true
       {{- end }}
       {{- else }}
-{{ include (print $.Template.BasePath "/_storage_default.yaml") . | indent 6}}
+      {{- include (print $.Template.BasePath "/_storage_default.yaml") . | nindent 6}}
       {{- end }}
 {{- end -}}
