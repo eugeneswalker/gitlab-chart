@@ -5,13 +5,13 @@ metadata:
   name: {{ template "fullname" . }}
   namespace: {{ $.Release.Namespace }}
   labels:
-{{ include "gitlab.standardLabels" . | indent 4 }}
+    {{- include "gitlab.standardLabels" . | nindent 4 }}
   annotations:
   {{- if .Values.metrics.enabled }}
     prometheus.io/scrape: "true"
     prometheus.io/port: "{{ .Values.metrics.metricsPort }}"
   {{- end }}
-{{ include "gitlab.serviceAnnotations" . | indent 4 }}
+    {{- include "gitlab.serviceAnnotations" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   clusterIP: "None"
