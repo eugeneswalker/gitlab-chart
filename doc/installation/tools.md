@@ -16,10 +16,16 @@ cluster. Proceed with setting up Helm.
 
 ## Helm
 
-Helm is the package manager for Kubernetes. The `gitlab` chart is only tested and
-supported with Helm `v2` and Helm 2.12 or higher is required, excluding 2.15. Helm `v1` is
-explicitly not supported. Helm `v3` is not yet supported, and open issues can be
-found under our [Helm 3 issue label](https://gitlab.com/gitlab-org/charts/gitlab/issues?label_name%5B%5D=Helm+3).
+Helm is the package manager for Kubernetes. The `gitlab` chart is tested and
+supported with Helm v2 (2.12 or higher required, [excluding 2.15](../releases/3_0.md#problematic-helm-215)).
+Starting with version `v3.0.0` of the chart, Helm v3 (3.0.2 or higher required)
+is also fully supported.
+
+NOTE: **Note**:
+We are not using Helm v3 for testing in CI, and the documentation currently
+still contains `helm` commands using the Helm v2 syntax. If you find issues
+specific to Helm v3, please create an issue in our [issue tracker](https://gitlab.com/gitlab-org/charts/gitlab/issues)
+and start the issue title with the keyword `[Helm3]`.
 
 Helm consists of two parts, the `helm` (client) installed locally, and `tiller`
 (server) installed inside Kubernetes.
