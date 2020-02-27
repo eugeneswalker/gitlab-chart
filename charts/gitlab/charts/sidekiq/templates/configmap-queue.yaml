@@ -12,7 +12,7 @@ metadata:
   name: {{ printf "%s-%s" $fullname .name | trunc 63 }}
   namespace: {{ $.Release.Namespace }}
   labels:
-{{ include "gitlab.standardLabels" $ | indent 4 }}
+    {{- include "gitlab.standardLabels" $ | nindent 4 }}
     queue_pod_name: {{ .name }}
 data:
   sidekiq_queues.yml.erb: |

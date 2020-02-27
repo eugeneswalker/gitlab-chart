@@ -7,7 +7,7 @@ gitaly:
 {{- define "gitlab.appConfig.repositories" -}}
 repositories:
   storages: # You must have at least a `default` storage path.
-{{ include "gitlab.gitaly.storages" . | indent 4 }}
+    {{- include "gitlab.gitaly.storages" . | nindent 4 }}
 {{- end -}}
 
 
@@ -50,14 +50,14 @@ extra:
 rack_attack:
   git_basic_auth:
     {{- if .Values.rack_attack.git_basic_auth.enabled }}
-  {{ toYaml .Values.rack_attack.git_basic_auth | indent 2 }}
+  {{- toYaml .Values.rack_attack.git_basic_auth | nindent 2 }}
     {{- end }}
 {{- end -}}
 
 {{- define "gitlab.appConfig.cronJobs" -}}
 {{- if .cron_jobs }}
 cron_jobs:
-{{ toYaml .cron_jobs | indent 2 }}
+  {{- toYaml .cron_jobs | nindent 2 }}
 {{- end }}
 {{- end }}
 
