@@ -27,6 +27,7 @@
 image: registry.gitlab.com/gitlab-org/gitlab-build-images:gitlab-charts-build-base
 
 variables:
+  AUTO_DEPLOY_TAG_REGEX: '^[0-9]+\.[0-9]+\.[0-9]+\+[a-z0-9]{7,}$'
   KUBECTL_VERSION: "v1.13.12"
   GOOGLE_APPLICATION_CREDENTIALS: ${CI_PROJECT_DIR}/.google_keyfile.json
   # AUTO_DEVOPS_DOMAIN is the application deployment domain and should be set as a variable at the group or project level.
@@ -868,7 +869,7 @@ release_package:
   stage: package
   script:
     - |
-      if [[ $CI_COMMIT_REF_NAME =~ [[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\+[^\ ]{7,}\.[^\ ]{7,} ]]; then
+      if [[ $CI_COMMIT_REF_NAME =~ $AUTO_DEPLOY_TAG_REGEX ]]; then
         UNSTABLE="true"
       else
         UNSTABLE="false"
