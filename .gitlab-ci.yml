@@ -37,6 +37,7 @@ variables:
   POSTGRES_PASSWORD: testing-password
   POSTGRES_ENABLED: "false"
   POSTGRES_DB: $CI_ENVIRONMENT_SLUG
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/gitlab
 
 stages:
   - prepare
