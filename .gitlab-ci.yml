@@ -156,6 +156,7 @@ review_gke:
     name: gke_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_gke
+  resource_group: "gke-review-app-${CI_COMMIT_REF_NAME}"
 
 review_eks:
   variables:
@@ -165,6 +166,7 @@ review_eks:
     name: eks_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_eks
+  resource_group: "eks-review-app-${CI_COMMIT_REF_NAME}"
 
 .stop_review_template:
   stage: review
@@ -301,6 +303,7 @@ stable_gke:
     url: https://gitlab.$KUBE_INGRESS_BASE_DOMAIN
   variables:
     VARIABLES_FILE: "variables/stable_gke"
+  resource_group: "gke-production"
 
 stable_eks:
   extends: .stable
@@ -309,6 +312,7 @@ stable_eks:
     url: https://gitlab.$KUBE_INGRESS_BASE_DOMAIN
   variables:
     VARIABLES_FILE: "variables/stable_eks"
+  resource_group: "eks-production"
 
 review_helm_test:
   stage: qa
@@ -763,6 +767,7 @@ review_specs_gke:
     name: gke_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_gke
+  resource_group: "gke-review-app-${CI_COMMIT_REF_NAME}"
   only:
     refs:
       - branches
@@ -781,6 +786,7 @@ review_specs_eks:
     name: eks_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_eks
+  resource_group: "eks-review-app-${CI_COMMIT_REF_NAME}"
   only:
     refs:
       - branches
@@ -807,6 +813,7 @@ production_specs_gke:
   environment:
     name: gke_production
     url: https://gitlab.$KUBE_INGRESS_BASE_DOMAIN
+  resource_group: "gke-production"
 
 production_specs_eks:
   extends: .production_specs
@@ -816,6 +823,7 @@ production_specs_eks:
   environment:
     name: eks_production
     url: https://gitlab.$KUBE_INGRESS_BASE_DOMAIN
+  resource_group: "eks-production"
 
 .qa:
   image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder:ruby_docker-0.0.7
