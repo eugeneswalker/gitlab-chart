@@ -42,7 +42,7 @@ The table below describes all variables.
 | Variable        | Description                                                                 | Default value                    |
 |-----------------|-----------------------------------------------------------------------------|----------------------------------|
 | REGION          | The region where your cluster lives                                         | `us-central1`                      |
-| ZONE            | The zone where your cluster instances lives                                 | `us-central1-a`                    |
+| ZONE_EXTENSION  | The extension (`a`, `b`, `c`) of the zone name where your cluster instances live | `b`                              |
 | CLUSTER_NAME    | The name of the cluster                                                     | `gitlab-cluster`                   |
 | CLUSTER_VERSION | The version of your GKE cluster                                             | GKE default, check the [GKE release notes](https://cloud.google.com/kubernetes-engine/docs/release-notes) |
 | MACHINE_TYPE    | The cluster instances' type                                                 | `n1-standard-4`                    |
