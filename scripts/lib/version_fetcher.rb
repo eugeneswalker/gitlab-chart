@@ -53,7 +53,7 @@ class VersionFetcher
     url = "#{@api_url}/projects/#{CGI.escape(@repo)}/repository/files/Gemfile.lock/raw?ref=#{ref(@version)}"
     $stdout.puts "Getting GitLab Gemfile.lock from #{url} to find the mailroom gem version"
     gemfile_object = Bundler::LockfileParser.new(open(url, 'PRIVATE-TOKEN' => @api_token).read)
-    mailroom_spec = gemfile_object.specs.find { |x| x.name == 'mail_room' }
+    mailroom_spec = gemfile_object.specs.find { |x| x.name == 'gitlab-mail_room' }
 
     return nil unless mailroom_spec
 
