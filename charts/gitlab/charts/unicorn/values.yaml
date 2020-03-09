@@ -58,8 +58,8 @@ ingress:
   annotations: {}
 workerProcesses: 2
 memory: # in MB units
-  min: 700
-  max: 1024
+  min: 1024
+  max: 1280
 hpa:
   targetAverageValue: 1
 
@@ -237,10 +237,10 @@ trusted_proxies: []
 resources:
   # limits:
   #  cpu: 1.5
-  #  memory: 1.5G
+  #  memory: 2G
   requests:
     cpu: 300m
-    memory: 1.2G
+    memory: 1.5G
 maxUnavailable: 1
 minReplicas: 2
 maxReplicas: 10
