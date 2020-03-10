@@ -44,6 +44,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $deprecated := append $deprecated (include "gitlab.deprecate.redis.enabled" .) -}}
 {{- $deprecated := append $deprecated (include "gitlab.deprecate.unicorn.service.name" .) -}}
 {{- $deprecated := append $deprecated (include "gitlab.deprecate.gitlab.unicorn.service.configuration" .) -}}
+{{- $deprecated := append $deprecated (include "gitlab.deprecate.gitlab.gitaly.serviceName" .) -}}
 {{- /* prepare output */}}
 {{- $deprecated := without $deprecated "" -}}
 {{- $message := join "\n" $deprecated -}}
@@ -300,3 +301,11 @@ gitlab.{{ $chart }}:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.deprecate.gitlab.unicorn.service.configuration */}}
+
+{{- define "gitlab.deprecate.gitlab.gitaly.serviceName" -}}
+{{-   if hasKey $.Values.gitlab.gitaly "serviceName" -}}
+gitlab.gitaly.serviceName:
+      The configuration of 'gitlab.gitaly.serviceName' has been moved to 'global.gitaly.serviceName' to fix issues with access to the gitaly service name. Please relocate this property.
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.deprecate.gitlab.gitaly.serviceName */}}

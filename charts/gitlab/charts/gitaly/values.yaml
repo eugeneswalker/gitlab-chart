@@ -8,11 +8,14 @@ global:
     internal:
       names: ["default"]
     external: []
+    authToken: {}
+  # serviceName:
   # imagePullPolicy: IfNotPresent
   redis:
     password: {}
-  gitaly:
-    authToken: {}
+
+gitaly:
+# serviceName:
 
 internal: {}
 image:

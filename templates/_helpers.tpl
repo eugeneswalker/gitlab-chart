@@ -15,6 +15,27 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Run "fullname" as if it was in another chart. This is an imperfect emulation, but close in it's emulation.
+
+This is especially useful when you reference "fullname" services/pods which may or may not be easy to reconstruct.
+
+Call:
+
+```
+{{- include "gitlab.other.fullname" ( dict "context" . "chartName" "name-of-other-chart" ) -}}
+```
+*/}}
+{{- define "gitlab.other.fullname" -}}
+{{- $Chart := dict "Name" .chartName -}}
+{{- $Release := .context.Release -}}
+{{- $localNameOverride :=  (pluck "nameOverride" (pluck .chartName .context.Values | first) | first) -}}
+{{- $globalNameOverride :=  (pluck "nameOverride" (pluck .chartName .context.Values.global | first) | first) -}}
+{{- $nameOverride :=  coalesce $localNameOverride $globalNameOverride -}}
+{{- $Values := dict "nameOverride" $nameOverride "global" .context.Values.global -}}
+{{- include "fullname" (dict "Chart" $Chart "Release" $Release "Values" $Values) -}}
+{{- end -}}
+
 {{/* ######### Hostname templates */}}
 
 {{/*
