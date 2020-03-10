@@ -1,0 +1,5 @@
+---
+title: Ensure kubectl jobs are not run as root
+merge_request: 1206
+author:
+type: fixed
