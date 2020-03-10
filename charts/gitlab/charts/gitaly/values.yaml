@@ -14,7 +14,7 @@ global:
   redis:
     password: {}
 
-gitaly:
+gitaly: {}
 # serviceName:
 
 internal: {}
