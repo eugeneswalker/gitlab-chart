@@ -432,6 +432,10 @@ global:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: 1.13.12
       pullSecrets: []
+    securityContext:
+      # in most base images, this is `nobody:nogroup`
+      runAsUser: 65534
+      fsGroup: 65534
   busybox:
     image:
       repository: busybox

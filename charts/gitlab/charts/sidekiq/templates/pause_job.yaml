@@ -66,6 +66,9 @@ spec:
         release: {{ .Release.Name }}
     spec:
       restartPolicy: Never
+      securityContext:
+        runAsUser: {{ .Values.global.kubectl.securityContext.runAsUser }}
+        fsGroup: {{ .Values.global.kubectl.securityContext.fsGroup }}
       serviceAccountName: {{ template "fullname" . }}-pause
       {{- include "pullsecrets" .Values.global.kubectl.image | indent 6 }}
       containers:
