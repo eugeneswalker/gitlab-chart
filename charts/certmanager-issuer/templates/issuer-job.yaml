@@ -15,8 +15,8 @@ spec:
         release: {{ .Release.Name }}
     spec:
       securityContext:
-        runAsUser: {{ .Values.securityContext.runAsUser }}
-        fsGroup: {{ .Values.securityContext.fsGroup }}
+        runAsUser: {{ .Values.global.kubectl.securityContext.runAsUser }}
+        fsGroup: {{ .Values.global.kubectl.securityContext.fsGroup }}
       {{- if .Values.rbac.create }}
       serviceAccountName: {{ template "fullname" . }}
       {{- end }}

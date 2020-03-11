@@ -67,8 +67,8 @@ spec:
     spec:
       restartPolicy: Never
       securityContext:
-        runAsUser: {{ .Values.global.operator.rollout.pauseJobs.securityContext.runAsUser }}
-        fsGroup: {{ .Values.global.operator.rollout.pauseJobs.securityContext.fsGroup }}
+        runAsUser: {{ .Values.global.kubectl.securityContext.runAsUser }}
+        fsGroup: {{ .Values.global.kubectl.securityContext.fsGroup }}
       serviceAccountName: {{ template "fullname" . }}-pause
       {{- include "pullsecrets" .Values.global.kubectl.image | indent 6 }}
       containers:

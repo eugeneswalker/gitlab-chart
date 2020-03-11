@@ -26,12 +26,6 @@ global:
       #   https://gitlab.com/gitlab-org/charts/gitlab/issues/1262
       #   https://github.com/helm/helm/issues/3805
       autoPause: true
-      pauseJobs:
-        securityContext:
-          # in most base images, this is `nobody:nogroup`
-          runAsUser: 65534
-          fsGroup: 65534
-
 
   ## doc/installation/deployment.md#deploy-the-community-edition
   edition: ee
@@ -438,6 +432,10 @@ global:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: 1.13.12
       pullSecrets: []
+    securityContext:
+      # in most base images, this is `nobody:nogroup`
+      runAsUser: 65534
+      fsGroup: 65534
   busybox:
     image:
       repository: busybox
