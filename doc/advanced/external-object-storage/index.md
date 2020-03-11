@@ -50,7 +50,7 @@ Examples for [S3](https://docs.docker.com/registry/storage-drivers/s3/)(any s3 c
 1. Follow [registry chart documentation on storage](../../charts/registry/index.md#storage) for creating the secret.
 1. Configure the chart as documented.
 
-## LFS, Artifacts, Uploads, Packages, External Diffs, Pseudonymizer
+## LFS, Artifacts, Uploads, Packages, External Diffs, Pseudonymizer, Terraform State
 
 Configuration of object storage for LFS, artifacts, uploads, packages, external
 diffs, and pseudonymizer is done via the `global.appConfig.lfs`,
@@ -77,6 +77,10 @@ diffs, and pseudonymizer is done via the `global.appConfig.lfs`,
 --set global.appConfig.externalDiffs.bucket=gitlab-externaldiffs-storage
 --set global.appConfig.externalDiffs.connection.secret=object-storage
 --set global.appConfig.externalDiffs.connection.key=connection
+
+--set global.appConfig.terraformState.bucket=gitlab-terraform-state
+--set global.appConfig.terraformState.connection.secret=object-storage
+--set global.appConfig.terraformState.connection.key=connection
 
 --set global.appConfig.pseudonymizer.bucket=gitlab-pseudonymizer-storage
 --set global.appConfig.pseudonymizer.connection.secret=object-storage

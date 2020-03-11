@@ -187,6 +187,10 @@ global:
       proxy_download: true
       bucket:
       connection: {}
+    terraformState:
+      enabled: false
+      bucket:
+      connection: {}
     ldap:
       servers: {}
       # 'main' is the GitLab 'provider ID' of this LDAP server
