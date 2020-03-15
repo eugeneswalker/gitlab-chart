@@ -32,6 +32,8 @@ function bootstrap(){
   set -e
   validate_required_tools;
 
+  HELM_VERSION="$(helm version --short)"
+
   # Use the default cluster version for the specified zone if not provided
   if [ -z "${CLUSTER_VERSION}" ]; then
     CLUSTER_VERSION=$(gcloud container get-server-config --zone $ZONE --project $PROJECT --format='value(defaultClusterVersion)');
@@ -81,7 +83,13 @@ function bootstrap(){
   kubectl --namespace=kube-system wait --for=condition=Available --timeout=5m apiservices/v1beta1.metrics.k8s.io
 
   echo "Installing helm..."
-  helm init --wait --service-account tiller
+
+  if [[ $HELM_VERSION == v3* ]]; then
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+  else
+    helm init --wait --service-account tiller
+  fi
+
   helm repo update
 
   if ! ${USE_STATIC_IP}; then
