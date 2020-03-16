@@ -46,7 +46,7 @@ are not activated.
 
 ```
 helm install ...
-  --set cert-manager.install=false \
+  --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.annotations."kubernetes\.io/tls-acme"=true \
   --set gitlab.unicorn.ingress.tls.secretName=RELEASE-gitlab-tls \
