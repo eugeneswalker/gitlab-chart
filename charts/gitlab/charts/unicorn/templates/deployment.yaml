@@ -90,7 +90,7 @@ spec:
           resources:
             {{- toYaml .Values.init.resources | nindent 12 }}
         - name: dependencies
-          image: "{{ coalesce .Values.image.repository (include "image.repository" .) }}:{{ coalesce .Values.image.tag (include "gitlab.versionTag" . ) }}"
+          image: {{ include "unicorn.image" . }}
           {{ template "gitlab.imagePullPolicy" . }}
           args:
             - /scripts/wait-for-deps
@@ -128,12 +128,14 @@ spec:
       containers:
         {{- include "gitlab.extraContainers" . | nindent 8 }}
         - name: {{ .Chart.Name }}
-          image: "{{ coalesce .Values.image.repository (include "image.repository" .) }}:{{ coalesce .Values.image.tag (include "gitlab.versionTag" . ) }}"
+          image: {{ include "unicorn.image" . }}
           {{ template "gitlab.imagePullPolicy" . }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
               name: unicorn
           env:
+            - name: GITLAB_WEBSERVER
+              value: {{ .Values.webServer }}
             - name: TMPDIR
               value: "/tmp/gitlab"
             - name: GITALY_FEATURE_DEFAULT_ON
@@ -210,7 +212,11 @@ spec:
           lifecycle:
             preStop:
               exec:
+                {{- if eq (lower .Values.webServer) "unicorn" }}
                 command: ["/bin/bash", "-c", "pkill -SIGQUIT -f 'unicorn master'"]
+                {{- else }}
+                command: ["/bin/bash", "-c", "pkill -SIGINT -o ruby"]
+                {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         - name: gitlab-workhorse

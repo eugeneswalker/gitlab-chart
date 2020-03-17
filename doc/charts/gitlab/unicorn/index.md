@@ -62,6 +62,9 @@ to the `helm install` command using the `--set` flags.
 | `monitoring.exporter.port`            | `8083`           | Port number to use for the metrics exporter    |
 | `psql.password.key`              | `psql-password`       | Key to psql password in psql secret            |
 | `psql.password.secret`           | `gitlab-postgres`     | psql secret name                               |
+| `puma.workerMaxMemory`           | `1024`                | The maximum memory (in megabytes) for the Puma worker killer |
+| `puma.threads.min`               | `4`                   | The minimum amount of Puma threads |
+| `puma.threads.max`               | `4`                   | The maximum amount of Puma threads |
 | `rack_attack.git_basic_auth`     | `{}`                  | See [GitLab documentation](https://docs.gitlab.com/ee/security/rack_attack.html) for details |
 | `redis.serviceName`              | `redis`               | Redis service name                             |
 | `registry.api.port`              | `5000`                | Registry port                                  |
@@ -94,6 +97,7 @@ to the `helm install` command using the `--set` flags.
 | `workhorse.readinessProbe.timeoutSeconds`      | 2       | When the readiness probe times out             |
 | `workhorse.readinessProbe.successThreshold`    | 1       | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `workhorse.readinessProbe.failureThreshold`    | 3       | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded |
+| `webServer` | `unicorn` | Selects web server (Unicorn/Puma) that would be used for request handling |
 
 ## Chart configuration examples
 
@@ -363,3 +367,16 @@ shell:
 | `authToken.key`    | String  |         | Defines the name of the key in the secret (below) that contains the authToken. |
 | `authToken.secret` | String  |         | Defines the name of the Kubernetes `Secret` to pull from. |
 | `port`             | Integer | `22`    | The port number to use in the generation of SSH URLs within the GitLab UI. Controlled by `global.shell.port`. |
+
+### WebServer options
+
+Current version of chart supports both Unicorn and Puma web servers.
+Unicorn is the default, however you can switch to the experimental
+Puma server by setting `webServer: puma`
+
+Puma unique options:
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `puma.workerMaxMemory`           | `1024`                | The maximum memory (in megabytes) for the Puma worker killer |
+| `puma.threads.min`               | `4`                   | The minimum amount of Puma threads |
+| `puma.threads.max`               | `4`                   | The maximum amount of Puma threads |
