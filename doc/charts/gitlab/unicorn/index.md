@@ -375,6 +375,7 @@ Unicorn is the default, however you can switch to the experimental
 Puma server by setting `webServer: puma`
 
 Puma unique options:
+
 | Name               | Type    | Default | Description |
 |:------------------ |:-------:|:------- |:----------- |
 | `puma.workerMaxMemory`           | `1024`                | The maximum memory (in megabytes) for the Puma worker killer |
