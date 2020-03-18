@@ -71,19 +71,25 @@ At this high level, a customer can make decisions like:
 
 Customers who would like to get started quickly and easily should begin with this chart.
 
-### Subcharts
+### Structure of these charts
 
-The GitLab chart is made of multiple subcharts. These charts provide individual components of the GitLab software.
+The main GitLab chart is an umbrella chart, made up of many other charts. Each sub-chart is
+documented individually, and laid in a structure that matches the
+[charts](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts) directory structure.
 
-Subcharts included are :
+Non-GitLab components are packaged and documented on the top level. GitLab
+component services are documented under the [GitLab](../charts/gitlab/index.md) chart:
 
-- [Sidekiq](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/gitlab/charts/sidekiq)
-- [Unicorn](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/gitlab/charts/unicorn)
-- [GitLab Shell](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/gitlab/charts/gitlab-shell)
-- [Gitaly](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/gitlab/charts/gitaly)
-- [MinIO](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/minio)
-- [NGINX](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/nginx)
-- [registry](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/charts/registry)
+- [NGINX](../charts/nginx/index.md)
+- [MinIO](../charts/minio/index.md)
+- [Registry](../charts/registry/index.md)
+- GitLab/[Gitaly](../charts/gitlab/gitaly/index.md)
+- GitLab/[GitLab Exporter](../charts/gitlab/gitlab-exporter/index.md)
+- GitLab/[GitLab Grafana](../charts/gitlab/gitlab-grafana/index.md)
+- GitLab/[GitLab Shell](../charts/gitlab/gitlab-shell/index.md)
+- GitLab/[Migrations](../charts/gitlab/migrations/index.md)
+- GitLab/[Sidekiq](../charts/gitlab/sidekiq/index.md)
+- GitLab/[Unicorn](../charts/gitlab/unicorn/index.md)
 
 ### Components list
 
