@@ -65,4 +65,4 @@ After fetching the backup tar the sequence of execution is:
    - clean up the corresponding bucket
    - restore the backup content into the corresponding bucket
 
-> Note:  If the restore fails, user will need to revert to previous backup using data in `tmp` directory of the the backup bucket. This is currently a manual process.
+> Note: If the restore fails, user will need to revert to previous backup using data in `tmp` directory of the the backup bucket. This is currently a manual process.

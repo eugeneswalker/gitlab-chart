@@ -2,7 +2,7 @@
 
 Before running `helm install`, you need to make some decisions about how you will run GitLab.
 Options can be specified using Helm's `--set option.name=value` command line option.
-A complete list  of command line options can be found [here](./command-line-options.md).
+A complete list of command line options can be found [here](command-line-options.md).
 This guide will cover required values and common options.
 
 ## Selecting configuration options
@@ -64,7 +64,7 @@ You should be running GitLab using https which requires TLS certificates. By def
 chart will install and configure [cert-manager](https://github.com/jetstack/cert-manager)
 to obtain free TLS certificates.
 If you have your own wildcard certificate, you already have cert-manager installed, or you
-have some other way of obtaining TLS certificates, [read about more TLS options here](./tls.md).
+have some other way of obtaining TLS certificates, [read about more TLS options here](tls.md).
 
 For the default configuration, you must specify an email address to register your TLS
 certificates.
@@ -241,7 +241,7 @@ Instructions for installing a development branch rather than a tagged release ca
 
 ### GitLab Operator (experimental)
 
-If you would like to use GitLab Operator to achieve zero downtime upgrades, please follow the [documentation for using the operator](./operator.md)
+If you would like to use GitLab Operator to achieve zero downtime upgrades, please follow the [documentation for using the operator](operator.md).
 
 ## Monitoring the Deployment
 

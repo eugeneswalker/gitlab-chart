@@ -111,7 +111,7 @@ the rest of this documentation.
   - IP addresses of nodes
 - Secondary cluster:
   - IP addresses of nodes
-- Database Passwords (_must  pre-decide the password(s)_)
+- Database Passwords (_must pre-decide the password(s)_)
   - `gitlab` (used in `postgresql['sql_user_password']`, `global.psql.password`)
   - `gitlab_geo` (used in `geo_postgresql['sql_user_password']`, `global.geo.psql.password`)
   - `gitlab_replicator` (needed for replication)
@@ -228,7 +228,7 @@ database user.
    - [global.hosts.domain](../../charts/globals.md#configure-host-settings)
    - [global.psql.host](../../charts/globals.md#configure-postgresql-settings)
    - Also configure any additional settings, such as:
-     - [Configuring SSL/TLS](../../installation/deployment.html#tls-certificates)
+     - [Configuring SSL/TLS](../../installation/deployment.md#tls-certificates)
      - [Using external Redis][ext-redis]
      - [using external Object Storage][ext-object]
 
@@ -528,7 +528,7 @@ postgresql:
    - [global.psql.host](../../charts/globals.md#configure-postgresql-settings)
    - [global.geo.psql.host](../../charts/globals.md#configure-postgresql-settings)
    - Also configure any additional settings, such as:
-     - [Configuring SSL/TLS](../../installation/deployment.html#tls-certificates)
+     - [Configuring SSL/TLS](../../installation/deployment.md#tls-certificates)
      - [Using external Redis][ext-redis]
      - [using external Object Storage][ext-object]
 

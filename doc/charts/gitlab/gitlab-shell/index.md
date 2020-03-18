@@ -59,7 +59,7 @@ with `global.shell.port`, and defaults to `22`.
 | `service.loadBalancerSourceRanges` |      | List of IP CIDRs allowed access to LoadBalancer (if supported)  |
 | `service.type`           | `ClusterIP`    | Shell service type                       |
 | `tolerations`            | `[]`           | Toleration labels for pod assignment     |
-| `workhorse.serviceName`    | `unicorn`      | Workhorse service name  (by default, Workhorse is a part of the Unicorn Pods / Service)                   |
+| `workhorse.serviceName`    | `unicorn`      | Workhorse service name (by default, Workhorse is a part of the Unicorn Pods / Service)                   |
 
 ## Chart configuration examples
 

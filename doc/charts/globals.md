@@ -510,7 +510,7 @@ kubectl create secret generic gitlab-rails-storage \
 
 #### when (only for External MR Diffs)
 
-`externalDiffs` setting has an additional  key `when` to
+`externalDiffs` setting has an additional key `when` to
 [conditionally store specific diffs on object storage](https://docs.gitlab.com/ee/administration/merge_request_diffs.html#alternative-in-database-storage).
 This setting is left empty by default in the Charts, for a default value to be
 assigned by the Rails code.

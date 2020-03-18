@@ -332,7 +332,7 @@ Pods to specific endpoints.
 ### Example Network Policy
 
 The Sidekiq service requires Ingress connections for only the Prometheus
-exporter if enabled.  And normally requires Egress connections to various
+exporter if enabled, and normally requires Egress connections to various
 places. This examples adds the following network policy:
 
 - All Ingress requests from the network on TCP `10.0.0.0/8` port 3807 are allowed for metrics exporting
