@@ -23,7 +23,7 @@ else
 fi
 
 #TODO: Get all the components and their corresponding versions
-components=(gitlab-rails-ee gitlab-unicorn-ee gitlab-workhorse-ee gitlab-sidekiq-ee gitlab-task-runner-ee)
+components=(gitlab-rails-ee gitlab-webservice-ee gitlab-workhorse-ee gitlab-sidekiq-ee gitlab-task-runner-ee)
 
 for component in "${components[@]}"; do
   image="${CNG_REGISTRY}/${component}:${wait_on_version}"

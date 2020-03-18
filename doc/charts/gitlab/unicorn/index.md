@@ -47,7 +47,7 @@ to the `helm install` command using the `--set` flags.
 | `hpa.targetAverageValue`         | `1`                   | Set the autoscaling target value               |
 | `image.pullPolicy`               | `Always`              | Unicorn image pull policy                      |
 | `image.pullSecrets`              |                       | Secrets for the image repository               |
-| `image.repository`               | `registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ee` | Unicorn image repository |
+| `image.repository`               | `registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee` | Webservice image repository |
 | `image.tag`                      |                       | Unicorn image tag                              |
 | `init.image.repository`          |                       | initContainer image                            |
 | `init.image.tag`                 |                       | initContainer image tag                        |
@@ -153,7 +153,7 @@ can use the Community Edition instead. Learn more about the
 [differences between the two](https://about.gitlab.com/install/ce-or-ee/).
 
 In order to use the Community Edition, set `image.repository` to
-`registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ce` and `workhorse.image`
+`registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ce` and `workhorse.image`
 to `registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ce`.
 
 ## Global Settings

@@ -304,7 +304,7 @@ settings from the [Redis chart](https://github.com/helm/charts/tree/master/stabl
 | `gitlab.unicorn.gitaly.authToken.secret`                     | Gitaly secret name                             | `{.Release.Name}-gitaly-secret`                                  |
 | `gitlab.unicorn.gitaly.serviceName`                          | Gitaly service name                            | `gitaly`                                                         |
 | `gitlab.unicorn.image.pullPolicy`                            | Unicorn image pull policy                      | `Always`                                                         |
-| `gitlab.unicorn.image.repository`                            | Unicorn image repository                       | `registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ee`     |
+| `gitlab.unicorn.image.repository`                            | Unicorn image repository                       | `registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee`     |
 | `gitlab.unicorn.image.tag`                                   | Unicorn image tag                              | `latest`                                                         |
 | `gitlab.unicorn.psql.password.key`                           | Key to psql password in psql secret            | `psql-password`                                                  |
 | `gitlab.unicorn.psql.password.secret`                        | psql secret name                               | `gitlab-postgres`                                                |
