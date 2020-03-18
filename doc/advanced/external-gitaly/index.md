@@ -59,7 +59,7 @@ have to
    ```
 
 1. Add the certificate of external Gitaly server to the list of
-   [custom Certificate Authorities](https://docs.gitlab.com/charts/charts/globals#custom-certificate-authorities)
+   [custom Certificate Authorities](../../charts/globals.md#custom-certificate-authorities)
    In the values file, specify the following
 
    ```yml

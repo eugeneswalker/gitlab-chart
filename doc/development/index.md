@@ -252,10 +252,10 @@ such a way that an upstream may not accept.
 
 It is frowned upon to default to utilizing a `toYaml` in the template files as
 this will put undue burden on supporting all functionalities of both Kuberentes
-and desired community configurations.  We primary focus on providing a
-reasonable default using the bare minimum configuration.  Our secondary focus
+and desired community configurations. We primary focus on providing a
+reasonable default using the bare minimum configuration. Our secondary focus
 would be to provide the ability to override the defaults for more advanced users
-of Kubernetes.  This should be done on a case-by-case basis as there are
+of Kubernetes. This should be done on a case-by-case basis as there are
 certainly scenarios where either option may be too cumbersome to support, or
 provides an unnecessarily complex template to maintain.
 
@@ -264,7 +264,7 @@ found in the Horizontal Pod Autoscaler configuration for the registry subchart.
 We default to providing the bare minimum that can easily be supported, by
 exposing a specific configuration of controlling the HPA via the CPU Utilization
 and exposing only one configuration option to the community, the
-`targetAverageUtilization`.  Being that an HPA can provide much more
+`targetAverageUtilization`. Being that an HPA can provide much more
 flexibility, more advanced users may want to target different metrics and as
 such, is a perfect example of where we can utilize and if statement allowing the
 end user to provide a more complex HPA configuration in place.

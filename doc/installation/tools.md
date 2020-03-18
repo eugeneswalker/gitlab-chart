@@ -134,7 +134,7 @@ gcloud container clusters describe <cluster-name> --zone <zone> --project <proje
 This command will output the admin password. We need the password to authenticate
 with `kubectl` and create the role.
 
-We will also create an admin user for this cluster.  Use a name you prefer but
+We will also create an admin user for this cluster. Use a name you prefer but
 for this example we will include the cluster's name in it:
 
 ```sh

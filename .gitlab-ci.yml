@@ -400,6 +400,8 @@ check_docs_lint:
   dependencies: []
   before_script: []
   script:
+    # Lint prose
+    - vale --minAlertLevel error doc
     # Lint Markdown
     - markdownlint --config .markdownlint.json 'doc/**/*.md'
     - mv doc/ /tmp/gitlab-docs/content/charts

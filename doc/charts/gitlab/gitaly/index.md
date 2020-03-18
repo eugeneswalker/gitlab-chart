@@ -206,8 +206,8 @@ persistence:
 ### Running Gitaly over TLS
 
 NOTE: **Note:** This section refers to Gitaly being run inside the cluster using
-the Helm charts.  If you are using an external Gitaly instance and want to use
-TLS for communicating with it, refer [the external Gitaly documentation](https://docs.gitlab.com/charts/advanced/external-gitaly/#connecting-to-external-gitaly-over-tls)
+the Helm charts. If you are using an external Gitaly instance and want to use
+TLS for communicating with it, refer [the external Gitaly documentation](../../../advanced/external-gitaly/index.md#connecting-to-external-gitaly-over-tls)
 
 Gitaly supports communicating with other components over TLS. This is controlled
 by the settings `global.gitaly.tls.enabled` and `global.gitaly.tls.secretName`.
