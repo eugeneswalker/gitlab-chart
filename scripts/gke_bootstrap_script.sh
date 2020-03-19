@@ -85,7 +85,7 @@ function bootstrap(){
 
   echo "Installing helm..."
 
-  if [[ $HELM_VERSION == v3* ]]; then
+  if $IS_HELM_3 ; then
     helm repo add stable https://kubernetes-charts.storage.googleapis.com/
   else
     helm init --wait --service-account tiller
