@@ -68,7 +68,7 @@ function bootstrap(){
   gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT;
 
   # Create roles for RBAC Helm
-  if $RBAC_ENABLED; then
+  if $RBAC_ENABLED && $IS_HELM_3 ; then
     status_code=$(curl -L -w '%{http_code}' -o rbac-config.yaml -s "https://gitlab.com/gitlab-org/charts/gitlab/raw/master/doc/installation/examples/rbac-config.yaml");
     if [ "$status_code" != 200 ]; then
       echo "Failed to download rbac-config.yaml, status code: $status_code";
