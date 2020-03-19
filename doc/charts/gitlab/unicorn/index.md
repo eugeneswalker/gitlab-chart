@@ -378,6 +378,6 @@ Puma unique options:
 
 | Name               | Type    | Default | Description |
 |:------------------ |:-------:|:------- |:----------- |
-| `puma.workerMaxMemory`           | `1024`                | The maximum memory (in megabytes) for the Puma worker killer |
-| `puma.threads.min`               | `4`                   | The minimum amount of Puma threads |
-| `puma.threads.max`               | `4`                   | The maximum amount of Puma threads |
+| `puma.workerMaxMemory`           | Integer | `1024`                | The maximum memory (in megabytes) for the Puma worker killer |
+| `puma.threads.min`               | Integer | `4`                   | The minimum amount of Puma threads |
+| `puma.threads.max`               | Integer | `4`                   | The maximum amount of Puma threads |
