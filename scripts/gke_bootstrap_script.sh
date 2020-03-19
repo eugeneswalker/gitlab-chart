@@ -32,8 +32,10 @@ function bootstrap(){
   set -e
   validate_required_tools;
 
-  helm version --short --client | grep -q '^v3\.[0-9]+'
+  set +e
+  helm version --short --client | grep -q '^v3\.[0-9]\{1,\}'
   IS_HELM_3=$?
+  set -e
 
   # Use the default cluster version for the specified zone if not provided
   if [ -z "${CLUSTER_VERSION}" ]; then
@@ -68,7 +70,7 @@ function bootstrap(){
   gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT;
 
   # Create roles for RBAC Helm
-  if $RBAC_ENABLED && $IS_HELM_3 ; then
+  if $RBAC_ENABLED && [ ! $IS_HELM_3 -eq 0 ]; then
     status_code=$(curl -L -w '%{http_code}' -o rbac-config.yaml -s "https://gitlab.com/gitlab-org/charts/gitlab/raw/master/doc/installation/examples/rbac-config.yaml");
     if [ "$status_code" != 200 ]; then
       echo "Failed to download rbac-config.yaml, status code: $status_code";
@@ -85,7 +87,7 @@ function bootstrap(){
 
   echo "Installing helm..."
 
-  if $IS_HELM_3 ; then
+  if [ $IS_HELM_3 -eq 0 ]; then
     helm repo add stable https://kubernetes-charts.storage.googleapis.com/
   else
     helm init --wait --service-account tiller
