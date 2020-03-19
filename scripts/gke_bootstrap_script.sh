@@ -32,7 +32,8 @@ function bootstrap(){
   set -e
   validate_required_tools;
 
-  HELM_VERSION="$(helm version --short)"
+  helm version --short --client | grep -q '^v3\.[0-9]+'
+  IS_HELM_3=$?
 
   # Use the default cluster version for the specified zone if not provided
   if [ -z "${CLUSTER_VERSION}" ]; then
