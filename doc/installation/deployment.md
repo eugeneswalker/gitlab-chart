@@ -29,7 +29,7 @@ objects. You'll need to specify a domain which will contain records to resolve
 #### Dynamic IPs with external-dns
 
 If you plan to use an automatic DNS registration service like [external-dns](https://github.com/kubernetes-sigs/external-dns),
-you won't need any additional configuration.
+you won't need any additional configuration for GitLab, but you will need to deploy it to your cluster. If external-dns is your choice, the project page [has a comprehensive guide](https://github.com/kubernetes-sigs/external-dns#deploying-to-a-cluster) for each supported provider.
 
 If you provisioned a GKE cluster using the scripts in this repo, [external-dns](https://github.com/kubernetes-sigs/external-dns)
 is already installed in your cluster.
