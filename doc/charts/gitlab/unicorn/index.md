@@ -62,6 +62,7 @@ to the `helm install` command using the `--set` flags.
 | `monitoring.exporter.port`            | `8083`           | Port number to use for the metrics exporter    |
 | `psql.password.key`              | `psql-password`       | Key to psql password in psql secret            |
 | `psql.password.secret`           | `gitlab-postgres`     | psql secret name                               |
+| `psql.port`                      |                       | Set PostgreSQL server port. Takes precedence over `global.psql.port` |
 | `puma.workerMaxMemory`           | `1024`                | The maximum memory (in megabytes) for the Puma worker killer |
 | `puma.threads.min`               | `4`                   | The minimum amount of Puma threads |
 | `puma.threads.max`               | `4`                   | The maximum amount of Puma threads |
