@@ -105,6 +105,10 @@ workhorse:
     timeoutSeconds: 2
     successThreshold: 1
     failureThreshold: 3
+
+psql: {}
+  # port: 5432
+
 global:
   # imagePullPolicy: IfNotPresent
   ingress:

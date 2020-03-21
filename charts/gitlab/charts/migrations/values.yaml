@@ -29,6 +29,10 @@ gitaly:
   authToken: {}
   #   secret: gitaly-secret
   #   key: token
+
+psql: {}
+  # port: 5432 
+
 global:
   # imagePullPolicy: IfNotPresent
   psql: {}

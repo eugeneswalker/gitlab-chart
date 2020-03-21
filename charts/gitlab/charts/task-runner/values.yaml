@@ -18,6 +18,9 @@ tolerations: []
 enabled: true
 annotations: {}
 
+psql: {}
+  # port: 5432 
+
 global:
   # imagePullPolicy: IfNotPresent
   hosts:

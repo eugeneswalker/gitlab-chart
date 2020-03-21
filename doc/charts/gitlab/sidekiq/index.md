@@ -54,6 +54,7 @@ to the `helm install` command using the `--set` flags:
 | `metrics.enabled`                    | `true`            | Toggle Prometheus metrics exporter       |
 | `psql.password.key`                  | `psql-password`   | key to psql password in psql secret      |
 | `psql.password.secret`               | `gitlab-postgres` | psql password secret                     |
+| `psql.port`                          |                   | Set PostgreSQL server port. Takes precedence over `global.psql.port` |
 | `redis.serviceName`                  | `redis`           | Redis service name                       |
 | `resources.requests.cpu`             | `100m`            | Sidekiq minimum needed cpu               |
 | `resources.requests.memory`          | `600M`            | Sidekiq minimum needed memory            |
