@@ -2,6 +2,25 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 3.2.0 (2020-03-22)
+
+### Fixed (4 changes, 1 of them is from the community)
+
+- Fix unicorn worker killer configuration. !1199 (Matthias van de Meent)
+- Fix logic of registry HPA deprecations. !1203
+- Ensure kubectl jobs are not run as root. !1206
+- Add gitlab.host to Migrations Rails config #1947. !1215
+
+### Changed (2 changes)
+
+- Update gitlab-org/gitlab-exporter from 6.0.0 to 6.1.0. !1176
+- Bump Container Registry to v2.8.2-gitlab. !1214
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.0.
+
+
 ## 3.1.5 (2020-03-16)
 
 ### Other (1 change)
