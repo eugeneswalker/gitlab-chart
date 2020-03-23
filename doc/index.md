@@ -159,7 +159,7 @@ See [Advanced Configuration](advanced/index.md).
 
 ### Migrate from Omnibus GitLab to Kubernetes
 
-It is possible to migrate from [Omnibus GitLab](https://docs.gitlab/com/omnibus)
+It is possible to migrate from [Omnibus GitLab](https://docs.gitlab.com/omnibus)
 to these charts. Doing so generally requires migrating existing data to object
 storage, and thus is an [Advanced Configuration](advanced/index.md).
 
