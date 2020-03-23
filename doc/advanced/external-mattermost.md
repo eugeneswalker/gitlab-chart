@@ -10,7 +10,7 @@ refer to the [Mattermost Helm configuration guide](https://github.com/mattermost
 
 - A running Kubernetes cluster.
 - [Helm v2.](https://helm.sh/docs/intro/install/)
-- [Tiller](https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-init/>) (the Helm server-side component) installed on the cluster.
+- [Tiller](https://rancher.com/docs/rancher/v2.x/en/installation/options/helm2/helm-init/) (the Helm server-side component) installed on the cluster.
 
 NOTE: **Note:**
 For the Team Edition you can have just one replica running.
@@ -66,4 +66,4 @@ supported and are known not to work on some experiences.
 ## Troubleshooting
 
 If you are following a process other than the one provided and experience authentication and/or deployment issues,
-let us know in the [Mattermost troubleshooting forum](http://www.mattermost.org/troubleshoot).
+let us know in the [Mattermost troubleshooting forum](https://mattermost.org/troubleshoot/).
