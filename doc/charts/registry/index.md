@@ -75,6 +75,7 @@ registry:
       enabled: false
   validation:
     disabled: true
+  notifications: {}
   tolerations: []
   ingress:
     enabled: false
@@ -368,6 +369,35 @@ windows images with foreign layers.
 The image validation is turned off by default.
 
 To enable image validation you need to explicitly set `registry.validation.disabled: false`.
+
+### notifications
+
+The `notifications` field is used to configure [Registry notifications](https://docs.docker.com/registry/notifications/#configuration).
+It has an empty hash as default value.
+
+| Name         | Type  | Default | Description                                                                                                          |
+| :----------: | :---: | :------ | :------------------------------------------------------------------------------------------------------------------: |
+| `endpoints`  | Array | `[]`    | List of items where each item correspond to an [endpoint](https://docs.docker.com/registry/configuration/#endpoints) |
+| `events`     | Hash  | `{}`    | Information provided in [event](https://docs.docker.com/registry/configuration/#events) notifications                |
+
+An example setting will look like the following:
+
+```yaml
+notifications:
+  endpoints:
+    - name: FooListener
+      url: https://foolistener.com/event
+      timeout: 500ms
+      threshold: 10
+      backoff: 1s
+    - name: BarListener
+      url: https://barlistener.com/event
+      timeout: 100ms
+      threshold: 3
+      backoff: 1s
+  events:
+    includereferences: true
+```
 
 ### hpa
 
