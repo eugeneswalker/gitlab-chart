@@ -49,7 +49,7 @@ with VirtualBox, however there are drivers for VMware Fusion, HyperV, KVM, and X
 
 Minikube resource requests must be set higher than the default for developing
 the GitLab chart. The key configuration items can be found with
-`minkube start --help`. A selection is provided below, for what we may want to
+`minikube start --help`. A selection is provided below, for what we may want to
 change according to the pieces being tested, and the requirements as listed:
 
 - `--cpus int`: Number of CPUs allocated to the minikube VM (default `2`).
