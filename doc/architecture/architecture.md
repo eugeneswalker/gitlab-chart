@@ -64,8 +64,8 @@ Ingress, and certificate management charts.
 
 At this high level, a customer can make decisions like:
 
-- Whether they want to use the embedded Postgres chart, or to use an external
-  database like Amazon RDS for Postgres.
+- Whether they want to use the embedded PostgreSQL chart, or to use an external
+  database like Amazon RDS for PostgreSQL.
 - To bring their own SSL certificates, or leverage Let's Encrypt.
 - To use a load balancer, or a dedicated Ingress.
 

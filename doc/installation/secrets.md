@@ -38,7 +38,7 @@ documentation.
   - [GitLab Rails secret](#gitlab-rails-secret)
   - [GitLab Workhorse secret](#gitlab-workhorse-secret)
   - [GitLab Runner secret](#gitlab-runner-secret)
-  - [Postgres password](#postgresql-password)
+  - [PostgreSQL password](#postgresql-password)
   - [MinIO secret](#minio-secret)
   - [Registry HTTP secret](#registry-http-secret)
   - [Grafana password](#grafana-password)

@@ -49,7 +49,7 @@ Examples:
 
 ## Common structure for values.yaml
 
-Many charts need to be provided with the same information, for example we need to provide the Redis and postgres connection settings to multiple charts. Here we outline our standard naming and structure for those settings.
+Many charts need to be provided with the same information, for example we need to provide the Redis and PostgreSQL connection settings to multiple charts. Here we outline our standard naming and structure for those settings.
 
 ### Connecting to other services
 

@@ -86,7 +86,7 @@ purposes only.
 
 You can read more about setting up your production-ready database in the [advanced database docs](../advanced/external-db/index.md).
 
-If you have an external postgres database ready, the chart can be configured to
+If you have an external PostgreSQL database ready, the chart can be configured to
 use it as shown below.
 
 *Include these options in your Helm install command:*
