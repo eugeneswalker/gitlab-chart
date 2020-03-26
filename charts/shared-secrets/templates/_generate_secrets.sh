@@ -44,7 +44,7 @@ function generate_secret_if_needed(){
 # Initial root password
 generate_secret_if_needed {{ template "gitlab.migrations.initialRootPassword.secret" . }} --from-literal={{ template "gitlab.migrations.initialRootPassword.key" . }}=$(gen_random 'a-zA-Z0-9' 64)
 
-{{ if .Values.global.redis.password.enabled -}}
+{{ if and (not .Values.global.psql.host) .Values.global.redis.password.enabled -}}
 # Redis password
 generate_secret_if_needed {{ template "gitlab.redis.password.secret" . }} --from-literal={{ template "gitlab.redis.password.key" . }}=$(gen_random 'a-zA-Z0-9' 64)
 {{ end }}
