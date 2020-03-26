@@ -21,6 +21,17 @@ entry.
 - Update GitLab Version to 12.9.0.
 
 
+## 3.1.6 (2020-03-26)
+
+### Fixed (1 change)
+
+- Fix logic of registry HPA deprecations. !1203
+
+### Other (1 change)
+
+- Update GitLab Version to 12.8.8.
+
+
 ## 3.1.5 (2020-03-16)
 
 ### Other (1 change)
