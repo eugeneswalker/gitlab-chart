@@ -59,7 +59,7 @@ stages:
     <<: *deps_pipeline
 
 dependency_update:
-  image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker:0.0.41
+  image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker
   stage: prepare
   script:
     - curl https://deps.app/install.sh | bash -s -- -b $HOME/bin
@@ -828,7 +828,7 @@ production_specs_eks:
   resource_group: "eks-production"
 
 .qa:
-  image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder:ruby_docker-0.0.7
+  image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker
   stage: qa
   services:
   - docker:dind
@@ -861,7 +861,7 @@ production_specs_eks:
   allow_failure: true
 
 wait_for_images:
-  image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker:0.0.41
+  image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker
   stage: prepare
   services:
   - docker:dind
