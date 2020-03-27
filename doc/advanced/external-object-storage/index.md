@@ -16,6 +16,10 @@ has been provided in the [examples](https://gitlab.com/gitlab-org/charts/gitlab/
 
 This documentation specifies usage of access and secret keys for AWS. It is also possible to use [IAM roles](./aws-iam-roles.md).
 
+NOTE: **Note:** GitLab does not currently support using [Amazon KMS](https://aws.amazon.com/kms/)
+to encrypt data stored in S3 buckets. Adding KMS support is being discussed in
+[issue #1012](https://gitlab.com/gitlab-org/charts/gitlab/issues/1012).
+
 ## Azure Blob Storage
 
 GitLab uses [fog](https://github.com/fog/fog), but [doesn't currently support Fog Azure](https://gitlab.com/gitlab-org/gitlab-foss/issues/55624). To make use Azure Blob Storage, you will have to set up an [Azure MinIO gateway](azure-minio-gateway.md).
@@ -91,7 +95,7 @@ Storing MR diffs on external storage is not enabled by default. So,
 for the object storage settings for `externalDiffs` to take effect,
 `global.appConfig.externalDiffs.enabled` key should have a `true` value.
 
-See the [charts/globals documentaion on appConfig](../../charts/globals.md#configure-appconfig-settings) for full details.
+See the [charts/globals documentation on appConfig](../../charts/globals.md#configure-appconfig-settings) for full details.
 
 Create the secret(s) per the [connection details documentation](../../charts/globals.md#connection), and then configure the chart to use the provided secrets. Note, the same secret can be used for all of them.
 
