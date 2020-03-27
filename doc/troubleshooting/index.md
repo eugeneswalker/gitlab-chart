@@ -8,7 +8,7 @@ install failed.
 If your initial install completely failed, and GitLab was never operational, you
 should first purge the failed install before installing again.
 
-```
+```shell
 helm delete --purge <release-name>
 ```
 
@@ -28,13 +28,13 @@ An error like this could occur when you run `helm upgrade`
 and there are some spaces in the parameters. In the following
 example, `Test Username` is the culprit:
 
-```sh
+```shell
 helm upgrade gitlab gitlab/gitlab --timeout 600 --set global.email.display_name=Test Username ...
 ```
 
 To fix it, pass the parameters in single quotes:
 
-```sh
+```shell
 helm upgrade gitlab gitlab/gitlab --timeout 600 --set global.email.display_name='Test Username' ...
 ```
 
@@ -47,7 +47,7 @@ pass.
 If you check the logs of a given Pod specifically for the `dependencies` container,
 you may see the following repeated:
 
-```
+```plaintext
 Checking database connection and schema version
 WARNING: This version of GitLab depends on gitlab-shell 8.7.1, ...
 Database Schema
@@ -84,19 +84,19 @@ This can happen when the runner registration token has been changed in GitLab. (
 1. Find the new shared runner token located on the `admin/runners` webpage of your GitLab installation.
 1. Find the name of existing runner token Secret stored in Kubernetes
 
-   ```
+   ```shell
    kubectl get secrets | grep gitlab-runner-secret
    ```
 
 1. Delete the existing secret
 
-   ```
+   ```shell
    kubectl delete secret <runner-secret-name>
    ```
 
 1. Create the new secret with two keys, (`runner-regisration-token` with your shared token, and an empty `runner-token`)
 
-   ```
+   ```shell
    kubectl create secret generic <runner-secret-name> --from-literal=runner-registration-token=<new-shared-runner-token> --from-literal=runner-token=""
    ```
 
@@ -108,7 +108,7 @@ This can happen when you have TLS termination before the NGINX Ingress, and the 
 
    Via a values file:
 
-   ```yml
+   ```yaml
    # values.yml
    global:
      ingress:
@@ -141,9 +141,9 @@ This can be solved by simply removing all of the affected services.
 
 1. Remove all affected services:
 
-    ```
-    kubectl delete services -lrelease=RELEASE_NAME
-    ```
+   ```shell
+   kubectl delete services -lrelease=RELEASE_NAME
+   ```
 
 1. Perform an upgrade via Helm.
 1. Future upgrades will not face this error.
@@ -163,7 +163,7 @@ steps:
 
 1. Remove Sidekiq services
 
-   ```sh
+   ```shell
    kubectl delete deployment --cascade -lrelease=RELEASE_NAME,app=sidekiq
    ```
 

@@ -22,7 +22,7 @@ objects. You'll need to specify a domain which will contain records to resolve
 
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set global.hosts.domain=example.com
 ```
 
@@ -47,7 +47,7 @@ documentation for more help on this process.
 
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set global.hosts.externalIP=10.10.10.10
 ```
 
@@ -70,7 +70,7 @@ For the default configuration, you must specify an email address to register you
 certificates.
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set certmanager-issuer.email=me@example.com
 ```
 
@@ -91,7 +91,7 @@ use it as shown below.
 
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set postgresql.install=false
 --set global.psql.host=production.postgress.hostname.local
 --set global.psql.password.secret=kubernetes_secret_name
@@ -190,7 +190,7 @@ By default, the Helm charts use the Enterprise Edition of GitLab. If desired, yo
 
 *To deploy the Community Edition, include this option in your Helm install command:*
 
-```
+```shell
 --set global.edition=ce
 ```
 
@@ -198,7 +198,7 @@ By default, the Helm charts use the Enterprise Edition of GitLab. If desired, yo
 
 This chart defaults to creating and using RBAC. If your cluster does not have RBAC enabled, you will need to disable these settings:
 
-```
+```shell
 --set certmanager.rbac.create=false
 --set nginx-ingress.rbac.createRole=false
 --set prometheus.rbac.create=false
@@ -223,7 +223,7 @@ resources to fit within a 2vCPU, 4gb minikube instance.
 Once you have all of your configuration options collected, we can get any dependencies and
 run Helm. In this example, we've named our Helm release `gitlab`.
 
-```
+```shell
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm upgrade --install gitlab gitlab/gitlab \
@@ -259,7 +259,7 @@ created a random password for `root` user. This can be extracted by the
 following command (replace `<name>` by name of the release - which is `gitlab`
 if you used the command above).
 
-```
+```shell
 kubectl get secret <name>-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
 ```
 

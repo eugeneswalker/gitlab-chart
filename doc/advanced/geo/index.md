@@ -216,10 +216,10 @@ postgresql:
 ```
 
 1. We'll need to create a secret containing the database password, for the
-chart to consume. Replace `PASSWORD` below with the password for the `gitlab`
-database user.
+   chart to consume. Replace `PASSWORD` below with the password for the `gitlab`
+   database user.
 
-   ```sh
+   ```shell
    kubectl create secret generic geo --from-literal=postgresql-password=PASSWORD
    ```
 
@@ -234,7 +234,7 @@ database user.
 
 1. Deploy the chart using this configuration
 
-   ```sh
+   ```shell
    helm upgrade --install gitlab-geo gitlab/gitlab --namespace gitlab -f primary.yaml
    ```
 
@@ -251,25 +251,25 @@ this as the Primary instance. We will do this via the `task-runner` Pod.
 
 1. Find the `task-runner` Pod
 
-   ```sh
+   ```shell
    kubectl get pods -lapp=task-runner --namespace gitlab
    ```
 
 1. Run `gitlab-rake geo:set_primary_node` with `kubectl exec`
 
-   ```sh
+   ```shell
    kubectl exec -ti gitlab-geo-task-runner-XXX -- gitlab-rake geo:set_primary_node
    ```
 
 1. Check the status of Geo configuration
 
-   ```sh
+   ```shell
    kubectl exec -ti gitlab-geo-task-runner-XXX -- gitlab-rake gitlab:geo:check
    ```
 
    You should see output similar to below:
 
-   ```
+   ```plaintext
    WARNING: This version of GitLab depends on gitlab-shell 10.2.0, but you're running Unknown. Please update gitlab-shell.
    Checking Geo ...
 
@@ -374,13 +374,13 @@ Once the configuration above is prepared:
 
 1. Check TCP connectivity to the **primary** node's PostgreSQL server:
 
-   ```sh
+   ```shell
    openssl s_client -connect <primary_node_ip>:5432 </dev/null
    ```
 
    The output should show the following:
 
-   ```
+   ```plaintext
    CONNECTED(00000003)
    write:errno=0
    ```
@@ -399,7 +399,7 @@ Once the configuration above is prepared:
 
    Install the `primary.crt` file:
 
-   ```sh
+   ```shell
    install \
       -D \
       -o gitlab-psql \
@@ -415,7 +415,7 @@ Once the configuration above is prepared:
 1. Test that the `gitlab-psql` user can connect to the **primary** node's database
    (the default Omnibus database name is gitlabhq_production):
 
-   ```sh
+   ```shell
    sudo \
       -u gitlab-psql /opt/gitlab/embedded/bin/psql \
       --list \
@@ -435,21 +435,21 @@ Once the configuration above is prepared:
 
 1. Reconfigure again, which will configure the Foreign Data Wrapper support.
 
-   ```sh
+   ```shell
    gitlab-ctl reconfigure
    ```
 
 1. Replicate the databases. Replace `PRIMARY_DATABASE_HOST` with the IP or hostname
 of your Primary database instance.
 
-   ```sh
+   ```shell
    gitlab-ctl replicate-geo-database --slot-name=geo_2 --host=PRIMARY_DATABASE_HOST
    ```
 
 1. After replication has finished, we must reconfigure the Omnibus GitLab one last time
    to ensure `pg_hba.conf` is correct for the secondary.
 
-   ```sh
+   ```shell
    gitlab-ctl reconfigure
    ```
 
@@ -464,7 +464,7 @@ Secondary Kubernetes deployment.
 1. Change your `kubectl` context to that of your Primary.
 1. Collect these secrets from the Primary deployment
 
-  ```sh
+  ```shell
   kubectl get -n gitlab -o yaml secret gitlab-geo-gitlab-shell-host-keys > ssh-host-keys.yaml
   kubectl get -n gitlab -o yaml secret gitlab-geo-rails-secret > rails-secrets.yaml
   ```
@@ -472,7 +472,7 @@ Secondary Kubernetes deployment.
 1. Change your `kubectl` context to that of your Secondary.
 1. Apply these secrets
 
-   ```sh
+   ```shell
    kubectl apply -f ssh-host-keys.yaml
    kubectl apply -f rails-secrets.yaml
    ```
@@ -480,7 +480,7 @@ Secondary Kubernetes deployment.
 We'll now need to create a secret containing the database passwords. Replace the
 passwords below with the appropriate values.
 
-```sh
+```shell
 kubectl create secret generic geo \
    --from-literal=postgresql-password=gitlab_user_password \
    --from-literal=geo-postgresql-password=gitlab_geo_user_password
@@ -534,7 +534,7 @@ postgresql:
 
 1. Deploy the chart using this configuration
 
-   ```sh
+   ```shell
    helm upgrade --install gitlab-geo gitlab/gitlab --namespace gitlab -f secondary.yaml
    ```
 
@@ -566,25 +566,25 @@ configured, via the `task-runner` Pod.
 
 1. Find the `task-runner` Pod
 
-   ```sh
+   ```shell
    kubectl get pods -lapp=task-runner --namespace gitlab
    ```
 
 1. Attach to the Pod with `kubectl exec`
 
-   ```sh
+   ```shell
    kubectl exec -ti gitlab-geo-task-runner-XXX -- bash -l
    ```
 
 1. Check the status of Geo configuration
 
-   ```sh
+   ```shell
    gitlab-rake gitlab:geo:check
    ```
 
    You should see output similar to below:
 
-   ```
+   ```plaintext
    WARNING: This version of GitLab depends on gitlab-shell 10.2.0, but you're running Unknown. Please update gitlab-shell.
    Checking Geo ...
 

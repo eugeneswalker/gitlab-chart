@@ -222,7 +222,7 @@ Follow the steps to run Gitaly over TLS:
    file in the task-runner pod and check the various
    `gitaly_address` fields specified under `repositories.storages` key within it.
 
-   ```
+   ```shell
    kubectl exec -it <task-runner pod> -- grep gitaly_address /srv/gitlab/config/gitlab.yml
    ```
 
@@ -233,8 +233,8 @@ SAN attributes.
 
 1. Create a k8s TLS secret using the certificate created.
 
-    ```sh
-    kubectl create secret tls gitaly-server-tls --cert=gitaly.crt --key=gitaly.key
-    ```
+   ```shell
+   kubectl create secret tls gitaly-server-tls --cert=gitaly.crt --key=gitaly.key
+   ```
 
 1. Redeploy the Helm chart by passing the arguments `--set global.gitaly.tls.enabled=true --set global.gitaly.tls.secretName=<secret name>`
