@@ -34,7 +34,7 @@ The following are the steps to upgrade GitLab to a newer version:
 1. Go through [deployment documentation](./deployment.md) step by step
 1. Extract your previous `--set` arguments with
 
-   ```
+   ```shell
    helm get values gitlab > gitlab.yaml
    ```
 
@@ -42,7 +42,7 @@ The following are the steps to upgrade GitLab to a newer version:
 1. If you would like to use the GitLab Operator go through the steps outlined in [Operator installation](./operator.md)
 1. Perform the upgrade, with all `--set` arguments extracted in step 4
 
-   ```
+   ```shell
    helm upgrade gitlab gitlab/gitlab \
      --version <new version> \
      -f gitlab.yaml \
@@ -175,7 +175,7 @@ NOTE: **Note:** You'll need to be using Bash 4.0 or above to run the script succ
 
 - You may face the error below when running `helm upgrade`:
 
-   ```
+   ```plaintext
    Error: kind ConfigMap with the name "gitlab-gitlab-shell-sshd" already exists in the cluster and wasn't defined in the previous release.
    Before upgrading, please either delete the resource from the cluster or remove it from the chart
    Error: UPGRADE FAILED: kind ConfigMap with the name "gitlab-gitlab-shell-sshd" already exists in the cluster and wasn't defined in the previous release.

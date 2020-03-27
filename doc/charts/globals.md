@@ -321,7 +321,7 @@ Configuring Gitaly over TLS is detailed [in the Gitaly chart's documentation](gi
 The GitLab global MinIO settings are located under the `global.minio` key. For more
 details on these settings, see the documentation within the [MinIO chart](minio/index.md).
 
-```
+```yaml
 global:
   minio:
     enabled: true
@@ -334,7 +334,7 @@ The [Unicorn](gitlab/unicorn/index.md), [Sidekiq](gitlab/sidekiq/index.md), and
 [Gitaly](gitlab/gitaly/index.md) charts share multiple settings, which are configured
 with the `global.appConfig` key.
 
-```
+```yaml
 global:
   appConfig:
     enableUsagePing: true
@@ -427,7 +427,7 @@ application are described below:
 Flags to decide if new projects should be created with the respective features by
 default. All flags default to `true`.
 
-```YAML
+```yaml
 defaultProjectsFeatures:
   issues: true
   mergeRequests: true
@@ -548,7 +548,7 @@ ldap:
 
 Example `--set` configuration items, when using the global chart:
 
-```
+```shell
 --set global.appConfig.ldap.servers.main.label='LDAP' \
 --set global.appConfig.ldap.servers.main.host='your_ldap_server' \
 --set global.appConfig.ldap.servers.main.port='636' \
@@ -685,7 +685,7 @@ passed to `helm` with `-f omniauth.yaml`.
 
 Use these settings to configure the [Pseudonymizer service](https://docs.gitlab.com/ee/administration/pseudonymizer.html).
 
-```
+```yaml
 global:
   appConfig:
     pseudonymizer:
@@ -773,7 +773,7 @@ global:
 
 A large portion of the GitLab suite is based upon Rails. As such, many containers within this project operate with this stack. These settings apply to all of those containers, and provide an easy access method to setting them globally versus individually.
 
-```
+```yaml
 global:
   rails:
     bootsnap:
@@ -834,7 +834,7 @@ Some users may need to add custom certificate authorities, such as when using in
 issued SSL certificates for TLS services. To provide this functionaliy, we provide
 a mechanism for injecting these custom root certificate authorities into the application via secrets.
 
-```
+```yaml
 global:
   certificates:
     customCAs:
@@ -857,7 +857,7 @@ kubectl create secret generic custom-ca --from-file=unique_name=/path/to/cert
 
 To configure the secret:
 
-```
+```shell
 helm install gitlab \
   --set global.certificates.customCAs[0].secret=custom-ca
 ```

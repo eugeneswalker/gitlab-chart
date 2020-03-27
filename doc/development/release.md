@@ -110,7 +110,7 @@ For example, if you want to release version `0.2.1` of the charts, the changes w
 A chatops command exists to tag a release. Run the following command in the
 relevant release Slack channel (eg: `#f_release_12_4`)
 
-```
+```plaintext
 /chatops run helm tag <charts version> <GitLab version>
 ```
 
@@ -118,7 +118,7 @@ You can also do it manually, without using the chatops command as follows:
 
 1. checkout and setup the [release tools repo](https://gitlab.com/gitlab-org/release-tools).
 
-   ```
+   ```shell
    git clone git@gitlab.com:gitlab-org/release-tools.git
    bundle install
    ```

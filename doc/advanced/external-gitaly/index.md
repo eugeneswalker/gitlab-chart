@@ -22,7 +22,7 @@ Items below can be further customized if you are not using the defaults:
 
 - `global.gitaly.port`: The port the service is available on, defaults to `8075`
 
-```
+```shell
 helm install .  \
   --set global.gitaly.enabled=false \
   --set global.gitaly.host=gitaly.example \
@@ -54,7 +54,7 @@ have to
 1. Create a Kubernetes secret containing the certificate of the Gitaly
    server
 
-   ```
+   ```shell
    kubectl create secret generic gitlab-gitaly-tls-certificate --from-file=gitaly-tls.crt=<path to certificate>
    ```
 
@@ -62,7 +62,7 @@ have to
    [custom Certificate Authorities](../../charts/globals.md#custom-certificate-authorities)
    In the values file, specify the following
 
-   ```yml
+   ```yaml
    global:
      certificates:
        customCAs:
@@ -71,7 +71,7 @@ have to
 
    or pass it to the `helm upgrade` command using `--set`
 
-   ```
+   ```shell
    --set global.certificates.customCAs[0].secret=gitlab-gitaly-tls-certificate
    ```
 

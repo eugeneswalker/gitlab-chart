@@ -169,7 +169,7 @@ This means you will sometimes need to use variable assignment to trap output tha
 
 For example:
 
-```
+```plaintext
 {{- $details := .Values.details -}}
 {{- $_ := set $details "serviceName" "example" -}}
 {{ template "serviceHost" $details }}
@@ -188,7 +188,7 @@ within your control structure are not available outside.
 
 For example:
 
-```
+```plaintext
 {{- define "exampleTemplate" -}}
 {{- $someVar := "default" -}}
 {{- if true -}}
@@ -205,7 +205,7 @@ To work around this issue, we either avoid the problem, or use a Dictionary to h
 
 Example of avoiding the issue:
 
-```
+```plaintext
 {{- define "exampleTemplate" -}}
 {{- if true -}}
 {{-   "desired" -}}
@@ -216,7 +216,7 @@ Example of avoiding the issue:
 
 Example of using a Dictionary:
 
-```
+```plaintext
 {{- define "exampleTemplate" -}}
 {{- $result := dict "value" "default" -}}
 {{- if true -}}

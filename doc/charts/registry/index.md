@@ -296,7 +296,7 @@ filled with a securely generated 128 character alpha-numeric string that is base
 
 To create this secret manually:
 
-```sh
+```shell
 kubectl create secret generic gitlab-registry-httpsecret --from-literal=secret=strongrandomstring
 ```
 
@@ -451,7 +451,7 @@ The `health` property is optional, and contains preferences for
 a periodic health check on the storage driver's backend storage.
 For more details, see Docker's [configuration documentation](https://docs.docker.com/registry/configuration/#health).
 
-```
+```yaml
 health:
   storagedriver:
     enabled: false

@@ -168,14 +168,14 @@ The table below maps some of the key previous chart versions and GitLab versions
 
 To see the full list, you can issue the following command with Helm:
 
-```
+```shell
 helm repo add gitlab https://charts.gitlab.io/
 helm search -l gitlab/gitlab
 ```
 
 You will receive an output similar to:
 
-```
+```plaintext
 NAME                    CHART VERSION   APP VERSION
 gitlab/gitlab           1.5.0           11.7.0
 gitlab/gitlab           1.4.4           11.6.5

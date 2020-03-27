@@ -110,19 +110,19 @@ kubectl create -f *PV_YAML_FILE*
 The Gitaly service deploys using a [StatefulSet][]. Create the [PersistentVolumeClaim][pvc]
 using the following naming convention for it to be properly recognized and used.
 
-```
+```plaintext
 <mount-name>-<statefulset-pod-name>
 ```
 
 The `mount-name` for Gitaly is `repo-data`. The StatefulSet pod names are created using:
 
-```
+```plaintext
 <statefulset-name>-<pod-index>
 ```
 
 The GitLab Cloud Native Chart determines the `statefulset-name` using:
 
-```
+```plaintext
 <chart-release-name>-<service-name>
 ```
 

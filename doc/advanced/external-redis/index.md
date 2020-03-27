@@ -23,7 +23,7 @@ Items below can be further customized if you are not using the defaults:
 
 For example, pass these values via Helm's `--set` flag while deploying:
 
-```
+```shell
 helm install .  \
   --set redis.enabled=false \
   --set global.redis.host=redis.example \

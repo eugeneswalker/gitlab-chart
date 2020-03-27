@@ -19,13 +19,13 @@ can do one of three things:
   [Cloud SDK](https://cloud.google.com/sdk/) page. Once you have `gcloud`
   installed, you can install `kubectl`:
 
-  ```sh
+  ```shell
   sudo gcloud components install kubectl
   ```
 
   If you've already installed `kubectl` via this method, ensure it is updated:
 
-  ```sh
+  ```shell
   sudo gcloud components update
   ```
 
@@ -76,13 +76,13 @@ properties with VirtualBox Manager.
 Once you have all the tools installed and configured, starting at stopping Minikube
 can be done with:
 
-```sh
+```shell
 minikube start --cpus 3 --memory 8192
 ```
 
 This command should output something similar to:
 
-```
+```plaintext
 Starting local Kubernetes v1.7.0 cluster...
 Starting VM...
 Downloading Minikube ISO
@@ -132,7 +132,7 @@ in the [Minikube getting started guide](https://kubernetes.io/docs/setup/learnin
 Minikube handles some features apart from the base configuration. For the
 development of this project, we'll need access to `Ingress`:
 
-```sh
+```shell
 minikube addons enable ingress
 ```
 
@@ -140,7 +140,7 @@ minikube addons enable ingress
 
 You can find the URL for the dashboard by calling:
 
-```sh
+```shell
 minikube dashboard --url
 ```
 
@@ -195,7 +195,7 @@ helm upgrade --install gitlab gitlab/gitlab \
 
 If the output of `minikube ip` was not `192.168.99.100`, add these arguments to override the IP endpoints in the example configuration files:
 
-```sh
+```shell
   --set global.hosts.domain=$(minikube ip).nip.io \
   --set global.hosts.externalIP=$(minikube ip)
 ```
