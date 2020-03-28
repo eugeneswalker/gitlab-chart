@@ -885,7 +885,7 @@ release_package:
       else
         UNSTABLE="false"
       fi
-    - curl --request POST --form "token=${COM_CHARTS_TRIGGER_TOKEN}" --form ref=master
+    - curl -fS --request POST --form "token=${COM_CHARTS_TRIGGER_TOKEN}" --form ref=master
         --form "variables[CHART_NAME]=$CI_PROJECT_NAME"
         --form "variables[RELEASE_REF]=$CI_COMMIT_REF_NAME"
         --form "variables[UNSTABLE]=$UNSTABLE"
