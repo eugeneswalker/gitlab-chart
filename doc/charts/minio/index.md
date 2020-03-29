@@ -36,14 +36,14 @@ minio:
     proxyBodySize:
     proxyBuffering:
   tolerations:
-  persistence: (upstream)
+  persistence:  # Upstream
     volumeName:
     matchLabels:
     matchExpressions:
-  serviceType: (upstream)
-  servicePort: (upstream)
+  serviceType:  # Upstream
+  servicePort:  # Upstream
   defaultBuckets:
-  minioConfig: (upstream)
+  minioConfig:  # Upstream
 ```
 
 ### Installation command line options
@@ -92,7 +92,7 @@ found in [the Kubernetes documentation](https://kubernetes.io/docs/concepts/cont
 
 Below is an example use of `pullSecrets`:
 
-```YAML
+```yaml
 image: my.minio.repository
 imageTag: latest
 imagePullPolicy: Always
@@ -107,7 +107,7 @@ pullSecrets:
 
 Below is an example use of `tolerations`:
 
-```YAML
+```yaml
 tolerations:
 - key: "node_label"
   operator: "Equal"
