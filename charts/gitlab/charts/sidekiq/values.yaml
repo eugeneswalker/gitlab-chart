@@ -20,6 +20,8 @@ tolerations: []
 
 enabled: true
 
+cluster: false
+
 annotations: {}
 
 logging:

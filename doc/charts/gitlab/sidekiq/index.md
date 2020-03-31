@@ -35,6 +35,7 @@ to the `helm install` command using the `--set` flags:
 | ------------------------------------ | ----------------- | ---------------------------------------- |
 | `annotations`                        |                   | Pod annotations                          |
 | `concurrency`                        | `25`              | Sidekiq default concurrency              |
+| `cluster`                            | `false`           | [See below](#cluster).                   |
 | `enabled`                            | `true`            | Sidekiq enabled flag                     |
 | `extraContainers`                    |                   | List of extra containers to include      |
 | `extraInitContainers`                |                   | List of extra init containers to include |
@@ -238,6 +239,7 @@ on a per-pod basis.
 | Name          | Type    | Default | Description |
 |:------------- |:-------:|:------- |:----------- |
 | `concurrency`               | Integer | `25`      | The number of tasks to process simultaneously. |
+| `cluster`                   | Bool    | `false`   | [See below](#cluster). Overridden by per-Pod value, if present. |
 | `timeout`                   | Integer | `4`       | The Sidekiq shutdown timeout. The number of seconds after Sidekiq gets the TERM signal before it forcefully shuts down its processes. |
 | `memoryKiller.maxRss`       | Integer | `2000000` | Maximum RSS before delayed shutdown triggered expressed in kilobytes |
 | `memoryKiller.graceTime`    | Integer | `900`     | Time to wait before a triggered shutdown expressed in seconds|
@@ -262,6 +264,7 @@ NOTE: **Note**: The settings default to including a single pod that is set up to
 | Name           | Type    | Default | Description |
 |:-------------- |:-------:|:------- |:----------- |
 | `concurrency`  | Integer |         | The number of tasks to process simultaneously. If not provided, it will be pulled from the chart-wide default. |
+| `cluster`      | Bool    | `false` | [See below](#cluster). |
 | `name`         | String  |         | Used to name the `Deployment` and `ConfigMap` for this pod. It should be kept short, and should not be duplicated between any two entries. |
 | `queues`       |         |         | [See below](#queues). |
 | `negateQueues` |         |         | [See below](#negateQueues). |
@@ -294,6 +297,21 @@ here, and populate the rest for consumption.
 
 NOTE: **Note**: `negateQueues` _should not_ be provided alongside `queues`, as it will have no
 affect.
+
+### cluster
+
+`cluster` is a boolean, used to opt into the use of [Sidekiq
+Cluster](https://docs.gitlab.com/ee/administration/operations/extra_sidekiq_processes.html)
+to start the Sidekiq process. If a non-boolean is provided, then the
+value is ignored.
+
+Currently defaults to `false`.
+
+This option does not currently support `queues` or `negateQueues`.
+
+NOTE: **Note**: Unlike in other installation methods, `cluster` will never start
+more than one Sidekiq process inside a pod. To run additional Sidekiq processes,
+run additional pods.
 
 ### Example `pod` entry
 
