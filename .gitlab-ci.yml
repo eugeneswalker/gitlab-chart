@@ -50,13 +50,22 @@ stages:
   - package
   - cleanup
 
+tag_auto_deploy:
+  stage: package
+  rules:
+    - if: $CI_PIPELINE_TRIGGERED && $TRIGGER_JOB == "tag_auto_deploy" && $AUTO_DEPLOY_TAG && $REPOSITORY_PAT
+  script:
+    - ./scripts/tag_auto_deploy.rb
+
 .deps_pipeline: &deps_pipeline
   variables:
     - $DEPS_PIPELINE
 
 .except_deps_update: &except_deps_update
   except:
-    <<: *deps_pipeline
+    variables:
+      - $DEPS_PIPELINE
+      - $TRIGGER_JOB
 
 dependency_update:
   image: registry.gitlab.com/gitlab-org/gitlab-omnibus-builder/ruby_docker
@@ -86,6 +95,7 @@ lint_package:
     <<: *deps_pipeline
     refs:
       - tags
+      - triggers
       - /(^docs[\/-].+|.+-docs$)/
 
 .kubeval:
@@ -101,6 +111,7 @@ lint_package:
     <<: *deps_pipeline
     refs:
       - tags
+      - triggers
       - /(^docs[\/-].+|.+-docs$)/
 
 "Validate 1.12.9":
@@ -146,6 +157,7 @@ lint_package:
     <<: *deps_pipeline
     refs:
       - master
+      - triggers
       - /(^docs[\/-].+|.+-docs$)/
 
 review_gke:
@@ -187,6 +199,7 @@ review_eks:
     <<: *deps_pipeline
     refs:
       - master
+      - triggers
       - /(^docs[\/-].+|.+-docs$)/
 
 stop_review_gke:
@@ -431,6 +444,8 @@ check_docs_lint:
     GIT_STRATEGY: none
     DOCS_REVIEW_APPS_DOMAIN: 178.62.207.141.nip.io
   when: manual
+  except:
+    - triggers
 
 # Trigger a docs build in gitlab-docs
 # Useful to preview the docs changes live
