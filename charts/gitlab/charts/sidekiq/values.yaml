@@ -210,7 +210,7 @@ trusted_proxies: []
 # Global defaults
 minReplicas: 1
 maxReplicas: 10
-concurrency: 10
+concurrency: 25
 hpa:
   targetAverageValue: 350m
 timeout: 5
@@ -226,7 +226,7 @@ maxUnavailable: 1
 # Define queue groups into Pods
 pods:
   - name: all-in-1
-    concurrency: 25
+    # concurrency: 25
     # minReplicas: 1
     # maxReplicas: 10
     queues:
