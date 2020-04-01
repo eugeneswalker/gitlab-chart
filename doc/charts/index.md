@@ -16,7 +16,7 @@ There are some common global settings that apply to multiple charts. See the
 
 - [MinIO](minio/index.md)
 - [NGINX](nginx/index.md)
-- [Redis](https://github.com/helm/charts/tree/master/stable/redis)
+- [Redis](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 - [Registry](registry/index.md)
 - GitLab/[Gitaly](gitlab/gitaly/index.md)
 - GitLab/[GitLab Runner](gitlab/gitlab-runner/index.md)

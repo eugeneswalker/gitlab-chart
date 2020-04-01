@@ -56,7 +56,7 @@ ensure that you explicitly set it back to `true` for future updates.
 
 ## Upgrade the bundled PostgreSQL chart
 
-As part of the `3.0.0` release of this chart, we upgraded the bundled [PostgreSQL chart](https://github.com/helm/charts/tree/master/stable/postgresql) from 0.11.0 to 7.7.0. This is not a drop in replacement. Manual steps need to be performed to upgrade the database.
+As part of the `3.0.0` release of this chart, we upgraded the bundled [PostgreSQL chart](https://github.com/bitnami/charts/tree/master/bitnami/postgresql) from 0.11.0 to 7.7.0. This is not a drop in replacement. Manual steps need to be performed to upgrade the database.
 The steps have been documented in the [3.0 upgrade steps](#upgrade-steps-for-30-release).
 
 ## Upgrade steps for 3.0 release
