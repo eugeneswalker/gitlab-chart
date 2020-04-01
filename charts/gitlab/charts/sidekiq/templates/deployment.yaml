@@ -172,10 +172,16 @@ spec:
               value: '/srv/gitlab/config'
             - name: SIDEKIQ_CLUSTER
               value: {{ include "gitlab.boolean.local" (dict "global" $.Values.cluster "local" .cluster "default" false) | quote }}
+            - name: SIDEKIQ_EXPERIMENTAL_QUEUE_SELECTOR
+              value: {{ include "gitlab.boolean.local" (dict "global" $.Values.experimentalQueueSelector "local" .experimentalQueueSelector "default" false) | quote }}
             - name: SIDEKIQ_CONCURRENCY
               value: {{ default $concurrency .concurrency | quote }}
             - name: SIDEKIQ_TIMEOUT
               value: {{ default $timeout .timeout | quote }}
+            - name: SIDEKIQ_QUEUES
+              value: {{ default $.Values.queues .queues | quote }}
+            - name: SIDEKIQ_NEGATE_QUEUES
+              value: {{ default $.Values.negateQueues .negateQueues | quote }}
             - name: SIDEKIQ_DAEMON_MEMORY_KILLER
               value: {{ int $.Values.memoryKiller.daemonMode | quote }}
             - name: SIDEKIQ_MEMORY_KILLER_CHECK_INTERVAL

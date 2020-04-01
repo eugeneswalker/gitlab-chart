@@ -19,8 +19,8 @@ init:
 tolerations: []
 
 enabled: true
-
 cluster: false
+experimentalQueueSelector: false
 
 annotations: {}
 
