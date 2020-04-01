@@ -24,8 +24,8 @@ can be installed separately.
   - GitLab/[Sidekiq](charts/gitlab/sidekiq/index.md)
   - GitLab/[Unicorn](charts/gitlab/unicorn/index.md)
 - Optional dependencies:
-  - [PostgreSQL](https://hub.helm.sh/charts/stable/redis)
-  - [Redis](https://hub.helm.sh/charts/stable/redis)
+  - [PostgreSQL](https://hub.helm.sh/charts/bitnami/postgresql)
+  - [Redis](hub.helm.sh/charts/bitnami/redis)
   - [MinIO](charts/minio/index.md)
 - Optional additions:
   - [Prometheus](https://hub.helm.sh/charts/stable/prometheus)
