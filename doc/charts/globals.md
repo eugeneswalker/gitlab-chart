@@ -384,6 +384,10 @@ global:
       proxy_download: true
       bucket: gitlab-mr-diffs
       connection: {}
+    terraformState:
+      enabled: false
+      bucket: gitlab-terraform-state
+      connection: {}
     backups:
       bucket: gitlab-backups
     incomingEmail:

@@ -132,6 +132,7 @@ defaultBuckets:
   - name: tmp
   - name: gitlab-pseudo
   - name: gitlab-mr-diffs
+  - name: gitlab-terraform-state
   ## If enabled, must be a string with length > 0
   # - name: example
   ## Can be one of none|download|upload|public, defaults to `none`
