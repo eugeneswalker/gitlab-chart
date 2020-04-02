@@ -35,3 +35,8 @@ THROUGHPUT_LABELS = ['Community contribution', 'security', 'bug', 'feature', 'ba
 if (gitlab.mr_labels & THROUGHPUT_LABELS).empty?
   warn "This merge request is missing any [throughput labels](https://about.gitlab.com/handbook/engineering/management/throughput)."
 end
+
+unless gitlab.mr_json["force_remove_source_branch"]
+  warn "The source branch can be removed after the merge request is merged, please consider setting this option"
+end
+
