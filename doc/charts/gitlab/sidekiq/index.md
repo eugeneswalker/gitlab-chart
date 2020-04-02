@@ -303,6 +303,7 @@ pods:
     concurrency: 10
     minReplicas: 2  # defaults to inherited value
     maxReplicas: 10 # defaults to inherited value
+    queues:
     - [post_receive, 5]
     - [merge, 5]
     - [update_merge_requests, 3]
