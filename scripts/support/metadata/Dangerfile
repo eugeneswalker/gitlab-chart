@@ -37,6 +37,6 @@ if (gitlab.mr_labels & THROUGHPUT_LABELS).empty?
 end
 
 unless gitlab.mr_json["force_remove_source_branch"]
-  warn "The source branch can be removed after the merge request is merged, please consider setting this option"
+  warn "If the source branch can be safely removed after this merge request is accepted, please consider setting the '[delete source branch when merge request is accepted](https://docs.gitlab.com/ee/user/project/merge_requests/getting_started.html#deleting-the-source-branch)' option."
 end
 
