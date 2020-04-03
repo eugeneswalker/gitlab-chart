@@ -249,6 +249,10 @@ documentation for details on managing which nodes will be used for new projects.
 NOTE: **Note:** If `gitaly.host` is provided, `gitaly.internal` and `gitaly.external`
   properties will *be ignored*. See the [deprecated Gitaly settings](#deprecated-gitaly-settings).
 
+NOTE: **Note:** The Gitaly authentication token is expected to be identical for
+all Gitaly services at this time, internal or external. Ensure these are aligned.
+See [issue #1992](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1992) for further details.
+
 #### Internal
 
 The `internal` key currently consists of only one key, `names`, which is a list of
@@ -282,8 +286,14 @@ Each item of this list has 3 keys:
 
 NOTE: **Note:** You must have an entry with `name: default`.
 
-A sample [configuration of multiple external nodes](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/gitaly/values-multiple-external.yaml)
-can be found in the examples folder.
+We provide an [advanced configuration](../advanced/) guide for
+[using an external Gitaly service](../advanced/external-gitaly/). You can also
+find sample [configuration of multiple external services](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/gitaly/values-multiple-external.yaml)
+in the examples folder.
+
+NOTE: **Note:** You may use an external [Praefect](https://docs.gitlab.com/ee/administration/gitaly/praefect.html)
+to provide highly available Gitaly services. Configuration of the two is
+interchangeable, as from the viewpoint of the clients, there is no difference.
 
 #### Mixed
 
