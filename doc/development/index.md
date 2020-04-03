@@ -32,7 +32,7 @@ of a highly available system.
 
 ## Developing for Kubernetes with Minikube
 
-Read how to [use minikube for setting up a local Kubernetes development environment](minikube/index.md).
+Read how to [use Minikube for setting up a local Kubernetes development environment](minikube/index.md).
 
 ## Naming Conventions
 

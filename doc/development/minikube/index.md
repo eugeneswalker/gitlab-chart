@@ -52,11 +52,11 @@ the GitLab chart. The key configuration items can be found with
 `minikube start --help`. A selection is provided below, for what we may want to
 change according to the pieces being tested, and the requirements as listed:
 
-- `--cpus int`: Number of CPUs allocated to the minikube VM (default `2`).
+- `--cpus int`: Number of CPUs allocated to the Minikube VM (default `2`).
   The absolute minimum necessary CPU is `2`. Deploying the _complete_ chart requires `3`.
-- `--memory int`: Amount of RAM allocated to the minikube VM (default `2048`).
+- `--memory int`: Amount of RAM allocated to the Minikube VM (default `2048`).
   The absolute same minimum is `5120` (5 GB). Recommendation is `8192` (8 GB).
-- `--disk-size string`: Disk size allocated to the minikube VM (format: `<number>[<unit>]`,
+- `--disk-size string`: Disk size allocated to the Minikube VM (format: `<number>[<unit>]`,
   where unit = `b`, `k`, `m` or `g`) (default `20g`). See GitLab's
   [storage](https://docs.gitlab.com/ce/install/requirements.html#storage) and
   [database](https://docs.gitlab.com/ce/install/requirements.html#database)
@@ -65,7 +65,7 @@ change according to the pieces being tested, and the requirements as listed:
   NOTE: **Note**:
   This is created in your home directory under `~/.minikube/machines/minikube/`.
 
-- `--kubernetes-version string`: The Kubernetes version that the minikube VM will use (e.g., `v1.2.3`).
+- `--kubernetes-version string`: The Kubernetes version that the Minikube VM will use (e.g., `v1.2.3`).
 - `--registry-mirror stringSlice`: Registry mirrors to pass to the Docker daemon.
 
 NOTE: **Note:**
@@ -153,12 +153,12 @@ For further details on Helm, see [Developing for Helm](../../installation/tools.
 
 ## Deploying the chart
 
-When deploying this chart into minikube, some chart resources need to be reduced or disabled.
+When deploying this chart into Minikube, some chart resources need to be reduced or disabled.
 It is not possible to use the `nginx-ingress` chart to provide ports `22`, `80`,
 `443`. It's best to disable it and set the Ingress class by setting
 `nginx-ingress.enabled=false,global.ingress.class="nginx"`.
 
-The `certmanager` chart can not be used with minikube. You must disable this by
+The `certmanager` chart can not be used with Minikube. You must disable this by
 setting `certmanager.install=false,global.ingress.configureCertmanager=false`.
 As a result, if you don't provide your own SSL certificates, self-signed
 certificates will be generated. The `gitlab-runner` chart is not compatible with

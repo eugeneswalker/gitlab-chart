@@ -61,7 +61,7 @@ Helm Chart Issues/Limitations:
 - Limited support for customizing GitLab options: <https://gitlab.com/gitlab-org/charts/gitlab/issues/236>
 - CI traces are not persisted: <https://gitlab.com/gitlab-org/charts/gitlab/issues/245>
 - No support for scaling Unicorn separate from workhorse: <https://gitlab.com/gitlab-org/charts/gitlab/issues/61>
-- GitLab maintenance rake tasks won't work in k8s environments
+- GitLab maintenance Rake tasks won't work in k8s environments
 - No guarantees on safe pod shutdown: <https://gitlab.com/gitlab-org/charts/gitlab/issues/239>
 
 Features that are currently out of scope:
