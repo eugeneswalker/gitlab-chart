@@ -30,6 +30,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.gitaly.extern.repos" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.database" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.secondary.database" .) -}}
+{{- $messages := append $messages (include "gitlab.task-runner.replicas" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -138,3 +139,16 @@ gitaly:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.gitaly.extern.repos */}}
+
+{{/*
+Ensure that gitlab/task-runner is not configured with `replicas` > 1 if
+persistence is enabled.
+*/}}
+{{- define "gitlab.task-runner.replicas" -}}
+{{-   $replicas := index $.Values.gitlab "task-runner" "replicas" | int -}}
+{{-   if and (gt $replicas 1) (index $.Values.gitlab "task-runner" "persistence" "enabled") -}}
+task-runner: replicas is greater than 1, with persistence enabled.
+    It appear that `gitlab/task-runner` has been configured with more than 1 replica, but also with a PersistentVolumeClaim. This is not supported. Please either reduce the replicas to 1, or disable persistence.
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.task-runner.replicas */}}

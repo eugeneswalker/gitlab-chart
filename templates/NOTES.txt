@@ -40,6 +40,15 @@ chose not to enable this by default. See https://docs.gitlab.com/runner/install/
 {{ if $.Values.postgresql.install }}
 WARNING: If you are upgrading from a previous version of the GitLab Helm Chart, there is a major upgrade to the included PostgreSQL chart, which requires manual steps be performed. Please see our upgrade documentation for more information: https://docs.gitlab.com/charts/installation/upgrade.html
 {{- end -}}
+
+{{/* task-runner replicas */}}
+{{ if eq (index $.Values.gitlab "task-runner" "replicas" | int) 0 }}
+NOTICE: The GitLab task-runner is scaled to 0.
+    The `task-runner` Pod is very useful for administration and debugging of this application suite. You may configure `gitlab.task-runner.replicas=1` if you wish to leave a Pod running at all times, or you can scale the deployment up when needed:
+
+    `kubectl scale --replicas=1 deployment/{{ .Release.Name }}-task-runner`
+
+{{ end }}
 {{/* run deprecations */}}
 {{ include "gitlab.deprecations" . }}
 {{/* run checkConfig */}}
