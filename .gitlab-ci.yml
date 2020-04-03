@@ -554,6 +554,12 @@ review-docs-cleanup:
 
     WAIT="--wait --timeout 900"
 
+    # Only enable Prometheus on `master`
+    PROMETHEUS_INSTALL="false"
+    if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
+      PROMETHEUS_INSTALL="true"
+    fi
+
     # helm's --set argument dislikes special characters, pass them as YAML
     cat << CIYAML > ci.details.yaml
     ci:
@@ -578,7 +584,7 @@ review-docs-cleanup:
       --set global.ingress.tls.secretName=helm-charts-win-tls \
       --set global.ingress.configureCertmanager=false \
       --set certmanager.install=false \
-      --set prometheus.install=false \
+      --set prometheus.install=$PROMETHEUS_INSTALL \
       --set gitlab.unicorn.maxReplicas=3 \
       --set gitlab.sidekiq.maxReplicas=2 \
       --set gitlab.task-runner.enabled=true \
