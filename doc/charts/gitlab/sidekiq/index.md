@@ -34,7 +34,7 @@ to the `helm install` command using the `--set` flags:
 | Parameter                            | Default           | Description                              |
 | ------------------------------------ | ----------------- | ---------------------------------------- |
 | `annotations`                        |                   | Pod annotations                          |
-| `concurrency`                        | `10`              | Sidekiq default concurrency              |
+| `concurrency`                        | `25`              | Sidekiq default concurrency              |
 | `enabled`                            | `true`            | Sidekiq enabled flag                     |
 | `extraContainers`                    |                   | List of extra containers to include      |
 | `extraInitContainers`                |                   | List of extra init containers to include |

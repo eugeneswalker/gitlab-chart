@@ -30,12 +30,6 @@ data:
        sq.to_yaml
     %>
     {{- end }}
-    {{- if .concurrency }}
-    :concurrency: {{ .concurrency }}
-    {{- end }}
-    {{- if .timeout }}
-    :timeout: {{ .timeout }}
-    {{- end }}
 # Leave this here - This line denotes end of block to the parser.
 ---
 {{   end -}}
