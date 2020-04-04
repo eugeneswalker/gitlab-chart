@@ -1,5 +1,5 @@
 ---
-title: colin.luo
+title: Fixed that unnecessary secret is generated when using external Redis.
 merge_request: 1237
 author: Colin Luo
 type: fixed
