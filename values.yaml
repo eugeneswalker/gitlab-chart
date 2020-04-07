@@ -126,6 +126,7 @@ global:
   appConfig:
     ## doc/charts/globals.md#general-application-settings
     enableUsagePing: true
+    enableSeatLink: true
     enableImpersonation:
     defaultCanCreateGroup: true
     usernameChangingEnabled: true
