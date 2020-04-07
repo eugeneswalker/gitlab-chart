@@ -3,6 +3,13 @@
 The tables below contain all the possible charts configurations that can be supplied
 to the `helm install` command using the `--set` flags.
 
+The source of the default `values.yaml` file can be found [here](https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml).
+These contents change over releases, but you can use Helm itself to retrieve these on a per-version basis:
+
+```sh
+helm inspect values gitlab/gitlab
+```
+
 ## Basic configuration
 
 | Parameter                                      | Description                                                                                 | Default                                       |
