@@ -270,7 +270,7 @@ Finally, [apply the changes to the GitLab chart](#apply-the-changes-to-the-gitla
 ### Switching to a different Volume
 
 If you want to switch to using a new volume, using a disk that has a copy of the
-appropriate data from the old volume, then first you need to create the the new
+appropriate data from the old volume, then first you need to create the new
 [Persistent Volume][pv] in Kubernetes.
 
 In order to create a [Persistent Volume][pv] for your disk, you will need to

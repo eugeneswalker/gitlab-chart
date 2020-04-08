@@ -133,7 +133,14 @@ When using an external service for SSL termination, that service is responsible 
 
 ### spec.clusterIP
 
-Prior to the 3.0.0 release of these charts, the `spec.clusterIP` property [had been populated into several Services](https://gitlab.com/gitlab-org/charts/gitlab/issues/1710) despite having no actual value (`""`). This was a bug, and causes problems with Helm 3's three-way merge of properties. Once the chart was deployed with Helm 3, there would be _no possible upgrade path_ unless one collected the the `clusterIP` properties from the various Services and populated those into the values provided to Helm, or the affected services are removed from Kubernetes.
+Prior to the 3.0.0 release of these charts, the `spec.clusterIP` property
+[had been populated into several Services](https://gitlab.com/gitlab-org/charts/gitlab/issues/1710)
+despite having no actual value (`""`). This was a bug, and causes problems with Helm 3's three-way
+merge of properties.
+
+Once the chart was deployed with Helm 3, there would be _no possible upgrade path_ unless one
+collected the `clusterIP` properties from the various Services and populated those into the values
+provided to Helm, or the affected services are removed from Kubernetes.
 
 The [3.0.0 release of this chart corrected this error](https://gitlab.com/gitlab-org/charts/gitlab/issues/1710), but it requires manual correction.
 
@@ -156,7 +163,7 @@ Sidekiq pods did not receive a unique selector prior to chart release
 `3.0.0`. [The problems with this were documented in](https://gitlab.com/gitlab-org/charts/gitlab/issues/663).
 
 Upgrades to `3.0.0` using Helm will automatically delete the old Sidekiq deployments and create new ones by appending `-v1` to the
-name of the the Sidekiq `Deployments`,`HPAs`, and `Pods`.
+name of the Sidekiq `Deployments`,`HPAs`, and `Pods`.
 
 If you continue to run into this error on the Sidekiq deployment when installing `3.0.0`, resolve these with the following
 steps:

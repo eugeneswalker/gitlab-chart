@@ -1,6 +1,6 @@
 # GitLab Cloud Native Chart Beta
 
-We have been working hard on the chart and it's underlying containers, and are excited to to reach beta and share it with the GitLab community.
+We have been working hard on the chart and it's underlying containers, and are excited to reach beta and share it with the GitLab community.
 
 This effort has required extensive changes across the product:
 
