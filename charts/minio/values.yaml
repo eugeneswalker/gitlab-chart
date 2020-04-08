@@ -119,6 +119,12 @@ resources:
     memory: 128Mi
     cpu: 100m
 
+# Additational pod annotations
+podAnnotations: {}
+
+# Additional pod labels
+podLabels: {}
+
 ## Create a buckets after minio install
 ## An array of items, with name, policy, and purge
 defaultBuckets:
