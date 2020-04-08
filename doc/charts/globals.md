@@ -287,7 +287,7 @@ Each item of this list has 3 keys:
 NOTE: **Note:** You must have an entry with `name: default`.
 
 We provide an [advanced configuration](../advanced/) guide for
-[using an external Gitaly service](../advanced/external-gitaly/). You can also
+[using an external Gitaly service](../advanced/external-gitaly/index.md). You can also
 find sample [configuration of multiple external services](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/gitaly/values-multiple-external.yaml)
 in the examples folder.
 
