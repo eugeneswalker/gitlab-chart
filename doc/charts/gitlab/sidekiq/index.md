@@ -256,8 +256,8 @@ pod. These will be templated to `Deployment`s, with individual `ConfigMap`s for 
 Sidekiq instances.
 
 NOTE: **Note**: The settings default to including a single pod that is set up to monitor
-  all queues. Making changes to to the pods section will *overwrite the default pod* with
-  a different pod configuration. It will not add a new pod in addition to the default.
+all queues. Making changes to the pods section will *overwrite the default pod* with
+a different pod configuration. It will not add a new pod in addition to the default.
 
 | Name           | Type    | Default | Description |
 |:-------------- |:-------:|:------- |:----------- |

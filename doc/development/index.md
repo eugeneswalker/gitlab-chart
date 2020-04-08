@@ -176,7 +176,7 @@ For example:
 ```
 
 In the above example, we want to add some additional data to a Map before passing it to a template function for output.
-We trapped the output of the `set` function by assigning it to the the `$_` variable. Without this assignment, the
+We trapped the output of the `set` function by assigning it to the `$_` variable. Without this assignment, the
 template would try to output the result of `set` (which returns the Map it modified) as a string.
 
 ### Passing variables between control structures

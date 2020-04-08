@@ -25,7 +25,7 @@ from properties to secrets (in observance of our preference).
 As a means of preventing a user from accidentally deploying an updated version of these
 charts which includes a breaking change against a configuration that would not function, we
 have chosen to implement [deprecation](../development/index.md#handling-configuration-deprecations) notifications. These are designed to detect
-properties have have been relocated, altered, replaced, or removed entirely, then inform
+properties have been relocated, altered, replaced, or removed entirely, then inform
 the user of what changes need to be made to the configuration. This may include informing
 the user to see documentation on how to replace a property with a secret. These notifications
 will cause the Helm `install` or `upgrade` commands to stop with a parse error, and output a complete list of items that need to be addressed. We have taken care to ensure a user will not be placed into a loop of error, fix, repeat.
