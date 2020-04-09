@@ -84,7 +84,7 @@ to be allocated, services to start, and access made available.
 Once this step has completed, we can proceed to collect the IP address that has
 been dynamically allocated for the installed NGINX Ingress.
 
-## Retreive the IP address
+## Retrieve the IP address
 
 We can use `kubectl` to fetch the address that has been dynamically been
 allocated by GKE to the NGINX Ingress we've just installed and configured as
