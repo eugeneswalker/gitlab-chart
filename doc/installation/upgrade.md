@@ -90,6 +90,11 @@ curl -s https://gitlab.com/gitlab-org/charts/gitlab/raw/${GITLAB_RELEASE}/script
 
 ### Prepare the cluster database secrets
 
+> **NOTICE:** If you are not using the bundled PostgreSQL chart (`postgresql.install` is false):
+>
+> - If you have supplied `global.psql.password.key`, you do not need to perform this step.
+> - If you have supplied `global.psql.password.secret`, additionally set `global.psql.password.key` to the name of your existing key to bypass this step.
+
 The secret key for the application database key is changing from `postgres-password`, to `postgresql-password`. Use one of the two steps described below to update your database password secret:
 
 1. If you'd like to use an auto-generated PostgreSQL password, delete the existing secret to allow the upgrade to generate a new password for you. RELEASE-NAME should be the name of the GitLab release from `helm list`:
