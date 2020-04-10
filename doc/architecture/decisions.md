@@ -138,3 +138,23 @@ Our [NGINX Ingress chart](../charts/nginx/index.md) was altered from the upstrea
 
 - Add feature to allow for the tcp configmap to be external to the chart
 - Add feature to allow Ingress class to be templated based on release name
+
+## Kubernetes version used throughout Chart
+
+To maximize support for different Kubernetes versions, use a `kubectl` that's
+one minor version lower than the current stable release of Kubernetes.
+This should allow support for at least three, and quite possibly more
+Kubernetes minor versions. For further discussion on `kubectl` versions, see
+[issue 1509](https://gitlab.com/gitlab-org/charts/gitlab/issues/1509).
+
+Related Issues:
+
+- [`charts/gitlab#1509`](https://gitlab.com/gitlab-org/charts/gitlab/issues/1509)
+- [`charts/gitlab#1583`](https://gitlab.com/gitlab-org/charts/gitlab/issues/1583)
+
+Related Merge Requests:
+
+- [`charts/gitlab!1053`](https://gitlab.com/gitlab-org/charts/gitlab/-/merge_requests/1053)
+- [`build/CNG!329`](https://gitlab.com/gitlab-org/build/CNG/-/merge_requests/329)
+- [`charts/components/gitlab-operator!72`](https://gitlab.com/gitlab-org/charts/components/gitlab-operator/-/merge_requests/72)
+- [`gitlab-build-images!251`](https://gitlab.com/gitlab-org/gitlab-build-images/-/merge_requests/251)
