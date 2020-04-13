@@ -9,8 +9,6 @@ global:
       names: ["default"]
     external: []
   # imagePullPolicy: IfNotPresent
-  redis:
-    password: {}
   gitaly:
     authToken: {}
 
@@ -64,7 +62,6 @@ workhorse:
   # host: '0.0.0.0'
   # serviceName: 'unicorn'
   # port: 8181
-redis: {}
 shell:
   authToken: {}
   concurrency: []

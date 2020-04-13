@@ -27,16 +27,6 @@ data:
     # File used as authorized_keys for gitlab user
     auth_file: "/home/git/.ssh/authorized_keys"
 
-    # Redis settings used for pushing commit notices to gitlab
-    redis:
-      host: {{ template "gitlab.redis.host" . }}
-      port: {{ template "gitlab.redis.port" . }}
-      {{- if .Values.global.redis.password.enabled }}
-      pass: "<%= File.read("/etc/gitlab-secrets/redis/password").strip.dump[1..-2] %>"
-      {{- end }}
-      database: nil
-      namespace: resque:gitlab
-
     # Log file.
     # Default is gitlab-shell.log in the root directory.
     log_file: "/var/log/gitlab-shell/gitlab-shell.log"
