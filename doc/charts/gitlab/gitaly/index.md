@@ -4,8 +4,8 @@ The `gitaly` sub-chart provides a configurable deployment of Gitaly Servers.
 
 ## Requirements
 
-This chart depends on access to Redis and Workhorse services, either as part of the
-complete GitLab chart or provided as external services reachable from the Kubernetes
+This chart depends on access to the Workhorse service, either as part of the
+complete GitLab chart or provided as an external service reachable from the Kubernetes
 cluster this chart is deployed onto.
 
 ## Design Choices
@@ -125,25 +125,7 @@ annotations:
 
 ## External Services
 
-This chart should be attached the Workhorse service, and should also use the same Redis
-as the attached Workhorse service.
-
-### Redis
-
-```yaml
-redis:
-  host: redis.example.com
-  serviceName: redis
-  port: 6379
-```
-
-| Name          | Type    | Default | Description |
-|:------------- |:-------:|:------- |:----------- |
-| `host`        | String  |         | The hostname of the Redis server with the database to use. This can be omitted in lieu of `serviceName`. |
-| `port`        | Integer | `6379`  | The port on which to connect to the Redis server. |
-| `serviceName` | String  | `redis` | The name of the `service` which is operating the Redis database. If this is present, and `host` is not, the chart will template the hostname of the service (and current `.Release.Name`) in place of the `host` value. This is convenient when using Redis as a part of the overall GitLab chart. |
-
-NOTE: **Note:** Credentials will be sourced from `global.redis.password` values.
+This chart should be attached the Workhorse service.
 
 ### Workhorse
 

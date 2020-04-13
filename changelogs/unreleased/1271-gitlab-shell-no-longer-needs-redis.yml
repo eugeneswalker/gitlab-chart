@@ -1,0 +1,5 @@
+---
+title: Remove Redis from Gitlab-Shell and Gitaly charts #1991
+merge_request: 1271
+author:
+type: removed
