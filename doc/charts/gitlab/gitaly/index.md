@@ -60,6 +60,7 @@ the `helm install` command using the `--set` flags.
 | `persistence.size`              | `50Gi`                                     | Gitaly persistence volume size                                                                                                                                       |
 | `persistence.storageClass`      |                                            | storageClassName for provisioning                                                                                                                                    |
 | `persistence.subPath`           |                                            | Gitaly persistence volume mount path                                                                                                                                 |
+| `priorityClassName`             |                                            | Gitaly StatefulSet priorityClassName                                                                                                                                 |
 | `logging.level`                 |                                            | Log level                                                                                                                                                            |
 | `logging.format`                | `json`                                     | Log format                                                                                                                                                           |
 | `logging.sentryDsn`             |                                            | Sentry DSN URL - Exceptions from Go server                                                                                                                           |
@@ -121,6 +122,17 @@ Below is an example use of `annotations`:
 ```yaml
 annotations:
   kubernetes.io/example-annotation: annotation-value
+```
+
+### priorityClassName
+
+`priorityClassName` allows you to assign a [PriorityClass](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+to the Gitaly pods.
+
+Below is an example use of `priorityClassName`:
+
+```yaml
+priorityClassName: persistence-enabled
 ```
 
 ## External Services

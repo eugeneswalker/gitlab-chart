@@ -42,6 +42,9 @@ init:
 ## Support for tolerations for pod scheduling
 tolerations: []
 
+## The Gitaly StatefulSet's priorityClassName
+# priorityClassName:
+
 logging:
   format: "json"
   # level:

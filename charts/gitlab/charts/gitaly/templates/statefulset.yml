@@ -34,6 +34,9 @@ spec:
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
       {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: "{{ .Values.priorityClassName }}"
+      {{- end }}
       terminationGracePeriodSeconds: 30
       initContainers:
         {{- include "gitlab.extraInitContainers" . | nindent 8 }}
