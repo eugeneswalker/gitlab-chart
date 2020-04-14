@@ -32,7 +32,7 @@ Order of operations:
 - derived from chart name
 */}}
 {{- define "gitlab.gitaly.serviceName" -}}
-{{- coalesce ( .Values.gitaly.serviceName ) .Values.global.gitaly.serviceName (include "fullname" .) -}}
+{{- coalesce ( .Values.gitaly.serviceName ) .Values.global.gitaly.serviceName (include "gitlab.other.fullname" (dict "context" . "chartName" "gitaly" )) -}}
 {{- end -}}
 
 {{/*
@@ -46,5 +46,5 @@ Call:
 */}}
 {{- define "gitlab.gitaly.qualifiedServiceName" -}}
 {{- $name := include "gitlab.gitaly.serviceName" .context -}}
-{{ include "gitlab.other.fullname" (dict "context" .context "chartName" "gitaly" ) }}-{{ .index }}.{{ include "gitlab.gitaly.serviceName" .context }}
+{{ include "gitlab.other.fullname" (dict "context" .context "chartName" "gitaly" ) }}-{{ .index }}.{{ $name }}
 {{- end -}}
