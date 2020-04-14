@@ -305,7 +305,7 @@ gitlab.{{ $chart }}:
 {{- define "gitlab.deprecate.gitlab.gitaly.serviceName" -}}
 {{-   if hasKey $.Values.gitlab.gitaly "serviceName" -}}
 gitlab.gitaly.serviceName:
-      The configuration of 'gitlab.gitaly.serviceName' has been moved to 'global.gitaly.serviceName' to fix issues with access to the gitaly service name. Please relocate this property.
+      The configuration of 'gitlab.gitaly.serviceName' has been moved to 'global.gitaly.serviceName' to fix an issue with consistent templating. Please relocate this property.
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.deprecate.gitlab.gitaly.serviceName */}}

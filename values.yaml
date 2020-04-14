@@ -104,13 +104,13 @@ global:
     authToken: {}
       # secret:
       # key:
+    # serviceName:
     internal:
       names: ['default']
     external: []
     tls:
       enabled: false
       # secretName:
-  # serviceName:
 
   ## doc/charts/globals.md#configure-minio-settings
   minio:

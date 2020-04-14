@@ -16,7 +16,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
-Run "fullname" as if it was in another chart. This is an imperfect emulation, but close in it's emulation.
+Run "fullname" as if it was in another chart. This is an imperfect emulation, but close.
 
 This is especially useful when you reference "fullname" services/pods which may or may not be easy to reconstruct.
 
