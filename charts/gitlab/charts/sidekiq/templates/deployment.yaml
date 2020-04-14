@@ -171,7 +171,7 @@ spec:
             - name: CONFIG_DIRECTORY
               value: '/srv/gitlab/config'
             - name: SIDEKIQ_CLUSTER
-              value: {{ include "sidekiq.cluster" (dict "global" $.Values.cluster "local" .cluster) | quote }}
+              value: {{ include "gitlab.boolean.local" (dict "global" $.Values.cluster "local" .cluster "default" false) | quote }}
             - name: SIDEKIQ_CONCURRENCY
               value: {{ default $concurrency .concurrency | quote }}
             - name: SIDEKIQ_TIMEOUT
