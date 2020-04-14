@@ -659,7 +659,10 @@ grafana:
 
 ## Settings for individual sub-charts under GitLab
 ## Note: Many of these settings are configurable via globals
-# gitlab:
+gitlab:
+  ## doc/charts/gitlab/task-runner
+  task-runner:
+    replicas: 1
 ## doc/charts/gitlab/migrations
 #   migrations:
 #     enabled: false

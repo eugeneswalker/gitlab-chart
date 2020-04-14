@@ -16,6 +16,7 @@ init:
 tolerations: []
 
 enabled: true
+replicas: 1
 annotations: {}
 
 psql: {}
