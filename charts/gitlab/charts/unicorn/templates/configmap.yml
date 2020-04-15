@@ -31,14 +31,11 @@ data:
   {{- end }}
   smtp_settings.rb: |
     {{- include "gitlab.smtp_settings" . | nindent 4 }}
-  resque.yml.erb: |
-    production:
-      # Redis (single instance)
-      url: {{ template "gitlab.redis.url" . }}
-{{- if .Values.global.redis.sentinels }}
-      {{- include "gitlab.redis.sentinels" . | nindent 6 }}
-{{- end }}
-      id:
+  {{- include "gitlab.rails.redis.resque" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.cache" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.sharedState" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.queues" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.cable" . | nindent 2 }}
   unicorn.rb: |
     # This file should be equivalent to `unicorn.rb` from:
     # * gitlab-foss: https://gitlab.com/gitlab-org/gitlab-foss/blob/master/config/unicorn.rb.example
@@ -291,7 +288,7 @@ data:
     Sentinel = [ {{ template "gitlab.redis.workhorse.sentinel-list" . }} ]
     {{- end }}
     {{- if .Values.global.redis.password.enabled }}
-    Password = "<%= File.read("/etc/gitlab/redis/password").strip.dump[1..-2] %>"
+    Password = "<%= File.read("/etc/gitlab/redis/redis-password").strip.dump[1..-2] %>"
     {{- end }}
   configure: |
       set -e
