@@ -2,6 +2,17 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 3.2.3 (2020-04-15)
+
+### Added (1 change, 1 of them is from the community)
+
+- Add support for the Seat Link enabled flag. !1272 (Matthias van de Meent)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.3.
+
+
 ## 3.2.2 (2020-03-31)
 
 ### Other (1 change)
