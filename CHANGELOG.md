@@ -123,6 +123,13 @@ entry.
 - Update GitLab Version to 12.8.0.
 
 
+## 3.0.7 (2020-04-15)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.7.9.
+
+
 ## 3.0.6 (2020-03-26)
 
 ### Fixed (1 change)
