@@ -1,11 +1,7 @@
 <!--
-
 NOTICE: This Issue tracker is for the GitLab Helm chart, not the GitLab Rails application.
 
-Support:
-
-Please do not raise support issues for GitLab.com on this tracker. See https://about.gitlab.com/support/
-
+Support: Please do not raise support issues for GitLab.com on this tracker. See https://about.gitlab.com/support/
 -->
 
 ## Summary
