@@ -107,13 +107,13 @@ our [guidelines for forking](../development/index.md#guidelines-for-forking)
 
 ### Redis
 
-With the `3.0` release of the GitLab Helm chart, we no longer fork the [upstream Redis chart](https://github.com/helm/charts/tree/master/stable/redis),
+With the `3.0` release of the GitLab Helm chart, we no longer fork the [upstream Redis chart](https://github.com/bitnami/charts/tree/master/bitnami/redis),
 and instead include it as a dependency.
 
 ### Redis HA
 
 Redis-HA was a chart we included in our releases prior to `3.0`. It has now been removed,
-and replaced with [upstream Redis chart](https://github.com/helm/charts/tree/master/stable/redis)
+and replaced with [upstream Redis chart](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 which has added optional HA support.
 
 ### MinIO

@@ -130,12 +130,12 @@ See [`nginx-ingress` chart](../charts/nginx/index.md).
 
 | Parameter                            | Description                                 | Default               |
 |--------------------------------------|---------------------------------------------|-----------------------|
-| `redis.install`                      | Install the `stable/redis` chart            | true                  |
+| `redis.install`                      | Install the `bitnami/redis` chart           | true                  |
 | `redis.existingSecret`               | Specify the Secret for Redis servers to use | `gitlab-redis-secret` |
 | `redis.existingSecretKey`            | Secret key where password is stored         | `redis-password`      |
 
 Any additional configuration of the Redis service should use the configuration
-settings from the [Redis chart](https://github.com/helm/charts/tree/master/stable/redis).
+settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bitnami/redis).
 
 ## Advanced registry configuration
 
