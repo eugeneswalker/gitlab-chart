@@ -296,7 +296,7 @@ data:
       cp -v -r -L /init-config/gitlab-workhorse/secret /init-secrets-workhorse/gitlab-workhorse/secret
       {{- if .Values.global.redis.password.enabled }}
       mkdir -p /init-secrets-workhorse/redis
-      cp -v -r -L /init-config/redis/password /init-secrets-workhorse/redis/
+      cp -v -r -L /init-config/redis/redis-password /init-secrets-workhorse/redis/
       {{- end }}
 # Leave this here - This line denotes end of block to the parser.
 {{- end }}
