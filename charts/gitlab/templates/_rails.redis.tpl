@@ -65,14 +65,11 @@ If no `global.redis.actioncable`, use `global.redis`
 
 {{- define "gitlab.redis.secrets" -}}
 {{- range $redis := list "cache" "sharedState" "queues" "actioncable" -}}
-{{-   if index $.Values.global.redis $redis -}}
-{{-     if index $.Values.global.redis $redis "password" -}}
-{{-       if index $.Values.global.redis $redis "password" "enabled" -}}
-{{-         $_ := set $ "redisConfig" $redis }}
-{{          include "gitlab.redis.secret" $ }}
-{{-       end }}
-{{-     end -}}
-{{-   end -}}
+{{-   $config := mustMergeOverwrite (pick (deepCopy $.Values.global.redis) "password" ) ( index $.Values.global.redis $redis )}}
+{{-   if $config.password.enabled -}}
+{{-     $_ := set $ "redisConfig" $redis }}
+{{      include "gitlab.redis.secret" $ }}
+{{-   end }}
 {{- end -}}
 {{- $_ := set . "redisConfig" nil }}
 {{- if .Values.global.redis.password.enabled }}
