@@ -26,6 +26,8 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{/* add templates here */}}
 {{- $messages := append $messages (include "gitlab.checkConfig.gitaly.tls" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.sidekiq.queues.mixed" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.sidekiq.queues.cluster" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.sidekiq.experimentalQueueSelector" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.appConfig.maxRequestDurationSeconds" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.gitaly.extern.repos" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.database" .) -}}
@@ -64,6 +66,35 @@ sidekiq: mixed queues
 {{- end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.sidekiq.queues.mixed */}}
+
+{{/* Check configuration of Sidekiq - queues must be a string when cluster is enabled */}}
+{{- define "gitlab.checkConfig.sidekiq.queues.cluster" -}}
+{{- if .Values.gitlab.sidekiq.pods -}}
+{{-   range $pod := .Values.gitlab.sidekiq.pods -}}
+{{-     if and ($pod.cluster) (hasKey $pod "queues") (ne (kindOf $pod.queues) "string") }}
+sidekiq: cluster
+    The pod definition `{{ $pod.name }}` has `cluster` enabled, but `queues` is not a string.
+{{-     else if and ($pod.cluster) (hasKey $pod "negateQueues") (ne (kindOf $pod.negateQueues) "string") }}
+sidekiq: cluster
+    The pod definition `{{ $pod.name }}` has `cluster` enabled, but `negateQueues` is not a string.
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.sidekiq.queues.cluster */}}
+
+{{/* Check configuration of Sidekiq - cluster must be enabled for experimentalQueueSelector to be valid */}}
+{{- define "gitlab.checkConfig.sidekiq.experimentalQueueSelector" -}}
+{{- if .Values.gitlab.sidekiq.pods -}}
+{{-   range $pod := .Values.gitlab.sidekiq.pods -}}
+{{-     if and ($pod.experimentalQueueSelector) (not $pod.cluster) }}
+sidekiq: experimentalQueueSelector
+    The pod definition `{{ $pod.name }}` has `experimentalQueueSelector` enabled, but does not have `cluster` enabled. `experimentalQueueSelector` only works when `cluster` is enabled.
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.sidekiq.experimentalQueueSelector */}}
 
 {{/*
 Ensure a database is configured when using Geo
