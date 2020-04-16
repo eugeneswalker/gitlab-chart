@@ -8,9 +8,14 @@ global:
     internal:
       names: ["default"]
     external: []
-  # imagePullPolicy: IfNotPresent
-  gitaly:
     authToken: {}
+  # serviceName:
+  # imagePullPolicy: IfNotPresent
+  redis:
+    password: {}
+
+gitaly: {}
+# serviceName:
 
 internal: {}
 image:
@@ -26,7 +31,6 @@ service:
   tls:
     externalPort: 8076
     internalPort: 8076
-serviceName: gitaly
 annotations: {}
 
 init:

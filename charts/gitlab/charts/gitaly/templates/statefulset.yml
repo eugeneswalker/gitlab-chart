@@ -11,7 +11,7 @@ spec:
     matchLabels:
       app: {{ template "name" . }}
       release: {{ .Release.Name }}
-  serviceName: {{ template "fullname" . }}
+  serviceName: {{ template "gitlab.gitaly.serviceName" . }}
   replicas: {{template "gitlab.gitaly.replicas" . }}
   podManagementPolicy: Parallel
   {{- if .Values.global.operator.enabled }}

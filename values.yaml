@@ -104,6 +104,7 @@ global:
     authToken: {}
       # secret:
       # key:
+    # serviceName:
     internal:
       names: ['default']
     external: []
