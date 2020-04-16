@@ -2,6 +2,7 @@
 
 - Using an [external PostgreSQL](external-db/index.md)
 - Using an [external Redis](external-redis/index.md)
+- Using an [external Mattermost](external-mattermost.md)
 - Using an [external Gitaly](external-gitaly/index.md)
 - Using an [external object storage](external-object-storage/index.md)
 - Using your own [NGINX Ingress Controller](external-nginx/index.md)

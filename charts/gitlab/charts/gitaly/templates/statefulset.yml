@@ -34,6 +34,9 @@ spec:
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
       {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: "{{ .Values.priorityClassName }}"
+      {{- end }}
       terminationGracePeriodSeconds: 30
       initContainers:
         {{- include "gitlab.extraInitContainers" . | nindent 8 }}
@@ -161,13 +164,6 @@ spec:
               items:
                 - key: {{ template "gitlab.gitlab-shell.authToken.key" . }}
                   path: ".gitlab_shell_secret"
-          {{- if .Values.global.redis.password.enabled }}
-          - secret:
-              name: {{ template "gitlab.redis.password.secret" . }}
-              items:
-                - key: {{ template "gitlab.redis.password.key" . }}
-                  path: redis_password
-          {{- end }}
           {{- if .Values.global.gitaly.tls.enabled }}
           - secret:
               name: {{ template "gitlab.gitaly.tls.secret" . }}

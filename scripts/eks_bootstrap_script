@@ -18,6 +18,7 @@ fi
 source "${SCRIPT_PATH}/common.sh"
 
 # Set default values
+# Documentation: doc/installation/cloud/eks.md
 cluster_name=${CLUSTER_NAME-gitlab-cluster}
 nodes=${NUM_NODES-2}
 kubernetes_version=${CLUSTER_VERSION-1.14}
@@ -33,7 +34,7 @@ function print_help(){
 Usage: ${0} ARGS (up|down|list|creds)
 -c NAME - Name of the cluster to use. Defaults to gitlab-cluster
 -n NODES - number of nodes to use. Defaults to 2
--k VERSION - Kubernetes version to use. Defaults to 1.11
+-k VERSION - Kubernetes version to use. Defaults to 1.14
 -r REGION - Region to install the cluster in. Defaults to us-east-2
 -m TYPE - Type of nodes to use. Default m5.xlarge
 -s SA - Service account to use for helm/tiller. Default tiller

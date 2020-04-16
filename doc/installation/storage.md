@@ -5,8 +5,8 @@
 The following applications within the GitLab chart require persistent storage to maintain state.
 
 - [Gitaly](../charts/gitlab/gitaly/index.md) (persists the Git repositories)
-- [postgres](https://github.com/helm/charts/tree/master/stable/postgresql) (persists the GitLab database data)
-- [Redis](https://github.com/helm/charts/tree/master/stable/redis) (persists GitLab job data)
+- [PostgreSQL](https://github.com/bitnami/charts/tree/master/bitnami/postgresql) (persists the GitLab database data)
+- [Redis](https://github.com/bitnami/charts/tree/master/bitnami/redis) (persists GitLab job data)
 - [MinIO](../charts/minio/index.md) (persists the object storage data)
 
 The administrator may choose to provision this storage using [dynamic][] or [static][] volume provisioning.
@@ -66,8 +66,8 @@ Follow the links below for further reading and additional persistence options:
 
 - [Gitaly persistence configuration](../charts/gitlab/gitaly/index.md#git-repository-persistence)
 - [MinIO persistence configuration](../charts/minio/index.md#persistence)
-- [Redis persistence configuration](https://github.com/helm/charts/tree/master/stable/redis#persistence)
-- [Upstream PostgreSQL chart configuration](https://github.com/helm/charts/tree/master/stable/postgresql#configuration)
+- [Redis persistence configuration](https://github.com/bitnami/charts/tree/master/bitnami/redis)
+- [Upstream PostgreSQL chart configuration](https://github.com/bitnami/charts/tree/master/bitnami/postgresql#configuration-and-installation-details)
 
 > **Note**: Some of the advanced persistence options differ between PostgreSQL and the others, so it's important to check
 > the specific documentation for each before making changes.
@@ -110,19 +110,19 @@ kubectl create -f *PV_YAML_FILE*
 The Gitaly service deploys using a [StatefulSet][]. Create the [PersistentVolumeClaim][pvc]
 using the following naming convention for it to be properly recognized and used.
 
-```
+```plaintext
 <mount-name>-<statefulset-pod-name>
 ```
 
 The `mount-name` for Gitaly is `repo-data`. The StatefulSet pod names are created using:
 
-```
+```plaintext
 <statefulset-name>-<pod-index>
 ```
 
 The GitLab Cloud Native Chart determines the `statefulset-name` using:
 
-```
+```plaintext
 <chart-release-name>-<service-name>
 ```
 

@@ -34,7 +34,8 @@ to the `helm install` command using the `--set` flags:
 | Parameter                            | Default           | Description                              |
 | ------------------------------------ | ----------------- | ---------------------------------------- |
 | `annotations`                        |                   | Pod annotations                          |
-| `concurrency`                        | `10`              | Sidekiq default concurrency              |
+| `concurrency`                        | `25`              | Sidekiq default concurrency              |
+| `cluster`                            | `false`           | [See below](#cluster).                   |
 | `enabled`                            | `true`            | Sidekiq enabled flag                     |
 | `extraContainers`                    |                   | List of extra containers to include      |
 | `extraInitContainers`                |                   | List of extra init containers to include |
@@ -54,6 +55,7 @@ to the `helm install` command using the `--set` flags:
 | `metrics.enabled`                    | `true`            | Toggle Prometheus metrics exporter       |
 | `psql.password.key`                  | `psql-password`   | key to psql password in psql secret      |
 | `psql.password.secret`               | `gitlab-postgres` | psql password secret                     |
+| `psql.port`                          |                   | Set PostgreSQL server port. Takes precedence over `global.psql.port` |
 | `redis.serviceName`                  | `redis`           | Redis service name                       |
 | `resources.requests.cpu`             | `100m`            | Sidekiq minimum needed cpu               |
 | `resources.requests.memory`          | `600M`            | Sidekiq minimum needed memory            |
@@ -237,6 +239,7 @@ on a per-pod basis.
 | Name          | Type    | Default | Description |
 |:------------- |:-------:|:------- |:----------- |
 | `concurrency`               | Integer | `25`      | The number of tasks to process simultaneously. |
+| `cluster`                   | Bool    | `false`   | [See below](#cluster). Overridden by per-Pod value, if present. |
 | `timeout`                   | Integer | `4`       | The Sidekiq shutdown timeout. The number of seconds after Sidekiq gets the TERM signal before it forcefully shuts down its processes. |
 | `memoryKiller.maxRss`       | Integer | `2000000` | Maximum RSS before delayed shutdown triggered expressed in kilobytes |
 | `memoryKiller.graceTime`    | Integer | `900`     | Time to wait before a triggered shutdown expressed in seconds|
@@ -255,12 +258,13 @@ pod. These will be templated to `Deployment`s, with individual `ConfigMap`s for 
 Sidekiq instances.
 
 NOTE: **Note**: The settings default to including a single pod that is set up to monitor
-  all queues. Making changes to to the pods section will *overwrite the default pod* with
-  a different pod configuration. It will not add a new pod in addition to the default.
+all queues. Making changes to the pods section will *overwrite the default pod* with
+a different pod configuration. It will not add a new pod in addition to the default.
 
 | Name           | Type    | Default | Description |
 |:-------------- |:-------:|:------- |:----------- |
 | `concurrency`  | Integer |         | The number of tasks to process simultaneously. If not provided, it will be pulled from the chart-wide default. |
+| `cluster`      | Bool    | `false` | [See below](#cluster). |
 | `name`         | String  |         | Used to name the `Deployment` and `ConfigMap` for this pod. It should be kept short, and should not be duplicated between any two entries. |
 | `queues`       |         |         | [See below](#queues). |
 | `negateQueues` |         |         | [See below](#negateQueues). |
@@ -294,6 +298,21 @@ here, and populate the rest for consumption.
 NOTE: **Note**: `negateQueues` _should not_ be provided alongside `queues`, as it will have no
 affect.
 
+### cluster
+
+`cluster` is a boolean, used to opt into the use of [Sidekiq
+Cluster](https://docs.gitlab.com/ee/administration/operations/extra_sidekiq_processes.html)
+to start the Sidekiq process. If a non-boolean is provided, then the
+value is ignored.
+
+Currently defaults to `false`.
+
+This option does not currently support `queues` or `negateQueues`.
+
+NOTE: **Note**: Unlike in other installation methods, `cluster` will never start
+more than one Sidekiq process inside a pod. To run additional Sidekiq processes,
+run additional pods.
+
 ### Example `pod` entry
 
 ```YAML
@@ -302,6 +321,7 @@ pods:
     concurrency: 10
     minReplicas: 2  # defaults to inherited value
     maxReplicas: 10 # defaults to inherited value
+    queues:
     - [post_receive, 5]
     - [merge, 5]
     - [update_merge_requests, 3]
@@ -332,7 +352,7 @@ Pods to specific endpoints.
 ### Example Network Policy
 
 The Sidekiq service requires Ingress connections for only the Prometheus
-exporter if enabled.  And normally requires Egress connections to various
+exporter if enabled, and normally requires Egress connections to various
 places. This examples adds the following network policy:
 
 - All Ingress requests from the network on TCP `10.0.0.0/8` port 3807 are allowed for metrics exporting
@@ -385,11 +405,3 @@ networkpolicy:
             except:
             - 10.0.0.0/8
 ```
-
-## Production usage
-
-By default, all of Sidekiq queues run in an all-in-one container which is not
-suitable for production use cases. Check the [example
-config](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/charts/gitlab/sidekiq/example-queues.yaml)
-for a more production ready Sidekiq deployment. You can move queues around pods
-as part of your tuning.

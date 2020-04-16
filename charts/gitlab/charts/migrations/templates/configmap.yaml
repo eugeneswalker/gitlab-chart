@@ -38,6 +38,7 @@ data:
   gitlab.yml.erb: |
     production: &base
       gitlab:
+        host: {{ template "gitlab.gitlab.hostname" . }}
       {{- include "gitlab.appConfig.gitaly" . | nindent 6 }}
       {{- include "gitlab.appConfig.repositories" . | nindent 6 }}
       {{- include "gitlab.geo.config" $ | nindent 6 }}

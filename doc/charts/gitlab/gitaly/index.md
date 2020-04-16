@@ -4,8 +4,8 @@ The `gitaly` sub-chart provides a configurable deployment of Gitaly Servers.
 
 ## Requirements
 
-This chart depends on access to Redis and Workhorse services, either as part of the
-complete GitLab chart or provided as external services reachable from the Kubernetes
+This chart depends on access to the Workhorse service, either as part of the
+complete GitLab chart or provided as an external service reachable from the Kubernetes
 cluster this chart is deployed onto.
 
 ## Design Choices
@@ -60,6 +60,7 @@ the `helm install` command using the `--set` flags.
 | `persistence.size`              | `50Gi`                                     | Gitaly persistence volume size                                                                                                                                       |
 | `persistence.storageClass`      |                                            | storageClassName for provisioning                                                                                                                                    |
 | `persistence.subPath`           |                                            | Gitaly persistence volume mount path                                                                                                                                 |
+| `priorityClassName`             |                                            | Gitaly StatefulSet priorityClassName                                                                                                                                 |
 | `logging.level`                 |                                            | Log level                                                                                                                                                            |
 | `logging.format`                | `json`                                     | Log format                                                                                                                                                           |
 | `logging.sentryDsn`             |                                            | Sentry DSN URL - Exceptions from Go server                                                                                                                           |
@@ -123,27 +124,20 @@ annotations:
   kubernetes.io/example-annotation: annotation-value
 ```
 
-## External Services
+### priorityClassName
 
-This chart should be attached the Workhorse service, and should also use the same Redis
-as the attached Workhorse service.
+`priorityClassName` allows you to assign a [PriorityClass](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)
+to the Gitaly pods.
 
-### Redis
+Below is an example use of `priorityClassName`:
 
 ```yaml
-redis:
-  host: redis.example.com
-  serviceName: redis
-  port: 6379
+priorityClassName: persistence-enabled
 ```
 
-| Name          | Type    | Default | Description |
-|:------------- |:-------:|:------- |:----------- |
-| `host`        | String  |         | The hostname of the Redis server with the database to use. This can be omitted in lieu of `serviceName`. |
-| `port`        | Integer | `6379`  | The port on which to connect to the Redis server. |
-| `serviceName` | String  | `redis` | The name of the `service` which is operating the Redis database. If this is present, and `host` is not, the chart will template the hostname of the service (and current `.Release.Name`) in place of the `host` value. This is convenient when using Redis as a part of the overall GitLab chart. |
+## External Services
 
-NOTE: **Note:** Credentials will be sourced from `global.redis.password` values.
+This chart should be attached the Workhorse service.
 
 ### Workhorse
 
@@ -206,8 +200,8 @@ persistence:
 ### Running Gitaly over TLS
 
 NOTE: **Note:** This section refers to Gitaly being run inside the cluster using
-the Helm charts.  If you are using an external Gitaly instance and want to use
-TLS for communicating with it, refer [the external Gitaly documentation](https://docs.gitlab.com/charts/advanced/external-gitaly/#connecting-to-external-gitaly-over-tls)
+the Helm charts. If you are using an external Gitaly instance and want to use
+TLS for communicating with it, refer [the external Gitaly documentation](../../../advanced/external-gitaly/index.md#connecting-to-external-gitaly-over-tls)
 
 Gitaly supports communicating with other components over TLS. This is controlled
 by the settings `global.gitaly.tls.enabled` and `global.gitaly.tls.secretName`.
@@ -222,7 +216,7 @@ Follow the steps to run Gitaly over TLS:
    file in the task-runner pod and check the various
    `gitaly_address` fields specified under `repositories.storages` key within it.
 
-   ```
+   ```shell
    kubectl exec -it <task-runner pod> -- grep gitaly_address /srv/gitlab/config/gitlab.yml
    ```
 
@@ -233,8 +227,8 @@ SAN attributes.
 
 1. Create a k8s TLS secret using the certificate created.
 
-    ```sh
-    kubectl create secret tls gitaly-server-tls --cert=gitaly.crt --key=gitaly.key
-    ```
+   ```shell
+   kubectl create secret tls gitaly-server-tls --cert=gitaly.crt --key=gitaly.key
+   ```
 
 1. Redeploy the Helm chart by passing the arguments `--set global.gitaly.tls.enabled=true --set global.gitaly.tls.secretName=<secret name>`

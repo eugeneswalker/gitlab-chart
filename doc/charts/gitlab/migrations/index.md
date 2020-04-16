@@ -38,6 +38,7 @@ Table below contains all the possible charts configurations that can be supplied
 | `psql.serviceName`          | Name of Service providing PostgreSQL     | `release-postgresql` |
 | `psql.password.secret`      | psql secret                              | `gitlab-postgres` |
 | `psql.password.key`         | key to psql password in psql secret      | `psql-password`   |
+| `psql.port`                 | Set PostgreSQL server port. Takes precedence over `global.psql.port` |   |
 | `resources.requests.cpu`    | `250m`                                   | GitLab Migrations minimum cpu |
 | `resources.requests.memory` | `200Mi`                                  | GitLab Migrations minimum memory |
 | `extraInitContainers`       | List of extra init containers to include |                   |

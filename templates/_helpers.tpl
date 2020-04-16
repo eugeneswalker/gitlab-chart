@@ -200,11 +200,15 @@ to "gitlab" default
 
 {{/*
 Return the db port
-If the postgresql port is provided, it will use that, otherwise it will fallback
+If the postgresql port is provided in subchart values or global values, it will use that, otherwise it will fallback
 to 5432 default
 */}}
 {{- define "gitlab.psql.port" -}}
-{{- coalesce .Values.global.psql.port 5432 -}}
+{{- if hasKey .Values.psql "port" -}}
+{{-   .Values.psql.port -}}
+{{- else -}}
+{{-   coalesce .Values.global.psql.port 5432 -}}
+{{- end -}}
 {{- end -}}
 
 {{/*

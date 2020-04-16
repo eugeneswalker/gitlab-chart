@@ -21,7 +21,7 @@ The task-runner uses `s3cmd` to connect to object storage. In order to configure
 
 It should look like this:
 
-```sh
+```shell
 helm install gitlab \
   --set gitlab.task-runner.backups.objectStorage.config.secret=my-s3cfg \
   --set gitlab.task-runner.backups.objectStorage.config.key=config .
@@ -32,7 +32,7 @@ s3cmd `.s3cfg` file documentation can be found [here](https://s3tools.org/kb/ite
 In addition, two bucket locations need to be configured, one for storing the backups, and one temporary bucket that is used
 when restoring a backup.
 
-```
+```shell
 --set global.appConfig.backups.bucket=gitlab-backup-storage
 --set global.appConfig.backups.tmpBucket=gitlab-tmp-storage
 ```
@@ -54,7 +54,7 @@ kubectl create secret generic storage-config --from-file=config=storage.config
 
 Configure your Helm chart as follows to use the service account key to authenticate to GCS for backups:
 
-```sh
+```shell
 helm install gitlab . \
   --set gitlab.task-runner.backups.objectStorage.config.secret=storage-config \
   --set gitlab.task-runner.backups.objectStorage.config.key=config \
@@ -65,7 +65,7 @@ helm install gitlab . \
 In addition, two bucket locations need to be configured, one for storing the backups, and one temporary bucket that is used
 when restoring a backup.
 
-```
+```shell
 --set global.appConfig.backups.bucket=gitlab-backup-storage
 --set global.appConfig.backups.tmpBucket=gitlab-tmp-storage
 ```
@@ -83,14 +83,14 @@ As the backups are assembled locally outside of the object storage target, tempo
 The default configuration will use the task-runner pod's file system to store the temporary data. If you find pod being evicted due to low resources, you should attach a persistent volume to the pod to hold the temporary data.
 On GKE, add the following settings to your Helm command:
 
-```
+```shell
 --set gitlab.task-runner.persistence.enabled=true
 ```
 
 If your backups are being run as part of the included backup cron job, then you will want to enable persistence for the cron job as well:
 
-```
--- set gitlab.task-runner.backups.cron.persistence.enabled=true
+```shell
+--set gitlab.task-runner.backups.cron.persistence.enabled=true
 ```
 
 For other providers, you may need to create a persistent volume. See our [Storage documentation](../installation/storage.md) for possible examples on how to do this.

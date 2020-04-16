@@ -3,6 +3,13 @@
 The tables below contain all the possible charts configurations that can be supplied
 to the `helm install` command using the `--set` flags.
 
+The source of the default `values.yaml` file can be found [here](https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml).
+These contents change over releases, but you can use Helm itself to retrieve these on a per-version basis:
+
+```sh
+helm inspect values gitlab/gitlab
+```
+
 ## Basic configuration
 
 | Parameter                                      | Description                                                                                 | Default                                       |
@@ -123,12 +130,12 @@ See [`nginx-ingress` chart](../charts/nginx/index.md).
 
 | Parameter                            | Description                                 | Default               |
 |--------------------------------------|---------------------------------------------|-----------------------|
-| `redis.install`                      | Install the `stable/redis` chart            | true                  |
+| `redis.install`                      | Install the `bitnami/redis` chart           | true                  |
 | `redis.existingSecret`               | Specify the Secret for Redis servers to use | `gitlab-redis-secret` |
 | `redis.existingSecretKey`            | Secret key where password is stored         | `redis-password`      |
 
 Any additional configuration of the Redis service should use the configuration
-settings from the [Redis chart](https://github.com/helm/charts/tree/master/stable/redis).
+settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bitnami/redis).
 
 ## Advanced registry configuration
 
@@ -248,6 +255,8 @@ settings from the [Redis chart](https://github.com/helm/charts/tree/master/stabl
 | `gitlab.migrations.image.tag`                                | Migrations image tag                           | `latest`                                                         |
 | `gitlab.migrations.psql.password.key`                        | key to psql password in psql secret            | `psql-password`                                                  |
 | `gitlab.migrations.psql.password.secret`                     | psql secret                                    | `gitlab-postgres`                                                |
+| `gitlab.migrations.psql.port`                                | Set PostgreSQL server port. Takes precedence over `global.psql.port`
+|                                                                  |
 | `gitlab.sidekiq.concurrency`                                 | Sidekiq default concurrency                    | `10`                                                             |
 | `gitlab.sidekiq.enabled`                                     | Sidekiq enabled flag                           | true                                                             |
 | `gitlab.sidekiq.gitaly.authToken.key`                        | key to Gitaly token in Gitaly secret           | `token`                                                          |
@@ -258,6 +267,8 @@ settings from the [Redis chart](https://github.com/helm/charts/tree/master/stabl
 | `gitlab.sidekiq.image.tag`                                   | Sidekiq image tag                              | `latest`                                                         |
 | `gitlab.sidekiq.psql.password.key`                           | key to psql password in psql secret            | `psql-password`                                                  |
 | `gitlab.sidekiq.psql.password.secret`                        | psql password secret                           | `gitlab-postgres`                                                |
+| `gitlab.sidekiq.psql.port`                                   | Set PostgreSQL server port. Takes precedence over `global.psql.port`
+|                                                                  |
 | `gitlab.sidekiq.replicas`                                    | Sidekiq replicas                               | `1`                                                              |
 | `gitlab.sidekiq.resources.requests.cpu`                      | Sidekiq minimum needed cpu                     | `100m`                                                           |
 | `gitlab.sidekiq.resources.requests.memory`                   | Sidekiq minimum needed memory                  | `600M`                                                           |
@@ -299,15 +310,19 @@ settings from the [Redis chart](https://github.com/helm/charts/tree/master/stabl
 | `gitlab.task-runner.persistence.volumeName`                  | Existing persistent volume name                |                                                                  |
 | `gitlab.task-runner.resources.requests.cpu`                  | Task runner minimum needed cpu                 | `50m`                                                            |
 | `gitlab.task-runner.resources.requests.memory`               | Task runner minimum needed memory              | `350M`                                                           |
+| `gitlab.task-runner.psql.port`                               | Set PostgreSQL server port. Takes precedence over `global.psql.port`
+|                                                                  |
 | `gitlab.unicorn.enabled`                                     | Unicorn enabled flag                           | true                                                             |
 | `gitlab.unicorn.gitaly.authToken.key`                        | Key to Gitaly token in Gitaly secret           | `token`                                                          |
 | `gitlab.unicorn.gitaly.authToken.secret`                     | Gitaly secret name                             | `{.Release.Name}-gitaly-secret`                                  |
 | `gitlab.unicorn.gitaly.serviceName`                          | Gitaly service name                            | `gitaly`                                                         |
 | `gitlab.unicorn.image.pullPolicy`                            | Unicorn image pull policy                      | `Always`                                                         |
-| `gitlab.unicorn.image.repository`                            | Unicorn image repository                       | `registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ee`     |
+| `gitlab.unicorn.image.repository`                            | Unicorn image repository                       | `registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee`     |
 | `gitlab.unicorn.image.tag`                                   | Unicorn image tag                              | `latest`                                                         |
 | `gitlab.unicorn.psql.password.key`                           | Key to psql password in psql secret            | `psql-password`                                                  |
 | `gitlab.unicorn.psql.password.secret`                        | psql secret name                               | `gitlab-postgres`                                                |
+| `gitlab.unicorn.psql.port`                                   | Set PostgreSQL server port. Takes precedence over `global.psql.port`
+|                                                                  |
 | `gitlab.unicorn.registry.api.port`                           | Registry port                                  | `5000`                                                           |
 | `gitlab.unicorn.registry.api.protocol`                       | Registry protocol                              | `http`                                                           |
 | `gitlab.unicorn.registry.api.serviceName`                    | Registry service name                          | `registry`                                                       |

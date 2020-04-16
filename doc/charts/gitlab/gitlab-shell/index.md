@@ -4,8 +4,8 @@ The `gitlab-shell` sub-chart provides an SSH server configured for Git SSH acces
 
 ## Requirements
 
-This chart depends on access to Redis and Workhorse services, either as part of the
-complete GitLab chart or provided as external services reachable from the Kubernetes
+This chart depends on access to the Workhorse services, either as part of the
+complete GitLab chart or provided as an external service reachable from the Kubernetes
 cluster this chart is deployed onto.
 
 ## Design Choices
@@ -47,7 +47,6 @@ with `global.shell.port`, and defaults to `22`.
 | `image.tag`              | `latest`       | Shell image tag                          |
 | `init.image.repository`  |                | initContainer image                      |
 | `init.image.tag`         |                | initContainer image tag                  |
-| `redis.serviceName`      | `redis`        | Redis service name                       |
 | `replicaCount`           | `1`            | Shell replicas                           |
 | `service.externalTrafficPolicy` | `Cluster` | Shell service external traffic policy (Cluster or Local)  |
 | `service.externalPort`   | `22`           | Shell exposed port                       |
@@ -59,7 +58,7 @@ with `global.shell.port`, and defaults to `22`.
 | `service.loadBalancerSourceRanges` |      | List of IP CIDRs allowed access to LoadBalancer (if supported)  |
 | `service.type`           | `ClusterIP`    | Shell service type                       |
 | `tolerations`            | `[]`           | Toleration labels for pod assignment     |
-| `workhorse.serviceName`    | `unicorn`      | Workhorse service name  (by default, Workhorse is a part of the Unicorn Pods / Service)                   |
+| `workhorse.serviceName`    | `unicorn`      | Workhorse service name (by default, Workhorse is a part of the Unicorn Pods / Service)                   |
 
 ## Chart configuration examples
 
@@ -113,39 +112,7 @@ annotations:
 
 ## External Services
 
-This chart should be attached the Workhorse service, and should also use the same Redis
-as the attached Workhorse service.
-
-### Redis
-
-```yaml
-redis:
-  host: redis.example.com
-  serviceName: redis
-  port: 6379
-  sentinels:
-    - host: sentinel1.example.com
-      port: 26379
-  password:
-    secret: gitlab-redis
-    key: redis-password
-```
-
-| Name                | Type    | Default | Description |
-|:--------------------|:-------:|:--------|:------------|
-| `host`              | String  |         | The hostname of the Redis server with the database to use. This can be omitted in lieu of `serviceName`. If using Redis Sentinels, the `host` attribute needs to be set to the cluster name as specified in the `sentinel.conf`.|
-| `password.key`      | String  |         | The name of the key in the secret below that contains the password. |
-| `password.secret`   | String  |         | The name of the Kubernetes `Secret` to pull from. |
-| `port`              | Integer | `6379`  | The port on which to connect to the Redis server. |
-| `serviceName`       | String  | `redis` | The name of the `service` which is operating the Redis database. If this is present, and `host` is not, the chart will template the hostname of the service (and current `.Release.Name`) in place of the `host` value. This is convenient when using Redis as a part of the overall GitLab chart. |
-| `sentinels.[].host` | String  |         | The hostname of Redis Sentinel server for a Redis HA setup. |
-| `sentinels.[].port` | Integer | `26379` | The port on which to connect to the Redis Sentinel server. |
-
-_Note:_ The current Redis Sentinel support only supports Sentinels that have
-been deployed separately from the GitLab chart. As a result, the Redis
-deployment through the GitLab chart should be disabled with `redis.install=false`.
-The Secret containing the Redis password will need to be manually created
-before deploying the GitLab chart.
+This chart should be attached the Workhorse service.
 
 ### Workhorse
 

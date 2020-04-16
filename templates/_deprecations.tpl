@@ -135,7 +135,7 @@ registry:
 
 {{/* Migration of Registry `minReplicas` and `maxReplicas` to `hpa.*` */}}
 {{- define "gitlab.deprecate.registry.replicas" -}}
-{{- if (hasKey .Values.registry "minReplicas") or (hasKey .Values.registry "maxReplicas") -}}
+{{- if or (hasKey .Values.registry "minReplicas") (hasKey .Values.registry "maxReplicas") -}}
 registry:
     The `minReplicas` property has been moved under the hpa object. Please create a configuration with the new path: `registry.hpa.minReplicas`.
     The `maxReplicas` property has been moved under the hpa object. Please create a configuration with the new path: `registry.hpa.maxReplicas`.

@@ -23,7 +23,7 @@ This chart makes use of only one secret:
 We will describe all the major sections of the configuration below. When configuring
 from the parent chart, these values will be:
 
-```
+```yaml
 minio:
   init:
   ingress:
@@ -36,14 +36,14 @@ minio:
     proxyBodySize:
     proxyBuffering:
   tolerations:
-  persistence: (upstream)
+  persistence:  # Upstream
     volumeName:
     matchLabels:
     matchExpressions:
-  serviceType: (upstream)
-  servicePort: (upstream)
+  serviceType:  # Upstream
+  servicePort:  # Upstream
   defaultBuckets:
-  minioConfig: (upstream)
+  minioConfig:  # Upstream
 ```
 
 ### Installation command line options
@@ -92,7 +92,7 @@ found in [the Kubernetes documentation](https://kubernetes.io/docs/concepts/cont
 
 Below is an example use of `pullSecrets`:
 
-```YAML
+```yaml
 image: my.minio.repository
 imageTag: latest
 imagePullPolicy: Always
@@ -107,7 +107,7 @@ pullSecrets:
 
 Below is an example use of `tolerations`:
 
-```YAML
+```yaml
 tolerations:
 - key: "node_label"
   operator: "Equal"
@@ -132,7 +132,7 @@ When you are ready to disable it, run `--set global.minio.enabled: false`.
 
 While rarely altered, the `initContainer` behaviors can be changed via the following items:
 
-```
+```yaml
 init:
   image:
     repository:
@@ -192,7 +192,7 @@ are [documented upstream](https://github.com/helm/charts/tree/master/stable/mini
 
 GitLab has added a few items:
 
-```
+```yaml
 persistence:
   volumeName:
   matchLabels:
@@ -211,7 +211,7 @@ persistence:
 pod at *installation*. This property contains an array of items, each with up to three
 properties: `name`, `policy`, and `purge`.
 
-```
+```yaml
 defaultBuckets:
   - name: public
     policy: public
@@ -239,7 +239,7 @@ For in-depth information about security context, please refer to the official
 These are [documented upstream](https://github.com/helm/charts/tree/master/stable/minio#configuration),
 and the key summary is:
 
-```
+```yaml
 ## Expose the MinIO service to be accessed from outside the cluster (LoadBalancer service).
 ## or access it from within the cluster (ClusterIP service). Set the service type and the port to serve it.
 ## ref: http://kubernetes.io/docs/user-guide/services/

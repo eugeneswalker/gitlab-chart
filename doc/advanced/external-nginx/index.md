@@ -18,7 +18,7 @@ In a direct deployment, the NGINX Ingress Controller handles configuring TCP ser
 Assuming your GitLab chart is deployed to the namespace `gitlab` and your Helm
 release is named `mygitlab`, your `ConfigMap` should be something like this:
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:

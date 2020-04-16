@@ -44,6 +44,9 @@ init:
 ## Support for tolerations for pod scheduling
 tolerations: []
 
+## The Gitaly StatefulSet's priorityClassName
+# priorityClassName:
+
 logging:
   format: "json"
   # level:
@@ -66,7 +69,6 @@ workhorse:
   # host: '0.0.0.0'
   # serviceName: 'unicorn'
   # port: 8181
-redis: {}
 shell:
   authToken: {}
   concurrency: []

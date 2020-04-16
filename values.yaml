@@ -127,6 +127,7 @@ global:
   appConfig:
     ## doc/charts/globals.md#general-application-settings
     enableUsagePing: true
+    enableSeatLink: true
     enableImpersonation:
     defaultCanCreateGroup: true
     usernameChangingEnabled: true
@@ -241,6 +242,10 @@ global:
       when:
       proxy_download: true
       bucket: gitlab-mr-diffs
+      connection: {}
+    terraformState:
+      enabled: false
+      bucket: gitlab-terraform-state
       connection: {}
 
     ## doc/charts/globals.md#pseudonymizer-settings
@@ -433,6 +438,10 @@ global:
       repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
       tag: 1.13.12
       pullSecrets: []
+    securityContext:
+      # in most base images, this is `nobody:nogroup`
+      runAsUser: 65534
+      fsGroup: 65534
   busybox:
     image:
       repository: busybox
@@ -545,10 +554,6 @@ prometheus:
 ## Configuration of Redis
 ## doc/architecture/decisions.md#redis
 ## doc/charts/redis
-# redis:
-#   enabled: true
-## doc/architecture/decisions.md#redis-ha
-## doc/charts/redis-ha
 redis:
   install: true
   existingSecret: gitlab-redis-secret
@@ -655,7 +660,10 @@ grafana:
 
 ## Settings for individual sub-charts under GitLab
 ## Note: Many of these settings are configurable via globals
-# gitlab:
+gitlab:
+  ## doc/charts/gitlab/task-runner
+  task-runner:
+    replicas: 1
 ## doc/charts/gitlab/migrations
 #   migrations:
 #     enabled: false

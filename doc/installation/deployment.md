@@ -2,7 +2,7 @@
 
 Before running `helm install`, you need to make some decisions about how you will run GitLab.
 Options can be specified using Helm's `--set option.name=value` command line option.
-A complete list  of command line options can be found [here](./command-line-options.md).
+A complete list of command line options can be found [here](command-line-options.md).
 This guide will cover required values and common options.
 
 ## Selecting configuration options
@@ -22,14 +22,14 @@ objects. You'll need to specify a domain which will contain records to resolve
 
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set global.hosts.domain=example.com
 ```
 
 #### Dynamic IPs with external-dns
 
 If you plan to use an automatic DNS registration service like [external-dns](https://github.com/kubernetes-sigs/external-dns),
-you won't need any additional configuration.
+you won't need any additional configuration for GitLab, but you will need to deploy it to your cluster. If external-dns is your choice, the project page [has a comprehensive guide](https://github.com/kubernetes-sigs/external-dns#deploying-to-a-cluster) for each supported provider.
 
 If you provisioned a GKE cluster using the scripts in this repo, [external-dns](https://github.com/kubernetes-sigs/external-dns)
 is already installed in your cluster.
@@ -47,7 +47,7 @@ documentation for more help on this process.
 
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set global.hosts.externalIP=10.10.10.10
 ```
 
@@ -64,13 +64,13 @@ You should be running GitLab using https which requires TLS certificates. By def
 chart will install and configure [cert-manager](https://github.com/jetstack/cert-manager)
 to obtain free TLS certificates.
 If you have your own wildcard certificate, you already have cert-manager installed, or you
-have some other way of obtaining TLS certificates, [read about more TLS options here](./tls.md).
+have some other way of obtaining TLS certificates, [read about more TLS options here](tls.md).
 
 For the default configuration, you must specify an email address to register your TLS
 certificates.
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set certmanager-issuer.email=me@example.com
 ```
 
@@ -86,12 +86,12 @@ purposes only.
 
 You can read more about setting up your production-ready database in the [advanced database docs](../advanced/external-db/index.md).
 
-If you have an external postgres database ready, the chart can be configured to
+If you have an external PostgreSQL database ready, the chart can be configured to
 use it as shown below.
 
 *Include these options in your Helm install command:*
 
-```
+```shell
 --set postgresql.install=false
 --set global.psql.host=production.postgress.hostname.local
 --set global.psql.password.secret=kubernetes_secret_name
@@ -190,7 +190,7 @@ By default, the Helm charts use the Enterprise Edition of GitLab. If desired, yo
 
 *To deploy the Community Edition, include this option in your Helm install command:*
 
-```
+```shell
 --set global.edition=ce
 ```
 
@@ -198,7 +198,7 @@ By default, the Helm charts use the Enterprise Edition of GitLab. If desired, yo
 
 This chart defaults to creating and using RBAC. If your cluster does not have RBAC enabled, you will need to disable these settings:
 
-```
+```shell
 --set certmanager.rbac.create=false
 --set nginx-ingress.rbac.createRole=false
 --set prometheus.rbac.create=false
@@ -215,15 +215,15 @@ a smaller cluster.
 The [minimal GKE example values file](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/values-gke-minimum.yaml) provides an example of tuning the resources
 to fit within a 3vCPU 12gb cluster.
 
-The [minimal minikube example values file](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/values-minikube-minimum.yaml) provides an example of tuning the
-resources to fit within a 2vCPU, 4gb minikube instance.
+The [minimal Minikube example values file](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/values-minikube-minimum.yaml) provides an example of tuning the
+resources to fit within a 2vCPU, 4gb Minikube instance.
 
 ## Deploy using Helm
 
 Once you have all of your configuration options collected, we can get any dependencies and
 run Helm. In this example, we've named our Helm release `gitlab`.
 
-```
+```shell
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm upgrade --install gitlab gitlab/gitlab \
@@ -241,7 +241,7 @@ Instructions for installing a development branch rather than a tagged release ca
 
 ### GitLab Operator (experimental)
 
-If you would like to use GitLab Operator to achieve zero downtime upgrades, please follow the [documentation for using the operator](./operator.md)
+If you would like to use GitLab Operator to achieve zero downtime upgrades, please follow the [documentation for using the operator](operator.md).
 
 ## Monitoring the Deployment
 
@@ -259,7 +259,7 @@ created a random password for `root` user. This can be extracted by the
 following command (replace `<name>` by name of the release - which is `gitlab`
 if you used the command above).
 
-```
+```shell
 kubectl get secret <name>-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
 ```
 

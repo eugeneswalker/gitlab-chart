@@ -249,6 +249,10 @@ documentation for details on managing which nodes will be used for new projects.
 NOTE: **Note:** If `gitaly.host` is provided, `gitaly.internal` and `gitaly.external`
   properties will *be ignored*. See the [deprecated Gitaly settings](#deprecated-gitaly-settings).
 
+NOTE: **Note:** The Gitaly authentication token is expected to be identical for
+all Gitaly services at this time, internal or external. Ensure these are aligned.
+See [issue #1992](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1992) for further details.
+
 #### Internal
 
 The `internal` key currently consists of only one key, `names`, which is a list of
@@ -282,8 +286,14 @@ Each item of this list has 3 keys:
 
 NOTE: **Note:** You must have an entry with `name: default`.
 
-A sample [configuration of multiple external nodes](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/gitaly/values-multiple-external.yaml)
-can be found in the examples folder.
+We provide an [advanced configuration](../advanced/index.md) guide for
+[using an external Gitaly service](../advanced/external-gitaly/index.md). You can also
+find sample [configuration of multiple external services](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/gitaly/values-multiple-external.yaml)
+in the examples folder.
+
+NOTE: **Note:** You may use an external [Praefect](https://docs.gitlab.com/ee/administration/gitaly/praefect.html)
+to provide highly available Gitaly services. Configuration of the two is
+interchangeable, as from the viewpoint of the clients, there is no difference.
 
 #### Mixed
 
@@ -321,7 +331,7 @@ Configuring Gitaly over TLS is detailed [in the Gitaly chart's documentation](gi
 The GitLab global MinIO settings are located under the `global.minio` key. For more
 details on these settings, see the documentation within the [MinIO chart](minio/index.md).
 
-```
+```yaml
 global:
   minio:
     enabled: true
@@ -334,10 +344,11 @@ The [Unicorn](gitlab/unicorn/index.md), [Sidekiq](gitlab/sidekiq/index.md), and
 [Gitaly](gitlab/gitaly/index.md) charts share multiple settings, which are configured
 with the `global.appConfig` key.
 
-```
+```yaml
 global:
   appConfig:
     enableUsagePing: true
+    enableSeatLink: true
     enableImpersonation: true
     defaultCanCreateGroup: true
     usernameChangingEnabled: true
@@ -384,6 +395,10 @@ global:
       proxy_download: true
       bucket: gitlab-mr-diffs
       connection: {}
+    terraformState:
+      enabled: false
+      bucket: gitlab-terraform-state
+      connection: {}
     backups:
       bucket: gitlab-backups
     incomingEmail:
@@ -414,6 +429,7 @@ application are described below:
 | Name                                | Type    | Default | Description |
 |:----------------------------------- |:-------:|:------- |:----------- |
 | `enableUsagePing`                   | Boolean | `true`  | A flag to disable the [usage ping support](https://docs.gitlab.com/ee/user/admin_area/settings/usage_statistics.html). |
+| `enableSeatLink`                    | Boolean | `true`  | A flag to disable the [seat link support](https://docs.gitlab.com/ee/subscriptions/#seat-link). |
 | `enableImpersonation`               |         | `nil`   | A flag to disable [user impersonation by Administrators](https://docs.gitlab.com/ee/api/README.html#disable-impersonation). |
 | `defaultCanCreateGroup`             | Boolean | `true`  | A flag to decide if users are allowed to create groups. |
 | `usernameChangingEnabled`           | Boolean | `true`  | A flag to decide if users are allowed to change their username. |
@@ -427,7 +443,7 @@ application are described below:
 Flags to decide if new projects should be created with the respective features by
 default. All flags default to `true`.
 
-```YAML
+```yaml
 defaultProjectsFeatures:
   issues: true
   mergeRequests: true
@@ -510,7 +526,7 @@ kubectl create secret generic gitlab-rails-storage \
 
 #### when (only for External MR Diffs)
 
-`externalDiffs` setting has an additional  key `when` to
+`externalDiffs` setting has an additional key `when` to
 [conditionally store specific diffs on object storage](https://docs.gitlab.com/ee/administration/merge_request_diffs.html#alternative-in-database-storage).
 This setting is left empty by default in the Charts, for a default value to be
 assigned by the Rails code.
@@ -548,7 +564,7 @@ ldap:
 
 Example `--set` configuration items, when using the global chart:
 
-```
+```shell
 --set global.appConfig.ldap.servers.main.label='LDAP' \
 --set global.appConfig.ldap.servers.main.host='your_ldap_server' \
 --set global.appConfig.ldap.servers.main.port='636' \
@@ -563,7 +579,7 @@ NOTE: **Note:** Commas are considered [special characters](https://helm.sh/docs/
 
 #### Disable LDAP web sign in
 
-It can be be useful to prevent using LDAP credentials through the web UI when an alternative such as SAML is preferred. This allows LDAP to be used for group sync, while also allowing your SAML identity provider to handle additional checks like custom 2FA.
+It can be useful to prevent using LDAP credentials through the web UI when an alternative such as SAML is preferred. This allows LDAP to be used for group sync, while also allowing your SAML identity provider to handle additional checks like custom 2FA.
 
 When LDAP web sign in is disabled, users will not see a LDAP tab on the sign in page. This does not disable [using LDAP credentials for Git access.](https://docs.gitlab.com/ee/administration/auth/ldap.html#git-password-authentication)
 
@@ -685,7 +701,7 @@ passed to `helm` with `-f omniauth.yaml`.
 
 Use these settings to configure the [Pseudonymizer service](https://docs.gitlab.com/ee/administration/pseudonymizer.html).
 
-```
+```yaml
 global:
   appConfig:
     pseudonymizer:
@@ -773,7 +789,7 @@ global:
 
 A large portion of the GitLab suite is based upon Rails. As such, many containers within this project operate with this stack. These settings apply to all of those containers, and provide an easy access method to setting them globally versus individually.
 
-```
+```yaml
 global:
   rails:
     bootsnap:
@@ -834,7 +850,7 @@ Some users may need to add custom certificate authorities, such as when using in
 issued SSL certificates for TLS services. To provide this functionaliy, we provide
 a mechanism for injecting these custom root certificate authorities into the application via secrets.
 
-```
+```yaml
 global:
   certificates:
     customCAs:
@@ -857,7 +873,7 @@ kubectl create secret generic custom-ca --from-file=unique_name=/path/to/cert
 
 To configure the secret:
 
-```
+```shell
 helm install gitlab \
   --set global.certificates.customCAs[0].secret=custom-ca
 ```

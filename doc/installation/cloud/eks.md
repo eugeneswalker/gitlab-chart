@@ -34,7 +34,7 @@ The table below describes all variables.
 |-------------------|--------------------------------------------------|------------------|
 | `REGION`          | The region where your cluster lives              | `us-east-2`      |
 | `CLUSTER_NAME`    | The name of the cluster                          | `gitlab-cluster` |
-| `CLUSTER_VERSION` | The version of your EKS cluster                  | `1.11`           |
+| `CLUSTER_VERSION` | The version of your EKS cluster                  | `1.14`           |
 | `NUM_NODES`       | The number of nodes required                     | `2`              |
 | `MACHINE_TYPE`    | The type of nodes to deploy                      | `m5.xlarge`      |
 | `SERVICE_ACCOUNT` | The service account name to use for Helm/Tiller  | `tiller`         |

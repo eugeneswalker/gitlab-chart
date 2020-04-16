@@ -1,10 +1,10 @@
-# Default values for unicorn-web.
+# Default values for unicorn.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
   pullSecrets: []
   # pullPolicy: IfNotPresent
-  # repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ee
+  # repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee
   # tag: latest
 init:
   image: {}
@@ -57,9 +57,17 @@ ingress:
     # enabled: true
   annotations: {}
 workerProcesses: 2
+
 memory: # in MB units
   min: 1024
   max: 1280
+
+puma:
+  workerMaxMemory: 1024 # in MB units
+  threads:
+    min: 4
+    max: 4
+
 hpa:
   targetAverageValue: 1
 
@@ -97,6 +105,10 @@ workhorse:
     timeoutSeconds: 2
     successThreshold: 1
     failureThreshold: 3
+
+psql: {}
+  # port: 5432
+
 global:
   # imagePullPolicy: IfNotPresent
   ingress:
@@ -175,6 +187,10 @@ global:
       proxy_download: true
       bucket:
       connection: {}
+    terraformState:
+      enabled: false
+      bucket:
+      connection: {}
     ldap:
       servers: {}
       # 'main' is the GitLab 'provider ID' of this LDAP server
@@ -246,3 +262,5 @@ minReplicas: 2
 maxReplicas: 10
 helmTests:
   enabled: true
+
+webServer: unicorn

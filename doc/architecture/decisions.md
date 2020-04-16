@@ -25,7 +25,7 @@ from properties to secrets (in observance of our preference).
 As a means of preventing a user from accidentally deploying an updated version of these
 charts which includes a breaking change against a configuration that would not function, we
 have chosen to implement [deprecation](../development/index.md#handling-configuration-deprecations) notifications. These are designed to detect
-properties have have been relocated, altered, replaced, or removed entirely, then inform
+properties have been relocated, altered, replaced, or removed entirely, then inform
 the user of what changes need to be made to the configuration. This may include informing
 the user to see documentation on how to replace a property with a secret. These notifications
 will cause the Helm `install` or `upgrade` commands to stop with a parse error, and output a complete list of items that need to be addressed. We have taken care to ensure a user will not be placed into a loop of error, fix, repeat.
@@ -107,13 +107,13 @@ our [guidelines for forking](../development/index.md#guidelines-for-forking)
 
 ### Redis
 
-With the `3.0` release of the GitLab Helm chart, we no longer fork the [upstream Redis chart](https://github.com/helm/charts/tree/master/stable/redis),
+With the `3.0` release of the GitLab Helm chart, we no longer fork the [upstream Redis chart](https://github.com/bitnami/charts/tree/master/bitnami/redis),
 and instead include it as a dependency.
 
 ### Redis HA
 
 Redis-HA was a chart we included in our releases prior to `3.0`. It has now been removed,
-and replaced with [upstream Redis chart](https://github.com/helm/charts/tree/master/stable/redis)
+and replaced with [upstream Redis chart](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 which has added optional HA support.
 
 ### MinIO
@@ -138,3 +138,23 @@ Our [NGINX Ingress chart](../charts/nginx/index.md) was altered from the upstrea
 
 - Add feature to allow for the tcp configmap to be external to the chart
 - Add feature to allow Ingress class to be templated based on release name
+
+## Kubernetes version used throughout Chart
+
+To maximize support for different Kubernetes versions, use a `kubectl` that's
+one minor version lower than the current stable release of Kubernetes.
+This should allow support for at least three, and quite possibly more
+Kubernetes minor versions. For further discussion on `kubectl` versions, see
+[issue 1509](https://gitlab.com/gitlab-org/charts/gitlab/issues/1509).
+
+Related Issues:
+
+- [`charts/gitlab#1509`](https://gitlab.com/gitlab-org/charts/gitlab/issues/1509)
+- [`charts/gitlab#1583`](https://gitlab.com/gitlab-org/charts/gitlab/issues/1583)
+
+Related Merge Requests:
+
+- [`charts/gitlab!1053`](https://gitlab.com/gitlab-org/charts/gitlab/-/merge_requests/1053)
+- [`build/CNG!329`](https://gitlab.com/gitlab-org/build/CNG/-/merge_requests/329)
+- [`charts/components/gitlab-operator!72`](https://gitlab.com/gitlab-org/charts/components/gitlab-operator/-/merge_requests/72)
+- [`gitlab-build-images!251`](https://gitlab.com/gitlab-org/gitlab-build-images/-/merge_requests/251)

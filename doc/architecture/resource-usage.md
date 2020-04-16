@@ -32,7 +32,7 @@ We will measure:
   set the limit above this and the average load values.
 
 - **Heavy Load** - Try and come up with a stress test for the service, then measure
-  the resource usage required to do it. We currently don't use these  values for any
+  the resource usage required to do it. We currently don't use these values for any
   defaults, but users will likely want to set resource limits somewhere between the
   average loads/stress task and this value.
 

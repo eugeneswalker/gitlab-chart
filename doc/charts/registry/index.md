@@ -44,7 +44,7 @@ registry:
     readOnly:
       enabled: false
   image:
-    tag: 'v2.8.1-gitlab'
+    tag: 'v2.9.0-gitlab'
     pullPolicy: IfoNtPresent
   annotations:
   service:
@@ -75,6 +75,7 @@ registry:
       enabled: false
   validation:
     disabled: true
+  notifications: {}
   tolerations: []
   ingress:
     enabled: false
@@ -119,7 +120,7 @@ If you chose to deploy this chart as a standalone, remove the `registry` at the 
 | `image.pullPolicy`                         |                                              | Pull policy for the registry image                                                                   |
 | `image.pullSecrets`                        |                                              | Secrets to use for image repository                                                                  |
 | `image.repository`                         | `registry`                                   | Registry image                                                                                       |
-| `image.tag`                                | `v2.8.1-gitlab`                              | Version of the image to use                                                                          |
+| `image.tag`                                | `v2.9.0-gitlab`                              | Version of the image to use                                                                          |
 | `init.image.repository`                    |                                              | initContainer image                                                                                  |
 | `init.image.tag`                           |                                              | initContainer image tag                                                                              |
 | `log`                                      | `{level: warn, fields: {service: registry}}` | Configure the logging options                                                                        |
@@ -195,7 +196,7 @@ You can change the included version of the Registry and `pullPolicy`.
 
 Default settings:
 
-- `tag: 'v2.8.1-gitlab'`
+- `tag: 'v2.9.0-gitlab'`
 - `pullPolicy: 'IfNotPresent'`
 
 ## Configuring the `service`
@@ -296,7 +297,7 @@ filled with a securely generated 128 character alpha-numeric string that is base
 
 To create this secret manually:
 
-```sh
+```shell
 kubectl create secret generic gitlab-registry-httpsecret --from-literal=secret=strongrandomstring
 ```
 
@@ -368,6 +369,35 @@ windows images with foreign layers.
 The image validation is turned off by default.
 
 To enable image validation you need to explicitly set `registry.validation.disabled: false`.
+
+### notifications
+
+The `notifications` field is used to configure [Registry notifications](https://docs.docker.com/registry/notifications/#configuration).
+It has an empty hash as default value.
+
+| Name         | Type  | Default | Description                                                                                                          |
+| :----------: | :---: | :------ | :------------------------------------------------------------------------------------------------------------------: |
+| `endpoints`  | Array | `[]`    | List of items where each item correspond to an [endpoint](https://docs.docker.com/registry/configuration/#endpoints) |
+| `events`     | Hash  | `{}`    | Information provided in [event](https://docs.docker.com/registry/configuration/#events) notifications                |
+
+An example setting will look like the following:
+
+```yaml
+notifications:
+  endpoints:
+    - name: FooListener
+      url: https://foolistener.com/event
+      timeout: 500ms
+      threshold: 10
+      backoff: 1s
+    - name: BarListener
+      url: https://barlistener.com/event
+      timeout: 100ms
+      threshold: 3
+      backoff: 1s
+  events:
+    includereferences: true
+```
 
 ### hpa
 
@@ -451,7 +481,7 @@ The `health` property is optional, and contains preferences for
 a periodic health check on the storage driver's backend storage.
 For more details, see Docker's [configuration documentation](https://docs.docker.com/registry/configuration/#health).
 
-```
+```yaml
 health:
   storagedriver:
     enabled: false

@@ -2,6 +2,82 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 3.2.3 (2020-04-15)
+
+### Added (1 change, 1 of them is from the community)
+
+- Add support for the Seat Link enabled flag. !1272 (Matthias van de Meent)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.3.
+
+
+## 3.2.2 (2020-03-31)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.2.
+
+
+## 3.2.1 (2020-03-26)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.1.
+
+
+## 3.2.0 (2020-03-22)
+
+### Fixed (4 changes, 1 of them is from the community)
+
+- Fix unicorn worker killer configuration. !1199 (Matthias van de Meent)
+- Fix logic of registry HPA deprecations. !1203
+- Ensure kubectl jobs are not run as root. !1206
+- Add gitlab.host to Migrations Rails config #1947. !1215
+
+### Changed (2 changes)
+
+- Update gitlab-org/gitlab-exporter from 6.0.0 to 6.1.0. !1176
+- Bump Container Registry to v2.8.2-gitlab. !1214
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.0.
+
+
+## 3.1.7 (2020-04-15)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.8.9.
+
+
+## 3.1.6 (2020-03-26)
+
+### Fixed (1 change)
+
+- Fix logic of registry HPA deprecations. !1203
+
+### Other (1 change)
+
+- Update GitLab Version to 12.8.8.
+
+
+## 3.1.5 (2020-03-16)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.8.7.
+
+
+## 3.1.4 (2020-03-11)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.8.6.
+
+
 ## 3.1.3 (2020-03-09)
 
 ### Other (1 change)
@@ -63,6 +139,24 @@ entry.
 - Include GitLab Exporter & GitLab Grafana to sub-chart lists. !1161
 - Bump Container Registry to v2.8.1-gitlab. !1173
 - Update GitLab Version to 12.8.0.
+
+
+## 3.0.7 (2020-04-15)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.7.9.
+
+
+## 3.0.6 (2020-03-26)
+
+### Fixed (1 change)
+
+- Fix logic of registry HPA deprecations. !1203
+
+### Other (1 change)
+
+- Update GitLab Version to 12.7.8.
 
 
 ## 3.0.5

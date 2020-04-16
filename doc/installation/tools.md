@@ -115,7 +115,7 @@ gcloud container clusters get-credentials <cluster-name> --zone <zone> --project
 For the most up to date instructions, follow the Amazon EKS documentation on
 [connecting to a cluster](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html#eks-configure-kubectl).
 
-#### Connect to a local minikube cluster
+#### Connect to a local Minikube cluster
 
 If you are doing local development, you can use `minikube` as your
 local cluster. If `kubectl cluster-info` is not showing `minikube` as the current
@@ -134,7 +134,7 @@ gcloud container clusters describe <cluster-name> --zone <zone> --project <proje
 This command will output the admin password. We need the password to authenticate
 with `kubectl` and create the role.
 
-We will also create an admin user for this cluster.  Use a name you prefer but
+We will also create an admin user for this cluster. Use a name you prefer but
 for this example we will include the cluster's name in it:
 
 ```sh

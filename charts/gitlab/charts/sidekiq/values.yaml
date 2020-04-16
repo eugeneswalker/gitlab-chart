@@ -20,6 +20,8 @@ tolerations: []
 
 enabled: true
 
+cluster: false
+
 annotations: {}
 
 logging:
@@ -46,6 +48,9 @@ metrics:
 
 redis:
   password: {}
+
+psql: {}
+  # port: 5432
 
 # https://docs.gitlab.com/ee/administration/operations/sidekiq_memory_killer.html#sidekiq-memorykiller
 memoryKiller:
@@ -139,6 +144,10 @@ global:
       proxy_download: true
       bucket:
       connection: {}
+    terraformState:
+      enabled: false
+      bucket:
+      connection: {}
     ldap:
       servers: {}
       # 'main' is the GitLab 'provider ID' of this LDAP server
@@ -203,7 +212,7 @@ trusted_proxies: []
 # Global defaults
 minReplicas: 1
 maxReplicas: 10
-concurrency: 10
+concurrency: 25
 hpa:
   targetAverageValue: 350m
 timeout: 5
@@ -219,7 +228,7 @@ maxUnavailable: 1
 # Define queue groups into Pods
 pods:
   - name: all-in-1
-    concurrency: 25
+    # concurrency: 25
     # minReplicas: 1
     # maxReplicas: 10
     queues:

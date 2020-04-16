@@ -14,7 +14,7 @@ using various tools. This chart comes ready to integrate with a popular choice [
 
 ### Internal cert-manager and Issuer
 
-```
+```shell
 helm repo update
 helm dep update
 helm install ...
@@ -29,7 +29,7 @@ provided by default.
 
 It is possible to make use of an external `cert-manager` but provide an Issuer as a part of this chart.
 
-```
+```shell
 helm install ...
   --set certmanager.install=false \
   --set certmanager-issuer.email=you@example.com \
@@ -44,9 +44,9 @@ are not activated.
 1. Annotations to activate the external `cert-manager` (see [documentation][cm-annotations] for further details)
 1. Names of TLS secrets for each service (this deactivates [self-signed behaviors](#option-4-use-auto-generated-self-signed-wildcard-certificate))
 
-```
+```shell
 helm install ...
-  --set cert-manager.install=false \
+  --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.annotations."kubernetes\.io/tls-acme"=true \
   --set gitlab.unicorn.ingress.tls.secretName=RELEASE-gitlab-tls \
@@ -58,13 +58,13 @@ helm install ...
 
 Add your full chain certificate and key to the cluster as a `Secret`, e.g.:
 
-```
+```shell
 kubectl create secret tls <tls-secret-name> --cert=<path/to-full-chain.crt> --key=<path/to.key>
 ```
 
 Include the option to
 
-```
+```shell
 helm install ...
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
@@ -75,7 +75,7 @@ helm install ...
 
 Add your full chain certificates to the cluster as secrets, and then pass those secret names to each Ingress.
 
-```
+```shell
 helm install ...
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
@@ -94,7 +94,7 @@ desired. This functionality is provided by the [shared-secrets](../charts/shared
 > **Note**: The `gitlab-runner` chart does not function properly with self-signed certificates. We recommend
 disabling it, as shown below.
 
-```
+```shell
 helm install ...
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \

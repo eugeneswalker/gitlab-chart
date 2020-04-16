@@ -10,7 +10,7 @@ Using this pod user can run commands using `kubectl exec -it <pod name> -- <arbi
 
 The task runner runs a container from the [task-runner image](https://gitlab.com/gitlab-org/build/CNG/tree/master/gitlab-task-runner).
 
-The image contains some custom scripts that are to be called as commands by the user, these scripts can be found [here](https://gitlab.com/gitlab-org/build/CNG/tree/master/gitlab-task-runner/scripts). These scripts are for running rake tasks, backup, restore, and some helper scripts for interacting with object storage.
+The image contains some custom scripts that are to be called as commands by the user, these scripts can be found [here](https://gitlab.com/gitlab-org/build/CNG/tree/master/gitlab-task-runner/scripts). These scripts are for running Rake tasks, backup, restore, and some helper scripts for interacting with object storage.
 
 ## Backup utility
 
@@ -25,8 +25,8 @@ There is also an option to manually set a part of the name of the generated back
 
 The sequence of execution is:
 
-1. Backup the database (if not skipped) using the [GitLab backup rake task](https://gitlab.com/gitlab-org/build/CNG/blob/74dc35d4b481e86330bf6b244f88e5dd8876cc0c/gitlab-task-runner/scripts/bin/backup-utility#L120)
-1. Backup the repositories (if not skipped) using the [GitLab backup rake task](https://gitlab.com/gitlab-org/build/CNG/blob/74dc35d4b481e86330bf6b244f88e5dd8876cc0c/gitlab-task-runner/scripts/bin/backup-utility#L123)
+1. Backup the database (if not skipped) using the [GitLab backup Rake task](https://gitlab.com/gitlab-org/build/CNG/blob/74dc35d4b481e86330bf6b244f88e5dd8876cc0c/gitlab-task-runner/scripts/bin/backup-utility#L120)
+1. Backup the repositories (if not skipped) using the [GitLab backup Rake task](https://gitlab.com/gitlab-org/build/CNG/blob/74dc35d4b481e86330bf6b244f88e5dd8876cc0c/gitlab-task-runner/scripts/bin/backup-utility#L123)
 1. For each of the object storage backends
    1. If the object storage backend is marked for skipping, skip this storage backend.
    1. Tar the existing data in the corresponding object storage bucket naming it `<bucket-name>.tar`
@@ -58,11 +58,12 @@ given a `-f` parameter it expects that the given url is a valid uri of a backup 
 
 After fetching the backup tar the sequence of execution is:
 
-1. For repositories and database run the [GitLab backup rake task](https://gitlab.com/gitlab-org/gitlab-foss/tree/master/lib/tasks/gitlab/backup.rake)
+1. For repositories and database run the [GitLab backup Rake task](https://gitlab.com/gitlab-org/gitlab-foss/tree/master/lib/tasks/gitlab/backup.rake)
 1. For each of object storage backends:
    - tar the existing data in the corresponding object storage bucket naming it `<backup-name>.tar`
    - upload it to `tmp` bucket in object storage
    - clean up the corresponding bucket
    - restore the backup content into the corresponding bucket
 
-> Note:  If the restore fails, user will need to revert to previous backup using data in `tmp` directory of the the backup bucket. This is currently a manual process.
+NOTE: **Note:**
+If the restore fails, the user will need to revert to previous backup using data in `tmp` directory of the backup bucket. This is currently a manual process.

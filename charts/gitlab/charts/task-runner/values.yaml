@@ -16,7 +16,11 @@ init:
 tolerations: []
 
 enabled: true
+replicas: 1
 annotations: {}
+
+psql: {}
+  # port: 5432 
 
 global:
   # imagePullPolicy: IfNotPresent
@@ -75,6 +79,10 @@ global:
     externalDiffs:
       when:
       proxy_download: true
+      bucket:
+      connection: {}
+    terraformState:
+      enabled: false
       bucket:
       connection: {}
     ldap:

@@ -108,7 +108,85 @@ data:
 
     ENV['GITLAB_UNICORN_MEMORY_MIN'] = ({{ int .Values.memory.min }} * 1 << 20).to_s
     ENV['GITLAB_UNICORN_MEMORY_MAX'] = ({{ int .Values.memory.max }} * 1 << 20).to_s
+  puma.rb: |
+    # This file should be equivalent to `puma.rb` from:
+    # * gitlab-foss: https://gitlab.com/gitlab-org/gitlab-foss/blob/master/config/puma.rb.example
+    # * omnibus: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-cookbooks/gitlab/templates/default/puma.rb.erb
+    # frozen_string_literal: true
 
+    pidfile "/home/git/puma.pid"
+    state_path "/home/git/puma.pid"
+
+    stdout_redirect '/srv/gitlab/log/puma.stdout.log',
+      '/srv/gitlab/log/puma.stderr.log',
+      true
+
+    # Configure "min" to be the minimum number of threads to use to answer
+    # requests and "max" the maximum.
+    threads {{ int .Values.puma.threads.min }}, {{ int .Values.puma.threads.max }}
+
+    # By default, workers accept all requests and queue them to pass to handlers.
+    # When false, workers accept the number of simultaneous requests configured.
+    #
+    # Queueing requests generally improves performance, but can cause deadlocks if
+    # the app is waiting on a request to itself. See https://github.com/puma/puma/issues/612
+    #
+    # When set to false this may require a reverse proxy to handle slow clients and
+    # queue requests before they reach puma. This is due to disabling HTTP keepalive
+    queue_requests false
+
+    # Bind the server to "url". "tcp://", "unix://" and "ssl://" are the only
+    # accepted protocols.
+    bind 'tcp://0.0.0.0:{{ int .Values.service.internalPort }}'
+
+    directory "/srv/gitlab"
+
+    workers {{ int .Values.workerProcesses }}
+
+    require_relative "/srv/gitlab/lib/gitlab/cluster/lifecycle_events"
+    require_relative "/srv/gitlab/lib/gitlab/cluster/puma_worker_killer_initializer"
+
+    on_restart do
+      # Signal application hooks that we're about to restart
+      Gitlab::Cluster::LifecycleEvents.do_before_master_restart
+    end
+
+    options = { workers: {{ int .Values.workerProcesses }} }
+
+    before_fork do
+      # Signal to the puma killer
+      Gitlab::Cluster::PumaWorkerKillerInitializer.start(options, puma_per_worker_max_memory_mb: {{ int .Values.puma.workerMaxMemory }})
+
+      # Signal application hooks that we're about to fork
+      Gitlab::Cluster::LifecycleEvents.do_before_fork
+    end
+
+    Gitlab::Cluster::LifecycleEvents.set_puma_options options
+    on_worker_boot do
+      # Signal application hooks of worker start
+      Gitlab::Cluster::LifecycleEvents.do_worker_start
+    end
+
+    # Preload the application before starting the workers; this conflicts with
+    # phased restart feature. (off by default)
+
+    preload_app!
+
+    tag 'gitlab-puma-worker'
+
+    # Verifies that all workers have checked in to the master process within
+    # the given timeout. If not the worker process will be restarted. Default
+    # value is 60 seconds.
+    #
+    worker_timeout {{ .Values.global.unicorn.workerTimeout }}
+
+    # Use customised JSON formatter for Puma log
+    require_relative "/srv/gitlab/lib/gitlab/puma_logging/json_formatter"
+
+    json_formatter = Gitlab::PumaLogging::JSONFormatter.new
+    log_formatter do |str|
+        json_formatter.call(str)
+    end
   gitlab.yml.erb: |
     production: &base
       gitlab:
@@ -121,6 +199,7 @@ data:
         max_request_duration_seconds: {{ default (include "gitlab.appConfig.maxRequestDurationSeconds" $) .maxRequestDurationSeconds }}
         impersonation_enabled: {{ .enableImpersonation }}
         usage_ping_enabled: {{ eq .enableUsagePing true }}
+        seat_link_enabled: {{ eq .enableSeatLink true }}
         default_can_create_group: {{ eq .defaultCanCreateGroup true }}
         username_changing_enabled: {{ eq .usernameChangingEnabled true }}
         issue_closing_pattern: {{ .issueClosingPattern | quote }}
@@ -149,6 +228,7 @@ data:
       {{- include "gitlab.appConfig.uploads.configuration" (dict "config" $.Values.global.appConfig.uploads "context" $) | nindent 6 }}
       {{- include "gitlab.appConfig.packages.configuration" (dict "config" $.Values.global.appConfig.packages "context" $) | nindent 6 }}
       {{- include "gitlab.appConfig.external_diffs.configuration" (dict "config" $.Values.global.appConfig.externalDiffs "context" $) | nindent 6 }}
+      {{- include "gitlab.appConfig.terraformState.configuration" (dict "config" $.Values.global.appConfig.terraformState "context" $) | nindent 6 }}
       {{- include "gitlab.geo.config" $ | nindent 6 }}
       pages:
         enabled: false

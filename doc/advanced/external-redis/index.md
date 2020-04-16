@@ -23,9 +23,9 @@ Items below can be further customized if you are not using the defaults:
 
 For example, pass these values via Helm's `--set` flag while deploying:
 
-```
+```shell
 helm install .  \
-  --set redis.enabled=false \
+  --set redis.install=false \
   --set global.redis.host=redis.example \
   --set global.redis.password.secret=gitlab-redis \
   --set global.redis.password.key=redis-password \

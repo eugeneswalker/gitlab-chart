@@ -19,13 +19,13 @@ can do one of three things:
   [Cloud SDK](https://cloud.google.com/sdk/) page. Once you have `gcloud`
   installed, you can install `kubectl`:
 
-  ```sh
+  ```shell
   sudo gcloud components install kubectl
   ```
 
   If you've already installed `kubectl` via this method, ensure it is updated:
 
-  ```sh
+  ```shell
   sudo gcloud components update
   ```
 
@@ -49,14 +49,14 @@ with VirtualBox, however there are drivers for VMware Fusion, HyperV, KVM, and X
 
 Minikube resource requests must be set higher than the default for developing
 the GitLab chart. The key configuration items can be found with
-`minkube start --help`. A selection is provided below, for what we may want to
+`minikube start --help`. A selection is provided below, for what we may want to
 change according to the pieces being tested, and the requirements as listed:
 
-- `--cpus int`: Number of CPUs allocated to the minikube VM (default `2`).
+- `--cpus int`: Number of CPUs allocated to the Minikube VM (default `2`).
   The absolute minimum necessary CPU is `2`. Deploying the _complete_ chart requires `3`.
-- `--memory int`: Amount of RAM allocated to the minikube VM (default `2048`).
+- `--memory int`: Amount of RAM allocated to the Minikube VM (default `2048`).
   The absolute same minimum is `5120` (5 GB). Recommendation is `8192` (8 GB).
-- `--disk-size string`: Disk size allocated to the minikube VM (format: `<number>[<unit>]`,
+- `--disk-size string`: Disk size allocated to the Minikube VM (format: `<number>[<unit>]`,
   where unit = `b`, `k`, `m` or `g`) (default `20g`). See GitLab's
   [storage](https://docs.gitlab.com/ce/install/requirements.html#storage) and
   [database](https://docs.gitlab.com/ce/install/requirements.html#database)
@@ -65,7 +65,7 @@ change according to the pieces being tested, and the requirements as listed:
   NOTE: **Note**:
   This is created in your home directory under `~/.minikube/machines/minikube/`.
 
-- `--kubernetes-version string`: The Kubernetes version that the minikube VM will use (e.g., `v1.2.3`).
+- `--kubernetes-version string`: The Kubernetes version that the Minikube VM will use (e.g., `v1.2.3`).
 - `--registry-mirror stringSlice`: Registry mirrors to pass to the Docker daemon.
 
 NOTE: **Note:**
@@ -76,13 +76,13 @@ properties with VirtualBox Manager.
 Once you have all the tools installed and configured, starting at stopping Minikube
 can be done with:
 
-```sh
+```shell
 minikube start --cpus 3 --memory 8192
 ```
 
 This command should output something similar to:
 
-```
+```plaintext
 Starting local Kubernetes v1.7.0 cluster...
 Starting VM...
 Downloading Minikube ISO
@@ -132,7 +132,7 @@ in the [Minikube getting started guide](https://kubernetes.io/docs/setup/learnin
 Minikube handles some features apart from the base configuration. For the
 development of this project, we'll need access to `Ingress`:
 
-```sh
+```shell
 minikube addons enable ingress
 ```
 
@@ -140,7 +140,7 @@ minikube addons enable ingress
 
 You can find the URL for the dashboard by calling:
 
-```sh
+```shell
 minikube dashboard --url
 ```
 
@@ -153,12 +153,12 @@ For further details on Helm, see [Developing for Helm](../../installation/tools.
 
 ## Deploying the chart
 
-When deploying this chart into minikube, some chart resources need to be reduced or disabled.
+When deploying this chart into Minikube, some chart resources need to be reduced or disabled.
 It is not possible to use the `nginx-ingress` chart to provide ports `22`, `80`,
 `443`. It's best to disable it and set the Ingress class by setting
 `nginx-ingress.enabled=false,global.ingress.class="nginx"`.
 
-The `certmanager` chart can not be used with minikube. You must disable this by
+The `certmanager` chart can not be used with Minikube. You must disable this by
 setting `certmanager.install=false,global.ingress.configureCertmanager=false`.
 As a result, if you don't provide your own SSL certificates, self-signed
 certificates will be generated. The `gitlab-runner` chart is not compatible with
@@ -195,7 +195,7 @@ helm upgrade --install gitlab gitlab/gitlab \
 
 If the output of `minikube ip` was not `192.168.99.100`, add these arguments to override the IP endpoints in the example configuration files:
 
-```sh
+```shell
   --set global.hosts.domain=$(minikube ip).nip.io \
   --set global.hosts.externalIP=$(minikube ip)
 ```

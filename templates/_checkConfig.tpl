@@ -30,6 +30,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.gitaly.extern.repos" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.database" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.secondary.database" .) -}}
+{{- $messages := append $messages (include "gitlab.task-runner.replicas" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -43,11 +44,10 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{/*
 Ensure a certificate is provided when Gitaly is enabled and is instructed to
 listen over TLS */}}
-{{- define "gitlab.checkConfig.gitaly.tls" }}
-{{- if and (and $.Values.gitlab.gitaly.enabled $.Values.global.gitaly.tls.enabled) (not $.Values.global.gitaly.tls.secretName) -}}
+{{- define "gitlab.checkConfig.gitaly.tls" -}}
+{{- if and (and $.Values.gitlab.gitaly.enabled $.Values.global.gitaly.tls.enabled) (not $.Values.global.gitaly.tls.secretName) }}
 gitaly: no tls certificate
-    It appears Gitaly is specified to listen over TLS, but no certificate
-    was specified.
+    It appears Gitaly is specified to listen over TLS, but no certificate was specified.
 {{- end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.gitaly.tls */}}
@@ -56,11 +56,9 @@ gitaly: no tls certificate
 {{- define "gitlab.checkConfig.sidekiq.queues.mixed" -}}
 {{- if .Values.gitlab.sidekiq.pods -}}
 {{-   range $pod := .Values.gitlab.sidekiq.pods -}}
-{{-     if and (hasKey $pod "queues") (hasKey $pod "negateQueues") -}}
+{{-     if and (hasKey $pod "queues") (hasKey $pod "negateQueues") }}
 sidekiq: mixed queues
-    It appears you've supplied both `queues` and `negateQueues` for the
-    pod definition of `{{ $pod.name }}`. `negateQueues` is not usable if
-    `queues` is provided. Please use only one.
+    It appears you've supplied both `queues` and `negateQueues` for the pod definition of `{{ $pod.name }}`. `negateQueues` is not usable if `queues` is provided. Please use only one.
 {{-     end -}}
 {{-   end -}}
 {{- end -}}
@@ -73,17 +71,13 @@ listen over TLS */}}
 {{- define "gitlab.checkConfig.geo.database" -}}
 {{- with $.Values.global -}}
 {{- if eq true .geo.enabled -}}
-{{-   if not .psql.host -}}
+{{-   if not .psql.host }}
 geo: no database provided
-    It appears Geo was configured but no database was provided.
-    Geo behaviors require external databases.
-    Ensure `global.psql.host` is set.
+    It appears Geo was configured but no database was provided. Geo behaviors require external databases. Ensure `global.psql.host` is set.
 {{    end -}}
-{{-   if not .psql.password.secret -}}
+{{-   if not .psql.password.secret }}
 geo: no database password provided
-    It appears Geo was configured, but no database password was provided.
-    Geo behaviors require external databases.
-    Ensure `global.psql.password.secret` is set.
+    It appears Geo was configured, but no database password was provided. Geo behaviors require external databases. Ensure `global.psql.password.secret` is set.
 {{   end -}}
 {{- end -}}
 {{- end -}}
@@ -96,17 +90,13 @@ listen over TLS */}}
 {{- define "gitlab.checkConfig.geo.secondary.database" -}}
 {{- with $.Values.global.geo -}}
 {{- if include "gitlab.geo.secondary" $ }}
-{{-   if not .psql.host -}}
+{{-   if not .psql.host }}
 geo: no secondary database provided
-    It appears Geo was configured with `role: secondary`, but no database
-    was provided. Geo behaviors require external databases.
-    Ensure `global.geo.psql.host` is set.
+    It appears Geo was configured with `role: secondary`, but no database was provided. Geo behaviors require external databases. Ensure `global.geo.psql.host` is set.
 {{    end -}}
-{{-   if not .psql.password.secret -}}
+{{-   if not .psql.password.secret }}
 geo: no secondary database password provided
-    It appears Geo was configured with `role: secondary`, but no database
-    password was provided. Geo behaviors require external databases.
-    Ensure `global.geo.psql.password.secret` is set.
+    It appears Geo was configured with `role: secondary`, but no database password was provided. Geo behaviors require external databases. Ensure `global.geo.psql.password.secret` is set.
 {{    end -}}
 {{- end -}}
 {{- end -}}
@@ -122,9 +112,7 @@ unicorn's worker timeout */}}
 {{- $workerTimeout := $.Values.global.unicorn.workerTimeout }}
 {{- if not (lt $maxDuration $workerTimeout) }}
 gitlab: maxRequestDurationSeconds should be smaller than Unicorn's worker timeout
-        The current value of global.appConfig.maxRequestDurationSeconds ({{ $maxDuration }})
-        is greater than or equal to global.unicorn.workerTimeout ({{ $workerTimeout }})
-        while it should be a lesser value.
+        The current value of global.appConfig.maxRequestDurationSeconds ({{ $maxDuration }}) is greater than or equal to global.unicorn.workerTimeout ({{ $workerTimeout }}) while it should be a lesser value.
 {{- end }}
 {{- end }}
 {{- end }}
@@ -132,9 +120,22 @@ gitlab: maxRequestDurationSeconds should be smaller than Unicorn's worker timeou
 
 {{/* Check configuration of Gitaly external repos*/}}
 {{- define "gitlab.checkConfig.gitaly.extern.repos" -}}
-{{-   if (and (not .Values.global.gitaly.enabled) (not .Values.global.gitaly.external) ) -}}
+{{-   if (and (not .Values.global.gitaly.enabled) (not .Values.global.gitaly.external) ) }}
 gitaly:
     external Gitaly repos needs to be specified if global.gitaly.enabled is not set
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.gitaly.extern.repos */}}
+
+{{/*
+Ensure that gitlab/task-runner is not configured with `replicas` > 1 if
+persistence is enabled.
+*/}}
+{{- define "gitlab.task-runner.replicas" -}}
+{{-   $replicas := index $.Values.gitlab "task-runner" "replicas" | int -}}
+{{-   if and (gt $replicas 1) (index $.Values.gitlab "task-runner" "persistence" "enabled") -}}
+task-runner: replicas is greater than 1, with persistence enabled.
+    It appear that `gitlab/task-runner` has been configured with more than 1 replica, but also with a PersistentVolumeClaim. This is not supported. Please either reduce the replicas to 1, or disable persistence.
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.task-runner.replicas */}}
