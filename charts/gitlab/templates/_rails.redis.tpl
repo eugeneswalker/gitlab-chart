@@ -18,8 +18,8 @@
 {{- end -}}
 
 {{- define "gitlab.rails.redis.resque" -}}
-{{- $_ := set . "redisConfig" nil }}
-{{- $_ := set . "redisConfigFile" nil }}
+{{- $_ := set . "redisConfig" "" }}
+{{- $_ := set . "redisConfigFile" "" }}
 {{- include "gitlab.rails.redis.yaml" . -}}
 {{- end -}}
 
@@ -28,7 +28,7 @@
 {{- $_ := set . "redisConfig" "cache" }}
 {{- $_ := set . "redisConfigFile" "redis.cache" }}
 {{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" nil }}
+{{- $_ := set . "redisConfig" "" }}
 {{- end -}}
 {{- end -}}
 
@@ -37,7 +37,7 @@
 {{- $_ := set . "redisConfig" "sharedState" }}
 {{- $_ := set . "redisConfigFile" "redis.shared_state" }}
 {{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" nil }}
+{{- $_ := set . "redisConfig" "" }}
 {{- end -}}
 {{- end -}}
 
@@ -46,7 +46,7 @@
 {{- $_ := set . "redisConfig" "queues" }}
 {{- $_ := set . "redisConfigFile" "redis.queues" }}
 {{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" nil }}
+{{- $_ := set . "redisConfig" "" }}
 {{- end -}}
 {{- end -}}
 
@@ -60,18 +60,18 @@ If no `global.redis.actioncable`, use `global.redis`
 {{- end -}}
 {{- $_ := set . "redisConfigFile" "cable" }}
 {{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" nil }}
+{{- $_ := set . "redisConfig" "" }}
 {{- end -}}
 
 {{- define "gitlab.redis.secrets" -}}
 {{- range $redis := list "cache" "sharedState" "queues" "actioncable" -}}
-{{-   $config := mergeOverwrite (pick (deepCopy $.Values.global.redis) "password" ) ( index $.Values.global.redis $redis )}}
-{{-   if $config.password.enabled -}}
-{{-     $_ := set $ "redisConfig" $redis }}
+{{-   $_ := set $ "redisConfig" $redis -}}
+{{-   include "gitlab.redis.configMerge" $ -}}
+{{-   if $.redisGlobal.password.enabled }}
 {{      include "gitlab.redis.secret" $ }}
 {{-   end }}
 {{- end -}}
-{{- $_ := set . "redisConfig" nil }}
+{{- $_ := set . "redisConfig" "" }}
 {{- if .Values.global.redis.password.enabled }}
 {{    include "gitlab.redis.secret" . }}
 {{- end }}

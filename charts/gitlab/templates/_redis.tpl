@@ -6,7 +6,7 @@ If the redis host is provided, it will use that, otherwise it will fallback
 to the service name
 */}}
 {{- define "gitlab.redis.host" -}}
-{{- $_ := set . "redisGlobal" ( mergeOverwrite (pick (deepCopy .Values.global.redis) "host" ) ( index .Values.global.redis (default "" .redisConfig) ) ) -}}
+{{- include "gitlab.redis.configMerge" . -}}
 {{- if .redisGlobal.host -}}
 {{-   .redisGlobal.host -}}
 {{- else -}}
@@ -21,7 +21,7 @@ If the redis port is provided, it will use that, otherwise it will fallback
 to 6379 default
 */}}
 {{- define "gitlab.redis.port" -}}
-{{- $_ := set . "redisGlobal" ( mergeOverwrite (pick (deepCopy .Values.global.redis) "port" ) ( index .Values.global.redis (default "" .redisConfig) ) ) -}}
+{{- include "gitlab.redis.configMerge" . -}}
 {{- default 6379 .redisGlobal.port -}}
 {{- end -}}
 
@@ -29,7 +29,7 @@ to 6379 default
 Return the redis scheme, or redis. Allowing people to use rediss clusters
 */}}
 {{- define "gitlab.redis.scheme" -}}
-{{- $_ := set . "redisGlobal" ( mergeOverwrite (pick (deepCopy .Values.global.redis) "scheme" ) ( index .Values.global.redis (default "" .redisConfig) ) ) -}}
+{{- include "gitlab.redis.configMerge" . -}}
 {{- $valid := list "redis" "rediss" "tcp" -}}
 {{- $name := default .redisGlobal.scheme "redis" -}}
 {{- if has $name $valid -}}
@@ -50,7 +50,7 @@ Return the redis url.
 Return the password section of the Redis URI, if needed.
 */}}
 {{- define "gitlab.redis.url.password" -}}
-{{- $_ := set . "redisGlobal" ( mergeOverwrite (pick (deepCopy .Values.global.redis) "password" ) ( index .Values.global.redis (default "" .redisConfig) ) ) -}}
+{{- include "gitlab.redis.configMerge" . -}}
 {{- if .redisGlobal.password.enabled -}}:<%= URI.escape(File.read("/etc/gitlab/redis/{{ printf "%s-password" (default "redis" .redisConfig) }}").strip) %>@{{- end -}}
 {{- end -}}
 
@@ -95,7 +95,7 @@ Note: Workhorse only uses the primary Redis (global.redis)
 {{-     end -}}
 {{-   end -}}
 {{- end -}}
-{{- $_ := set . "redisConfig" nil }}
+{{- $_ := set . "redisConfig" "" }}
 {{- if .Values.global.redis.password.enabled }}
 {{    include "gitlab.redis.secret" . }}
 {{- end }}
