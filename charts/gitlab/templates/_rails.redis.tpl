@@ -18,7 +18,7 @@ Input: dict "context" $ "name" string
     channel_prefix: {{ .context.Values.global.redis.actioncable.channelPrefix }}
     {{-   end }}
     {{- end }}
-{{- $_ := set . "redisConfigName" "" }}
+{{- $_ := set .context "redisConfigName" "" }}
 {{- end -}}
 
 {{- define "gitlab.rails.redis.resque" -}}
