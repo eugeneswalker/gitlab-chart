@@ -289,7 +289,7 @@ minimize their own configuration files without it being cumbersome.
 
 ## Developing template helpers
 
-A charts template helpers are located in `templates/_helpers.tpl`. These contain the [named templates](https://helm.sh/docs/chart_template_guide/#declaring-and-using-templates-with-define-and-template)
+A charts template helpers are located in `templates/_helpers.tpl`. These contain the [named templates](https://helm.sh/docs/chart_template_guide/named_templates/)
 used within the chart.
 
 When using these templates, there a few things to keep in mind regarding the [golang templating syntax](https://golang.org/pkg/text/template/).

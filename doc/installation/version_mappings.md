@@ -175,8 +175,11 @@ To see the full list, you can issue the following command with Helm:
 
 ```shell
 helm repo add gitlab https://charts.gitlab.io/
-helm search -l gitlab/gitlab
+helm search repo -l gitlab/gitlab
 ```
+
+NOTE: **Note**:
+With Helm v2, the search command should be `helm search -l gitlab/gitlab`.
 
 You will receive an output similar to:
 

@@ -77,7 +77,7 @@ disable the Ingress Controller that is deployed by default with this chart:
 
 ## Custom certifcate management
 
-The full scope of your TLS options are documented [elswhere](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/tls.md).
+The full scope of your TLS options are documented [elsewhere](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/tls.md).
 
 If you are using an external Ingress Controller, you may also be using an external cert-manager instance
 or managing your certificates in some other custom manner. The full documentation around your TLS options is [here](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/tls.md),

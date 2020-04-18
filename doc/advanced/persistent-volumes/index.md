@@ -449,10 +449,14 @@ Update the chart, and include the updated configuration:
 Example:
 
 ```bash
-helm --namespace helm-charts-win upgrade --install review-update-app-h8qogp gitlab/gitlab \
+helm upgrade --install review-update-app-h8qogp gitlab/gitlab \
   --set gitlab.gitaly.persistence.size=100Gi \
   <your other config settings>
 ```
+
+NOTE: **Note**:
+With Helm v2, one may need to specify the namespace that the release was
+deployed to with the `--namespace <namespace>` option.
 
 [pv]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes
 [pvc]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims

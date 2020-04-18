@@ -235,8 +235,12 @@ postgresql:
 1. Deploy the chart using this configuration
 
    ```shell
-   helm upgrade --install gitlab-geo gitlab/gitlab --namespace gitlab -f primary.yaml
+   helm upgrade --install gitlab-geo gitlab/gitlab -f primary.yaml
    ```
+
+   NOTE: **Note**:
+   With Helm v2, one may need to specify the namespace that the release was
+   deployed to with the `--namespace <namespace>` option.
 
 1. Wait for the deployment to complete, and the application to come online. Once
 the application is reachable, login.
@@ -535,8 +539,12 @@ postgresql:
 1. Deploy the chart using this configuration
 
    ```shell
-   helm upgrade --install gitlab-geo gitlab/gitlab --namespace gitlab -f secondary.yaml
+   helm upgrade --install gitlab-geo gitlab/gitlab -f secondary.yaml
    ```
+
+   NOTE: **Note**:
+   With Helm v2, one may need to specify the namespace that the release was
+   deployed to with the `--namespace <namespace>` option.
 
 1. Wait for the deployment to complete, and the application to come online.
 

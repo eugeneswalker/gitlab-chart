@@ -9,8 +9,9 @@ refer to the [Mattermost Helm configuration guide](https://github.com/mattermost
 ## Prerequisites
 
 - A running Kubernetes cluster.
-- [Helm v2.](https://helm.sh/docs/intro/install/)
-- [Tiller](https://rancher.com/docs/rancher/v2.x/en/installation/options/helm2/helm-init/) (the Helm server-side component) installed on the cluster.
+- [Helm v3](https://helm.sh/docs/intro/install/) or [Helm v2](https://v2-14-0.helm.sh/docs/using_helm/#installing-helm).
+- [Tiller](https://rancher.com/docs/rancher/v2.x/en/installation/options/helm2/helm-init/) (the Helm server-side component)
+  installed on the cluster if using Helm v2.
 
 NOTE: **Note:**
 For the Team Edition you can have just one replica running.
@@ -38,14 +39,23 @@ To deploy the GitLab Helm Chart, follow the instructions described [here](https:
 Here's a light way to install it:
 
 ```shell
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm upgrade --install gitlab gitlab/gitlab \
-  --timeout 600 \
+  --timeout 600s \
   --set global.hosts.domain=<your-domain> \
   --set global.hosts.externalIP=<external-ip> \
   --set certmanager-issuer.email=<email>
 ```
+
+NOTE: **Note**:
+If using Helm v2, the stable repository is installed by Helm automatically.
+There are no adverse effects if it is added again.
+
+NOTE: **Note**:
+If using Helm v2, please see notes about the `--timeout` option
+in the [Deployment documentation](../installation/deployment.md#deploy-using-helm).
 
 - `<your-domain>`: your desired domain, eg. ``gitlab.example.com``.
 - `<external-ip>`: the external IP pointing to your Kubernetes cluster.
