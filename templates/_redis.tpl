@@ -1,6 +1,5 @@
 {{/* ######### Redis related templates */}}
-{{ $_ := set $ "redisConfig" "" }}
-{{ $_ := set $ "redisGlobal" (dict "redisConfig" "bogus") }}
+
 {{/*
 Build a dict of redis configuration
 
@@ -8,28 +7,26 @@ Build a dict of redis configuration
 - use values within children, if they exist, even if "empty"
 */}}
 {{- define "gitlab.redis.configMerge" -}}
-{{- $_ := set $ "redisConfig" (default "" $.redisConfig) -}}
-{{/*  # prevent repeat operations -- default mess is to handle `.redisGlobal` not existing yet */}}
-{{-   if or (not $.redisGlobal) (ne (default "" $.redisConfig) (default "" (index (default (dict) $.redisGlobal) "redisConfig") )) -}}
-{{/*    # reset, preventing pollution. stashing the .redisConfig used to make this */}}
-{{-     $_ := set . "redisGlobal" (dict "redisConfig" $.redisConfig) -}}
+{{- $_ := set $ "redisConfigName" (default "" $.redisConfigName) -}}
+{{/*  # prevent repeat operations
+      # -- check if redisConfigName is the current populated content in .redisMergedConfig */}}
+{{-   if or (not $.redisMergedConfig) (ne (default "" $.redisConfigName) (default "" (index (default (dict) $.redisMergedConfig) "redisConfigName") )) -}}
+{{/*    # reset, preventing pollution. stashing the .redisConfigName used to make this */}}
+{{-     $_ := set . "redisMergedConfig" (dict "redisConfigName" $.redisConfigName) -}}
 {{-     range $want := list "host" "port" "password" "scheme" -}}
-{{-       $_ := set $.redisGlobal $want (pluck $want (index $.Values.global.redis $.redisConfig) $.Values.global.redis | first) -}}
+{{-       $_ := set $.redisMergedConfig $want (pluck $want (index $.Values.global.redis $.redisConfigName) $.Values.global.redis | first) -}}
 {{-     end -}}
 {{-   else -}}
-{{/*     printf "gitlab.redis.configMerge: %s - %s" $.redisConfig (toJson $.redisGlobal) | fail */}}
+{{/*     printf "gitlab.redis.configMerge: %s - %s" $.redisConfigName (toJson $.redisMergedConfig) | fail */}}
 {{-   end -}}
 {{- end -}}
 
 {{/*
 Return the redis password secret name
-
-This define is not currently used, but left in place for when the
-a dynamic secret name can be specified to the Redis chart.
-*/}}
+*/}}g
 {{- define "gitlab.redis.password.secret" -}}
 {{- include "gitlab.redis.configMerge" . -}}
-{{- coalesce .redisGlobal.password.secret .Values.global.redis.password.secret (printf "%s-redis-secret" .Release.Name) | quote -}}
+{{- default (printf "%s-redis-secret" .Release.Name) .redisMergedConfig.password.secret | quote -}}
 {{- end -}}
 
 {{/*
@@ -37,5 +34,5 @@ Return the redis password secret key
 */}}
 {{- define "gitlab.redis.password.key" -}}
 {{- include "gitlab.redis.configMerge" . -}}
-{{- coalesce .redisGlobal.password.key .Values.global.redis.password.key "secret" | quote -}}
+{{- default "secret" .redisMergedConfig.password.key | quote -}}
 {{- end -}}

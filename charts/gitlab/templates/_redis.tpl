@@ -7,8 +7,8 @@ to the service name
 */}}
 {{- define "gitlab.redis.host" -}}
 {{- include "gitlab.redis.configMerge" . -}}
-{{- if .redisGlobal.host -}}
-{{-   .redisGlobal.host -}}
+{{- if .redisMergedConfig.host -}}
+{{-   .redisMergedConfig.host -}}
 {{- else -}}
 {{-   $name := default "redis" .Values.redis.serviceName -}}
 {{-   printf "%s-%s-master" .Release.Name $name -}}
@@ -22,7 +22,7 @@ to 6379 default
 */}}
 {{- define "gitlab.redis.port" -}}
 {{- include "gitlab.redis.configMerge" . -}}
-{{- default 6379 .redisGlobal.port -}}
+{{- default 6379 .redisMergedConfig.port -}}
 {{- end -}}
 
 {{/*
@@ -31,7 +31,7 @@ Return the redis scheme, or redis. Allowing people to use rediss clusters
 {{- define "gitlab.redis.scheme" -}}
 {{- include "gitlab.redis.configMerge" . -}}
 {{- $valid := list "redis" "rediss" "tcp" -}}
-{{- $name := default .redisGlobal.scheme "redis" -}}
+{{- $name := default .redisMergedConfig.scheme "redis" -}}
 {{- if has $name $valid -}}
 {{    $name }}
 {{- else -}}
@@ -51,20 +51,20 @@ Return the password section of the Redis URI, if needed.
 */}}
 {{- define "gitlab.redis.url.password" -}}
 {{- include "gitlab.redis.configMerge" . -}}
-{{- if .redisGlobal.password.enabled -}}:<%= URI.escape(File.read("/etc/gitlab/redis/{{ printf "%s-password" (default "redis" .redisConfig) }}").strip) %>@{{- end -}}
+{{- if .redisMergedConfig.password.enabled -}}:<%= URI.escape(File.read("/etc/gitlab/redis/{{ printf "%s-password" (default "redis" .redisConfigName) }}").strip) %>@{{- end -}}
 {{- end -}}
 
 {{/*
 Build the structure describing sentinels
 */}}
 {{- define "gitlab.redis.sentinels" -}}
-{{- if .redisConfig }}
-{{-   $_ := set . "redisGlobal" ( index .Values.global.redis .redisConfig ) -}}
+{{- if .redisConfigName }}
+{{-   $_ := set . "redisMergedConfig" ( index .Values.global.redis .redisConfigName ) -}}
 {{- else -}}
-{{-   $_ := set . "redisGlobal" .Values.global.redis -}}
+{{-   $_ := set . "redisMergedConfig" .Values.global.redis -}}
 {{- end -}}
 sentinels:
-{{- range $i, $entry := .redisGlobal.sentinels }}
+{{- range $i, $entry := .redisMergedConfig.sentinels }}
   - host: {{ $entry.host }}
     port: {{ default 26379 $entry.port }}
 {{- end }}
@@ -82,20 +82,15 @@ Note: Workhorse only uses the primary Redis (global.redis)
 {{- $sentinelList | join "," }}
 {{- end -}}
 
-
-
 {{- define "gitlab.redis.secrets" -}}
 {{- range $redis := list "cache" "sharedState" "queues" "actioncable" -}}
-{{-   if index $.Values.global.redis $redis -}}
-{{-     if index $.Values.global.redis $redis "password" -}}
-{{-       if index $.Values.global.redis $redis "password" "enabled" -}}
-{{-         $_ := set $ "redisConfig" $redis }}
-{{          include "gitlab.redis.secret" $ }}
-{{-       end }}
-{{-     end -}}
-{{-   end -}}
+{{-   $_ := set $ "redisConfigName" $redis -}}
+{{-   include "gitlab.redis.configMerge" $ -}}
+{{-   if $.redisMergedConfig.password.enabled }}
+{{      include "gitlab.redis.secret" $ }}
+{{-   end }}
 {{- end -}}
-{{- $_ := set . "redisConfig" "" }}
+{{- $_ := set . "redisConfigName" "" }}
 {{- if .Values.global.redis.password.enabled }}
 {{    include "gitlab.redis.secret" . }}
 {{- end }}
@@ -106,5 +101,5 @@ Note: Workhorse only uses the primary Redis (global.redis)
     name: {{ template "gitlab.redis.password.secret" . }}
     items:
       - key: {{ template "gitlab.redis.password.key" . }}
-        path: redis/{{ printf "%s-password" (default "redis" .redisConfig) }}
+        path: redis/{{ printf "%s-password" (default "redis" .redisConfigName) }}
 {{- end -}}

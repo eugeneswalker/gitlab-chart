@@ -123,7 +123,7 @@ spec:
               items:
                 - key: {{ template "gitlab.psql.password.key" . }}
                   path: postgres/psql-password
-          {{- include "gitlab.redis.secret" .| nindent  10 }}
+          {{- include "gitlab.redis.secret" . | nindent  10 }}
       - name: gitlab-exporter-secrets
         emptyDir:
           medium: "Memory"

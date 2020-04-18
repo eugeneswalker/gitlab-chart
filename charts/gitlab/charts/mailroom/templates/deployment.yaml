@@ -110,13 +110,7 @@ spec:
         projected:
           defaultMode: 0400
           sources:
-          {{- if .Values.global.redis.password.enabled }}
-          - secret:
-              name: {{ template "gitlab.redis.password.secret" . }}
-              items:
-                - key: {{ template "gitlab.redis.password.key" . }}
-                  path: redis/redis-password
-          {{- end }}
+          {{- include "gitlab.redis.secret" . | nindent 10 }}
           - secret:
               name: {{ .Values.global.appConfig.incomingEmail.password.secret | required "Missing required secret containing the IMAP password for incoming email. Make sure to set `global.appConfig.incomingEmail.password.secret`" }}
               items:

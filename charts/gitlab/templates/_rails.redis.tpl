@@ -1,52 +1,49 @@
 {{/* ######### Redis related templates for Rails consumption */}}
 
+{{/*
+Render a Redis `resque` format configuration for Rails.
+Input: dict "context" $ "name" string
+*/}}
 {{- define "gitlab.rails.redis.yaml" -}}
-{{- $name := default "resque" .redisConfigFile -}}
-{{ $name }}.yml.erb: |
+{{ .name }}.yml.erb: |
   production:
-    url: {{ template "gitlab.redis.url" . }}
-    {{- if .Values.global.redis.sentinels }}
-    {{-   include "gitlab.redis.sentinels" . | nindent 4 }}
+    url: {{ template "gitlab.redis.url" .context }}
+    {{- if .context.Values.global.redis.sentinels }}
+    {{-   include "gitlab.redis.sentinels" .context | nindent 4 }}
     {{- end }}
     id:
-    {{- if eq (default "" .redisConfig) "actioncable" }}
+    {{- if eq .name "cable" }}
     adapter: redis
-    {{-   if .Values.global.redis.actioncable.channelPrefix }}
-    channel_prefix: {{ .Values.global.redis.actioncable.channelPrefix }}
+    {{-   if .context.Values.global.redis.actioncable.channelPrefix }}
+    channel_prefix: {{ .context.Values.global.redis.actioncable.channelPrefix }}
     {{-   end }}
     {{- end }}
+{{- $_ := set . "redisConfigName" "" }}
 {{- end -}}
 
 {{- define "gitlab.rails.redis.resque" -}}
-{{- $_ := set . "redisConfig" "" }}
-{{- $_ := set . "redisConfigFile" "" }}
-{{- include "gitlab.rails.redis.yaml" . -}}
+{{- $_ := set . "redisConfigName" "" }}
+{{- include "gitlab.rails.redis.yaml" (dict "context" . "name" "resque") -}}
 {{- end -}}
 
 {{- define "gitlab.rails.redis.cache" -}}
 {{- if .Values.global.redis.cache -}}
-{{- $_ := set . "redisConfig" "cache" }}
-{{- $_ := set . "redisConfigFile" "redis.cache" }}
-{{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" "" }}
+{{- $_ := set . "redisConfigName" "cache" }}
+{{- include "gitlab.rails.redis.yaml" (dict "context" $ "name" "redis.cache") -}}
 {{- end -}}
 {{- end -}}
 
 {{- define "gitlab.rails.redis.sharedState" -}}
 {{- if .Values.global.redis.sharedState -}}
-{{- $_ := set . "redisConfig" "sharedState" }}
-{{- $_ := set . "redisConfigFile" "redis.shared_state" }}
-{{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" "" }}
+{{- $_ := set . "redisConfigName" "sharedState" }}
+{{- include "gitlab.rails.redis.yaml" (dict "context" . "name" "redis.shared_state") -}}
 {{- end -}}
 {{- end -}}
 
 {{- define "gitlab.rails.redis.queues" -}}
 {{- if .Values.global.redis.queues -}}
-{{- $_ := set . "redisConfig" "queues" }}
-{{- $_ := set . "redisConfigFile" "redis.queues" }}
-{{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" "" }}
+{{- $_ := set . "redisConfigName" "queues" }}
+{{- include "gitlab.rails.redis.yaml" (dict "context" $ "name" "redis.queues") -}}
 {{- end -}}
 {{- end -}}
 
@@ -56,31 +53,7 @@ If no `global.redis.actioncable`, use `global.redis`
 */}}
 {{- define "gitlab.rails.redis.cable" -}}
 {{- if .Values.global.redis.actioncable -}}
-{{- $_ := set . "redisConfig" "actioncable" }}
+{{-   $_ := set . "redisConfigName" "actioncable" }}
 {{- end -}}
-{{- $_ := set . "redisConfigFile" "cable" }}
-{{- include "gitlab.rails.redis.yaml" . -}}
-{{- $_ := set . "redisConfig" "" }}
-{{- end -}}
-
-{{- define "gitlab.redis.secrets" -}}
-{{- range $redis := list "cache" "sharedState" "queues" "actioncable" -}}
-{{-   $_ := set $ "redisConfig" $redis -}}
-{{-   include "gitlab.redis.configMerge" $ -}}
-{{-   if $.redisGlobal.password.enabled }}
-{{      include "gitlab.redis.secret" $ }}
-{{-   end }}
-{{- end -}}
-{{- $_ := set . "redisConfig" "" }}
-{{- if .Values.global.redis.password.enabled }}
-{{    include "gitlab.redis.secret" . }}
-{{- end }}
-{{- end -}}
-
-{{- define "gitlab.redis.secret" -}}
-- secret:
-    name: {{ template "gitlab.redis.password.secret" . }}
-    items:
-      - key: {{ template "gitlab.redis.password.key" . }}
-        path: redis/{{ printf "%s-password" (default "redis" .redisConfig) }}
+{{- include "gitlab.rails.redis.yaml" (dict "context" $ "name" "cable") -}}
 {{- end -}}
