@@ -31,7 +31,7 @@ Return the redis scheme, or redis. Allowing people to use rediss clusters
 {{- define "gitlab.redis.scheme" -}}
 {{- include "gitlab.redis.configMerge" . -}}
 {{- $valid := list "redis" "rediss" "tcp" -}}
-{{- $name := default .redisMergedConfig.scheme "redis" -}}
+{{- $name := default "redis" .redisMergedConfig.scheme -}}
 {{- if has $name $valid -}}
 {{    $name }}
 {{- else -}}
