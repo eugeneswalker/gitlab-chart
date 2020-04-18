@@ -22,22 +22,23 @@ Starting with version `v3.0.0` of the chart, Helm v3 (3.0.2 or higher required)
 is also fully supported.
 
 NOTE: **Note**:
-We are not using Helm v3 for testing in CI, and the documentation currently
-still contains `helm` commands using the Helm v2 syntax. If you find issues
+We are not using Helm v3 for testing in CI. If you find issues
 specific to Helm v3, please create an issue in our [issue tracker](https://gitlab.com/gitlab-org/charts/gitlab/issues)
 and start the issue title with the keyword `[Helm3]`.
 
-Helm consists of two parts, the `helm` (client) installed locally, and `tiller`
+NOTE: **Note**:
+Helm v2 consists of two parts, the `helm` (client) installed locally, and `tiller`
 (server) installed inside Kubernetes.
 
 NOTE: **Note**:
-If you are not able to run Tiller in your cluster, for example on OpenShift,
-it's possible to use [Tiller locally](#local-tiller) and avoid deploying it
-into the cluster. This should only be used when Tiller cannot be normally deployed.
+If you need to run Helm v2 and are not able to run Tiller in your cluster,
+for example on OpenShift, it's possible to use [Tiller locally](#local-tiller)
+and avoid deploying it into the cluster. This should only be used when Tiller
+cannot be normally deployed.
 
 NOTE: **Note**:
-Helm v2.15.x series contained multiple severe bugs that affect the use of this chart.
-*Do not use these versions!*
+Helm v2.15.x series contained multiple [severe bugs](../releases/3_0.md#problematic-helm-215)
+that affect the use of this chart. *Do not use these versions!*
 
 ### Getting Helm
 
@@ -153,7 +154,9 @@ kubectl create -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/doc/ins
 
 ### Initializing Helm
 
-Finally, deploy Helm Tiller with a service account:
+If Helm v3 is being used, there no longer is an `init` sub command and the
+command is ready to be used once it is installed. Otherwise if Helm v2 is
+being used, then Helm needs to deploy Tiller with a service account:
 
 ```sh
 helm init --service-account tiller
@@ -195,7 +198,7 @@ Helm repository has some additional information on developing with Helm in it's
 CAUTION: **Not recommended:**
 This method is not well supported, but should work.
 
-If you are not able to run Tiller in your cluster,
+If you are using Helm v2 and not able to run Tiller in your cluster,
 [a script](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/bin/localtiller-helm)
 is included that should allow you to use Helm with running Tiller in your cluster.
 The script uses your personal Kubernetes credentials and configuration to apply

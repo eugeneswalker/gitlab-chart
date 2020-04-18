@@ -574,8 +574,10 @@ Example `--set` configuration items, when using the global chart:
 --set global.appConfig.ldap.servers.main.password.key='the-key-containing-the-password'
 ```
 
-NOTE: **Note:** Commas are considered [special characters](https://helm.sh/docs/intro/using_helm/#the-format-and-limitations-of-set)
-  within Helm `--set` items. Be sure to escape commas in values such as `bind_dn`: `--set global.appConfig.ldap.servers.main.bind_dn='cn=administrator\,cn=Users\,dc=domain\,dc=net'`.
+NOTE: **Note**:
+Commas are considered [special characters](https://helm.sh/docs/intro/using_helm/#the-format-and-limitations-of---set)
+within Helm `--set` items. Be sure to escape commas in values such as `bind_dn`:
+`--set global.appConfig.ldap.servers.main.bind_dn='cn=administrator\,cn=Users\,dc=domain\,dc=net'`.
 
 #### Disable LDAP web sign in
 
@@ -874,7 +876,7 @@ kubectl create secret generic custom-ca --from-file=unique_name=/path/to/cert
 To configure the secret:
 
 ```shell
-helm install gitlab \
+helm install gitlab gitlab/gitlab \
   --set global.certificates.customCAs[0].secret=custom-ca
 ```
 

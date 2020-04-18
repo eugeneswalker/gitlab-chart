@@ -43,7 +43,7 @@ If you use a mutual TLS connection to the database:
 For example, pass these values via Helm's `--set` flag while deploying:
 
 ```sh
-helm install
+helm install gitlab gitlab/gitlab
   --set postgresql.install=false
   --set global.psql.host=psql.example
   --set global.psql.password.secret=gitlab-postgresql-password

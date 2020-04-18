@@ -9,8 +9,11 @@ If your initial install completely failed, and GitLab was never operational, you
 should first purge the failed install before installing again.
 
 ```shell
-helm delete --purge <release-name>
+helm uninstall <release-name>
 ```
+
+NOTE: **Note**:
+With Helm v2, the uninstall command would be `helm delete --purge <release-name>`.
 
 If instead, the initial install command timed out, but GitLab still came up successfully,
 you can add the `--force` flag to the `helm upgrade` command to ignore the error
@@ -28,14 +31,18 @@ An error like this could occur when you run `helm upgrade`
 and there are some spaces in the parameters. In the following
 example, `Test Username` is the culprit:
 
-```shell
-helm upgrade gitlab gitlab/gitlab --timeout 600 --set global.email.display_name=Test Username ...
+```sh
+helm upgrade gitlab gitlab/gitlab --timeout 600s --set global.email.display_name=Test Username ...
 ```
+
+NOTE: **Note**:
+If using Helm v2, please see notes about the `--timeout` option
+in the [Deployment documentation](../installation/deployment.md#deploy-using-helm).
 
 To fix it, pass the parameters in single quotes:
 
-```shell
-helm upgrade gitlab gitlab/gitlab --timeout 600 --set global.email.display_name='Test Username' ...
+```sh
+helm upgrade gitlab gitlab/gitlab --timeout 600s --set global.email.display_name='Test Username' ...
 ```
 
 ## Application containers constantly initializing

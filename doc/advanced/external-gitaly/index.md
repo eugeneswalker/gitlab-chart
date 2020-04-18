@@ -51,9 +51,9 @@ Example installation using the above configuration file in conjunction other
 configuration via `gitlab.yml`:
 
 ```shell
-helm upgrade --install gitlab gitlab/gitlab \
-    -f gitlab.yml \
-    -f external-gitaly.yml
+helm upgrade --install gitlab gitlab/gitlab  \
+  -f gitlab.yml \
+  -f external-gitaly.yml
 ```
 
 ## Multiple external Gitaly
