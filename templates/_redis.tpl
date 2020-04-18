@@ -10,14 +10,12 @@ Build a dict of redis configuration
 {{- $_ := set $ "redisConfigName" (default "" $.redisConfigName) -}}
 {{/*  # prevent repeat operations
       # -- check if redisConfigName is the current populated content in .redisMergedConfig */}}
-{{-   if or (not $.redisMergedConfig) (ne (default "" $.redisConfigName) (default "" (index (default (dict) $.redisMergedConfig) "redisConfigName") )) -}}
+{{-   if or (not $.redisMergedConfig) (ne $.redisConfigName (default "" (index (default (dict) $.redisMergedConfig) "redisConfigName") )) -}}
 {{/*    # reset, preventing pollution. stashing the .redisConfigName used to make this */}}
 {{-     $_ := set . "redisMergedConfig" (dict "redisConfigName" $.redisConfigName) -}}
 {{-     range $want := list "host" "port" "password" "scheme" -}}
 {{-       $_ := set $.redisMergedConfig $want (pluck $want (index $.Values.global.redis $.redisConfigName) $.Values.global.redis | first) -}}
 {{-     end -}}
-{{-   else -}}
-{{/*     printf "gitlab.redis.configMerge: %s - %s" $.redisConfigName (toJson $.redisMergedConfig) | fail */}}
 {{-   end -}}
 {{- end -}}
 

@@ -152,7 +152,7 @@ Ensure that `redis.install: false` if configuring multiple Redis instances
 {{-     $_ := set $x "count" ( add1 $x.count ) -}}
 {{-    end -}}
 {{- end -}}
-{{- if and .Values.redis.install ( $x.count | lt 0 ) }}
+{{- if and .Values.redis.install ( lt 0 $x.count ) }}
 redis:
   If configuring multiple Redis servers, you can not use the in-chart Redis server. Please see https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
 {{- end -}}
