@@ -14,7 +14,7 @@ Input: dict "context" $ "name" string
     id:
     {{- if eq .name "cable" }}
     adapter: redis
-    {{-   if .context.Values.global.redis.actioncable.channelPrefix }}
+    {{-   if index .context.Values.global.redis "actioncable" }}
     channel_prefix: {{ .context.Values.global.redis.actioncable.channelPrefix }}
     {{-   end }}
     {{- end }}
