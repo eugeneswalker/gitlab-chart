@@ -27,14 +27,11 @@ data:
   database_geo.yml.erb: |
     {{- include "gitlab.geo.database.yml" $ | nindent 4 }}
   {{- end }}
-  resque.yml.erb: |
-    production:
-      # Redis (single instance)
-      url: {{ template "gitlab.redis.url" . }}
-{{- if .Values.global.redis.sentinels }}
-      {{- include "gitlab.redis.sentinels" . | nindent 6 }}
-{{- end }}
-      id:
+  {{- include "gitlab.rails.redis.resque" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.cache" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.sharedState" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.queues" . | nindent 2 }}
+  {{- include "gitlab.rails.redis.cable" . | nindent 2 }}
   gitlab.yml.erb: |
     production: &base
       gitlab:

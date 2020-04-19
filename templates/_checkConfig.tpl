@@ -33,6 +33,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.database" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.secondary.database" .) -}}
 {{- $messages := append $messages (include "gitlab.task-runner.replicas" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -170,3 +171,21 @@ task-runner: replicas is greater than 1, with persistence enabled.
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.task-runner.replicas */}}
+
+{{/*
+Ensure that `redis.install: false` if configuring multiple Redis instances
+*/}}
+{{- define "gitlab.checkConfig.multipleRedis" -}}
+{{/* "cache" "sharedState" "queues" "actioncable" */}}
+{{- $x := dict "count" 0 -}}
+{{- range $redis := list "cache" "sharedState" "queues" "actioncable" -}}
+{{-   if hasKey $.Values.global.redis $redis -}}
+{{-     $_ := set $x "count" ( add1 $x.count ) -}}
+{{-    end -}}
+{{- end -}}
+{{- if and .Values.redis.install ( lt 0 $x.count ) }}
+redis:
+  If configuring multiple Redis servers, you can not use the in-chart Redis server. Please see https://docs.gitlab.com/charts/charts/globals#configure-redis-settings
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.multipleRedis */}}

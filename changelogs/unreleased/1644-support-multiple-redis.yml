@@ -1,0 +1,5 @@
+---
+title: Support configuration of multiple Redis instances
+merge_request: 1287
+author:
+type: added

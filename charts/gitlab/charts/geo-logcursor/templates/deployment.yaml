@@ -169,13 +169,7 @@ spec:
               items:
                 - key: secrets.yml
                   path: rails-secrets/secrets.yml
-          {{- if .Values.global.redis.password.enabled }}
-          - secret:
-              name: {{ template "gitlab.redis.password.secret" . }}
-              items:
-                - key: {{ template "gitlab.redis.password.key" . }}
-                  path: redis/password
-          {{- end }}
+          {{- include "gitlab.redis.secrets" . | nindent 10 }}
           - secret:
               name: {{ template "gitlab.psql.password.secret" . }}
               items:
