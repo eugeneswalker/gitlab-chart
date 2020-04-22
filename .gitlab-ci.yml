@@ -801,16 +801,9 @@ review-docs-cleanup:
     RELEASE_NAME: $CI_ENVIRONMENT_SLUG
     S3_CONFIG_PATH: /etc/gitlab/minio
   script:
-    - source "${VARIABLES_FILE}"
-    - apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
-    - curl -LsO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
-    - chmod +x kubectl
-    - mv kubectl /usr/local/bin/kubectl
-    - mkdir -p /etc/gitlab/minio
-    - kubectl get secret ${CI_ENVIRONMENT_SLUG}-minio-secret -o jsonpath='{.data.accesskey}' | base64 --decode > /etc/gitlab/minio/accesskey
-    - kubectl get secret ${CI_ENVIRONMENT_SLUG}-minio-secret -o jsonpath='{.data.secretkey}' | base64 --decode > /etc/gitlab/minio/secretkey
+    - if [[ -n "${VARIABLES_FILE}" ]]; then source "${VARIABLES_FILE}"; ./scripts/ci_feature_spec_setup; fi
     - bundle install -j $(nproc) --without non_test --path gems
-    - bundle exec rspec -c -f d spec
+    - bundle exec rspec -c -f d spec -t "${RSPEC_TAGS}"
   after_script:
     - *auto_devops
   artifacts:
@@ -828,6 +821,7 @@ review_specs_gke:
   extends: .specs
   variables:
     VARIABLES_FILE: "variables/review_gke"
+    RSPEC_TAGS: type:feature
   environment:
     name: gke_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
@@ -847,6 +841,7 @@ review_specs_eks:
   extends: .specs
   variables:
     VARIABLES_FILE: "variables/review_eks"
+    RSPEC_TAGS: type:feature
   environment:
     name: eks_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
@@ -862,6 +857,12 @@ review_specs_eks:
       - master
       - /(^docs[\/-].+|.+-docs$)/
 
+specs_without_cluster:
+  extends: .specs
+  variables:
+    RSPEC_TAGS: ~type:feature
+  needs: []
+
 .production_specs:
   extends: .specs
   <<: *except_deps_update
@@ -871,10 +872,16 @@ review_specs_eks:
     variables:
       - $KUBECONFIG
 
+production_specs_without_cluster:
+  extends: .production_specs
+  variables:
+    RSPEC_TAGS: ~type:feature
+
 production_specs_gke:
   extends: .production_specs
   variables:
     VARIABLES_FILE: "variables/stable_gke"
+    RSPEC_TAGS: type:feature
   environment:
     name: gke_production
     url: https://gitlab.$KUBE_INGRESS_BASE_DOMAIN
@@ -885,6 +892,7 @@ production_specs_eks:
   allow_failure: true
   variables:
     VARIABLES_FILE: "variables/stable_eks"
+    RSPEC_TAGS: type:feature
   environment:
     name: eks_production
     url: https://gitlab.$KUBE_INGRESS_BASE_DOMAIN
