@@ -814,7 +814,7 @@ review-docs-cleanup:
     RELEASE_NAME: $CI_ENVIRONMENT_SLUG
     S3_CONFIG_PATH: /etc/gitlab/minio
   script:
-    - if [[ -n "${VARIABLES_FILE}" ]]; then source "${VARIABLES_FILE}"; ./scripts/ci_feature_spec_setup; fi
+    - if [[ -n "${VARIABLES_FILE}" ]]; then source "${VARIABLES_FILE}"; ./scripts/ci_feature_spec_setup; else ./scripts/ci_integration_spec_setup; fi
     - bundle install -j $(nproc) --without non_test --path gems
     - bundle exec rspec -c -f d spec -t "${RSPEC_TAGS}"
   after_script:
