@@ -134,7 +134,7 @@ Modify the [example YAML configuration](https://gitlab.com/gitlab-org/charts/git
 > to the config. This chart will still take care of creating the [volume claim][pvc] and attempt to bind
 > to the manually created volume. Check the chart documentation for each included application.
 >
-> For most cases, just modify the [example yaml config](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/storage/use_manual_volumes.yml) keeping only those services which
+> For most cases, just modify the [example YAML config](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/storage/use_manual_volumes.yml) keeping only those services which
 > will use the manually created disk volumes.
 
 ## Making changes to storage after installation

@@ -19,7 +19,7 @@ The backup utility provided by GitLab Helm chart supports restoring a tarball fr
 
 ### Restore the rails secrets
 
-The GitLab chart expects rails secrets to be provided as a Kubernetes Secret with content in yaml. Create a local file with the following content:
+The GitLab chart expects rails secrets to be provided as a Kubernetes Secret with content in YAML. Create a local file with the following content:
 
 ```yaml
 production:
@@ -31,7 +31,7 @@ production:
 
 The values should be replaced with matching values from your backup instances rails secrets. For omnibus install they were found in the `/etc/gitlab/gitlab-secrets.json` file, and for other install types you should have a `secrets.yml` file that contains them.
 
-Once you have the secrets created as a local yaml file:
+Once you have the secrets created as a local YAML file:
 
 1. Find the object name for the rails secrets
 
@@ -45,7 +45,7 @@ Once you have the secrets created as a local yaml file:
    kubectl delete secret <rails-secret-name>
    ```
 
-1. Create the new secret using the same name as the old, and passing in your local yaml file
+1. Create the new secret using the same name as the old, and passing in your local YAML file
 
    ```bash
    kubectl create secret generic <rails-secret-name> --from-file=secrets.yml=<local-yaml-filepath>

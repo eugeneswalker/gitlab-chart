@@ -202,7 +202,7 @@ Default settings:
 ## Configuring the `service`
 
 This section controls the name and type of the [Service](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/charts/registry/templates/service.yaml).
-These settings will be populated by [values.yaml](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/charts/registry/values.yaml).
+These settings will be populated by [`values.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/blob/master/charts/registry/values.yaml).
 
 By default, the Service is configured as:
 
@@ -423,8 +423,8 @@ Examples for [AWS s3](https://docs.docker.com/registry/storage-drivers/s3/) and
 [Google GCS](https://docs.docker.com/registry/storage-drivers/gcs/) drivers can be
 found in [examples/objectstorage](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage):
 
-- [registry.s3.yaml](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage/registry.s3.yaml)
-- [registry.gcs.yaml](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage/registry.gcs.yaml)
+- [`registry.s3.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage/registry.s3.yaml)
+- [`registry.gcs.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage/registry.gcs.yaml)
 
 Place the *contents* of the `storage` block into the secret, and provide the following
 as items to the `storage` map:

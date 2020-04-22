@@ -48,7 +48,7 @@ Read how to [use Minikube for setting up a local Kubernetes development environm
 
 ## Naming Conventions
 
-We are using [camelCase](https://en.wikipedia.org/wiki/Camel_case) for our function names, and properties where they are used in values.yaml
+We are using [camelCase](https://en.wikipedia.org/wiki/Camel_case) for our function names, and properties where they are used in `values.yaml`.
 
 Example: `gitlab.assembleHost`
 
@@ -59,7 +59,7 @@ Examples:
 - `gitlab.redis.host`: provides the host name of the Redis server, as a part of the `gitlab` chart.
 - `registry.minio.url`: provides the URL to the MinIO host as part of the `registry` chart.
 
-## Common structure for values.yaml
+## Common structure for `values.yaml`
 
 Many charts need to be provided with the same information, for example we need to provide the Redis and PostgreSQL connection settings to multiple charts. Here we outline our standard naming and structure for those settings.
 
