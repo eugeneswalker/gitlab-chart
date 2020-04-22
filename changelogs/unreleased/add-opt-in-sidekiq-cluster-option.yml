@@ -1,5 +1,0 @@
----
-title: Add option for using Sidekiq Cluster to start Sidekiq
-merge_request: 1247
-author:
-type: added

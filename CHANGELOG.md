@@ -2,6 +2,41 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 3.3.0 (2020-04-22)
+
+### Removed (1 change)
+
+- Remove Redis from Gitlab-Shell and Gitaly charts. !1271
+
+### Fixed (3 changes, 2 of them are from the community)
+
+- Fix the gitaly service name not being used correctly in all places. !1204 (Matthias van de Meent)
+- Change default concurrency setting for Sidekiq to 25 globally. !1233
+- Fixed that unnecessary secret is generated when using external Redis. !1237 (Colin Luo)
+
+### Changed (6 changes)
+
+- Updated Helm references and commands to v3 notations. !1210
+- Support queues, negateQueues, and experimentalQueueSelector for Sidekiq when cluster is enabled. !1251
+- Updated references to deprecated postgresql and redis charts. !1253
+- Make GitLab task-runner scalable, default 1 #1254. !1263
+- GitLab Exporter to 7.0.1. !1265
+- Bump Container Registry to v2.9.0-gitlab. !1273
+
+### Added (6 changes, 2 of them are from the community)
+
+- Add storage setting for terraform state. !1208
+- Ability to override PostgreSQL port for subcharts. !1212 (Stepan Kuksenko)
+- Expose settings to configure Registry notifications. !1225
+- Add option for using Sidekiq Cluster to start Sidekiq. !1247
+- Add optional `priorityClassName` configuration value to Gitaly chart. !1282 (Theo Meneau)
+- Support configuration of multiple Redis instances. !1287
+
+### Other (1 change)
+
+- Update GitLab Version to 12.10.0.
+
+
 ## 3.2.4 (2020-04-17)
 
 ### Other (1 change)

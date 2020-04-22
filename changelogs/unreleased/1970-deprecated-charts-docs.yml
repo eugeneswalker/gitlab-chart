@@ -1,5 +1,0 @@
----
-title: Updated references to deprecated postgresql and redis charts
-merge_request: 1253
-author:
-type: changed

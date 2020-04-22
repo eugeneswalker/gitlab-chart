@@ -1,6 +1,0 @@
----
-title: Support queues, negateQueues, and experimentalQueueSelector for Sidekiq when
-  cluster is enabled
-merge_request: 1251
-author:
-type: changed

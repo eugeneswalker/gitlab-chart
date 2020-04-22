@@ -1,5 +1,0 @@
----
-title: "Fix the gitaly service name not being used correctly in all places"
-merge_request: 1204
-author: Matthias van de Meent
-type: fixed

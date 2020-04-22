@@ -1,5 +1,0 @@
----
-title: Add optional `priorityClassName` configuration value to Gitaly chart
-merge_request: 1282
-author: Theo Meneau
-type: added
