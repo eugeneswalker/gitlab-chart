@@ -60,7 +60,7 @@ by the `gitlab:artifacts:migrate` script below.
       sudo gitlab-rake gitlab:uploads:migrate:all
       ```
 
-      Docs: <https://docs.gitlab.com/ee/administration/raketasks/uploads/migrate.html#migrate-to-object-storage>
+      See [documentation](https://docs.gitlab.com/ee/administration/raketasks/uploads/migrate.html#migrate-to-object-storage).
 
    1. Visit the Omnibus GitLab package-based GitLab instance and make sure the
       uploads are available. For example check if user, group and project
