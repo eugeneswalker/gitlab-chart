@@ -50,6 +50,9 @@ stages:
   - package
   - cleanup
 
+.auto_deploy_items:
+  - &com_auto_deploy_branch_ref /^[0-9]+-[0-9]+-auto-deploy-[0-9]+$/@gitlab-org/charts/gitlab
+
 tag_auto_deploy:
   stage: package
   rules:
@@ -97,6 +100,7 @@ lint_package:
       - tags
       - triggers
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 .kubeval:
   stage: package
@@ -113,6 +117,7 @@ lint_package:
       - tags
       - triggers
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 "Validate 1.12.9":
   extends: .kubeval
@@ -159,6 +164,7 @@ lint_package:
       - master
       - triggers
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 review_gke:
   variables:
@@ -201,6 +207,7 @@ review_eks:
       - master
       - triggers
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 stop_review_gke:
   extends: .stop_review_template
@@ -347,6 +354,7 @@ review_helm_test:
       - master
       - triggers
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 production_helm_test:
   stage: qa
@@ -391,6 +399,7 @@ debug_review:
       - master
       - triggers
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 danger-review:
   image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
@@ -405,6 +414,7 @@ danger-review:
       - master
       - tags
       - triggers
+      - *com_auto_deploy_branch_ref
   script:
     - git version
     - danger --fail-on-errors=true
@@ -975,6 +985,7 @@ release_package:
     refs:
       - master
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 .qa_production:
   extends: .qa
