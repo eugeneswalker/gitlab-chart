@@ -345,6 +345,7 @@ review_helm_test:
     <<: *deps_pipeline
     refs:
       - master
+      - triggers
       - /(^docs[\/-].+|.+-docs$)/
 
 production_helm_test:
@@ -388,6 +389,7 @@ debug_review:
     <<: *deps_pipeline
     refs:
       - master
+      - triggers
       - /(^docs[\/-].+|.+-docs$)/
 
 danger-review:
@@ -402,6 +404,7 @@ danger-review:
     refs:
       - master
       - tags
+      - triggers
   script:
     - git version
     - danger --fail-on-errors=true
