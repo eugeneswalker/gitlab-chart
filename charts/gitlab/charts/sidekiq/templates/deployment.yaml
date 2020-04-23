@@ -47,6 +47,9 @@ spec:
       app: {{ $name }}
       release: {{ $releaseName }}
       queue-pod-name: {{ .name }}
+{{- if or $.Values.updateStrategy .updateStrategy }}
+  strategy: {{ default $.Values.updateStrategy .updateStrategy | toYaml | nindent 4 }}
+{{- end }}
   template:
     metadata:
       labels:
