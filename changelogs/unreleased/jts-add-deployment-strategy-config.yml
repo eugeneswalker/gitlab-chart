@@ -1,0 +1,5 @@
+---
+title: Adds update strategy to be configured for Container Registry
+merge_request: 1293
+author:
+type: added
