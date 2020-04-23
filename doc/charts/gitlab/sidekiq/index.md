@@ -78,6 +78,7 @@ to the `helm install` command using the `--set` flags:
 | `readinessProbe.timeoutSeconds`      | 2                 | When the readiness probe times out                                                                    |
 | `readinessProbe.successThreshold`    | 1                 | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `readinessProbe.failureThreshold`    | 3                 | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded   |
+| `updateStrategy`                     | `{}`              | Allows one to configure the update strategy utilized by the deployment |
 
 ## Chart configuration examples
 
@@ -277,6 +278,7 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `minReplicas`  | Integer | `2`     | Minimum number of replicas |
 | `maxReplicas`  | Integer | `10`    | Maximum number of replicas |
 | `maxUnavailable` | Integer | `1`   | Limit of maximum number of Pods to be unavailable |
+| `updateStrategy` |       | `{}`    | Allows one to configure the update strategy utilized by the deployment |
 
 ### queues
 
