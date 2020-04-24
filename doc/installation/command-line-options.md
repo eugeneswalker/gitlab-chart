@@ -86,7 +86,6 @@ helm inspect values gitlab/gitlab
 | `global.appConfig.incomingEmail.ssl`             | Whether IMAP server uses SSL                                                                           | true        |
 | `global.appConfig.incomingEmail.startTls`        | Whether IMAP server uses StartTLS                                                                      | false       |
 | `global.appConfig.incomingEmail.user`            | Username for IMAP authentication                                                                       | empty       |
-| `global.appConfig.incomingEmail.user`            | Username for IMAP authentication                                                                       | empty       |
 | `global.appConfig.incomingEmail.expungeDeleted`  | Whether to expunge (permanently remove) messages from the mailbox when they are deleted after delivery | false       |
 | `global.appConfig.incomingEmail.logger.logPath`  | Path to write JSON structured logs to; set to "" to disable this logging                               | /dev/stdout |
 
