@@ -44,6 +44,8 @@ Table below contains all the possible charts configurations that can be supplied
 | `psql.port`                 | Set PostgreSQL server port. Takes precedence over `global.psql.port` |   |
 | `resources.requests.cpu`    | `250m`                                   | GitLab Migrations minimum cpu |
 | `resources.requests.memory` | `200Mi`                                  | GitLab Migrations minimum memory |
+| `securityContext.fsGroup`   | `1000`                                   | Group ID under which the pod should be started |
+| `securityContext.runAsUser` | `1000`                                   | User ID under which the pod should be started |
 | `extraInitContainers`       | List of extra init containers to include |                   |
 | `extraContainers`           | List of extra containers to include      |                   |
 | `extraVolumes`              | List of extra volumes to create          |                   |

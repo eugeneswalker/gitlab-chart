@@ -44,6 +44,8 @@ to the `helm install` command using the `--set` flags.
 | `service.internalPort`           | `9168`                | GitLab Exporter internal port                  |
 | `service.name`                   | `gitlab-exporter`     | GitLab Exporter service name                   |
 | `service.type`                   | `ClusterIP`           | GitLab Exporter service type                   |
+| `securityContext.fsGroup`        | `1000`                | Group ID under which the pod should be started |
+| `securityContext.runAsUser`      | `1000`                | User ID under which the pod should be started  |
 | `tolerations`                    | `[]`                  | Toleration labels for pod assignment           |
 | `psql.port`                      |                       | Set PostgreSQL server port. Takes precedence over `global.psql.port` |
 
