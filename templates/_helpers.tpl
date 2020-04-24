@@ -204,11 +204,8 @@ If the postgresql port is provided in subchart values or global values, it will 
 to 5432 default
 */}}
 {{- define "gitlab.psql.port" -}}
-{{- if hasKey .Values.psql "port" -}}
-{{-   .Values.psql.port -}}
-{{- else -}}
-{{-   coalesce .Values.global.psql.port 5432 -}}
-{{- end -}}
+{{- $local := pluck "psql" $.Values | first -}}
+{{- default 5432 (pluck "port" $local $.Values.global.psql | first ) | int -}}
 {{- end -}}
 
 {{/*
