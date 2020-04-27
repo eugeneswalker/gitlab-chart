@@ -438,7 +438,12 @@ check_docs_lint:
     - bundle exec nanoc check internal_links
     # Check the internal anchor links
     - bundle exec nanoc check internal_anchors
-  <<: *except_deps_update
+  except:
+    variables:
+      - $DEPS_PIPELINE
+      - $TRIGGER_JOB
+    refs:
+      - *com_auto_deploy_branch_ref
 
 .review-docs:
   image: ruby:2.6-alpine
@@ -459,6 +464,7 @@ check_docs_lint:
   when: manual
   except:
     - triggers
+    - *com_auto_deploy_branch_ref
 
 # Trigger a docs build in gitlab-docs
 # Useful to preview the docs changes live
@@ -849,6 +855,7 @@ review_specs_gke:
     refs:
       - master
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 review_specs_eks:
   extends: .specs
@@ -869,6 +876,7 @@ review_specs_eks:
     refs:
       - master
       - /(^docs[\/-].+|.+-docs$)/
+      - *com_auto_deploy_branch_ref
 
 specs_without_cluster:
   extends: .specs
