@@ -97,9 +97,12 @@ Note: Workhorse only uses the primary Redis (global.redis)
 {{- end -}}
 
 {{- define "gitlab.redis.secret" -}}
+{{- include "gitlab.redis.configMerge" . -}}
+{{- if .redisMergedConfig.password.enabled }}
 - secret:
     name: {{ template "gitlab.redis.password.secret" . }}
     items:
       - key: {{ template "gitlab.redis.password.key" . }}
         path: redis/{{ printf "%s-password" (default "redis" .redisConfigName) }}
+{{- end }}
 {{- end -}}
