@@ -17,7 +17,7 @@ using various tools. This chart comes ready to integrate with a popular choice [
 ```shell
 helm repo update
 helm dep update
-helm install gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab \
   --set certmanager-issuer.email=you@example.com
 ```
 
@@ -30,7 +30,7 @@ provided by default.
 It is possible to make use of an external `cert-manager` but provide an Issuer as a part of this chart.
 
 ```shell
-helm install gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set certmanager-issuer.email=you@example.com \
   --set global.ingress.annotations."kubernetes\.io/tls-acme"=true
@@ -45,7 +45,7 @@ are not activated.
 1. Names of TLS secrets for each service (this deactivates [self-signed behaviors](#option-4-use-auto-generated-self-signed-wildcard-certificate))
 
 ```shell
-helm install gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.annotations."kubernetes\.io/tls-acme"=true \
@@ -65,7 +65,7 @@ kubectl create secret tls <tls-secret-name> --cert=<path/to-full-chain.crt> --ke
 Include the option to
 
 ```shell
-helm install gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.tls.secretName=<tls-secret-name>
@@ -76,7 +76,7 @@ helm install gitlab gitlab/gitlab
 Add your full chain certificates to the cluster as secrets, and then pass those secret names to each Ingress.
 
 ```shell
-helm install gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.tls.enabled=true \
@@ -95,7 +95,7 @@ desired. This functionality is provided by the [shared-secrets](../charts/shared
 disabling it, as shown below.
 
 ```shell
-helm install gitlab gitlab/gitlab
+helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set gitlab-runner.install=false
