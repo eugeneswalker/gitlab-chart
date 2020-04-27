@@ -1,5 +1,5 @@
 ---
 title: Allow configuration of security context user to help with Openshift installs
-merge_request: 1170
+merge_request: 1306
 author: Mickaël Canévet
 type: changed
