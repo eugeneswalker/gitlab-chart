@@ -76,6 +76,8 @@ to the `helm install` command using the `--set` flags.
 | `replicaCount`                   | `1`                   | Unicorn number of replicas                     |
 | `resources.requests.cpu`         | `300m`                | Unicorn minimum cpu                            |
 | `resources.requests.memory`      | `1.5G`                | Unicorn minimum memory                         |
+| `securityContext.fsGroup`        | `1000`                | Group ID under which the pod should be started |
+| `securityContext.runAsUser`      | `1000`                | User ID under which the pod should be started  |
 | `service.externalPort`           | `8080`                | Unicorn exposed port                           |
 | `service.internalPort`           | `8080`                | Unicorn internal port                          |
 | `service.type`                   | `ClusterIP`           | Unicorn service type                           |

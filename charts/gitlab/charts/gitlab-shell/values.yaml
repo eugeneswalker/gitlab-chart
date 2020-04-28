@@ -73,3 +73,8 @@ config:
     start: 10
     rate: 30
     full: 100
+
+## Allow to overwrite under which User and Group we're running.
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000

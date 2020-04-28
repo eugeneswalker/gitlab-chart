@@ -24,8 +24,8 @@ spec:
 {{- end }}
     spec:
       securityContext:
-        runAsUser: 1000
-        fsGroup: 1000
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
       {{- if eq (default .Values.global.antiAffinity .antiAffinity) "hard" }}
       affinity:
         podAntiAffinity:

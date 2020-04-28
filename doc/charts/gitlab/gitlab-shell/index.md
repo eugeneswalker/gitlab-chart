@@ -57,6 +57,8 @@ with `global.shell.port`, and defaults to `22`.
 | `service.loadBalancerIP` |                | IP address to assign to LoadBalancer (if supported) |
 | `service.loadBalancerSourceRanges` |      | List of IP CIDRs allowed access to LoadBalancer (if supported)  |
 | `service.type`           | `ClusterIP`    | Shell service type                       |
+| `securityContext.fsGroup` | `1000`      |Group ID under which the pod should be started |
+| `securityContext.runAsUser` | `1000`      |User ID under which the pod should be started  |
 | `tolerations`            | `[]`           | Toleration labels for pod assignment     |
 | `workhorse.serviceName`    | `unicorn`      | Workhorse service name (by default, Workhorse is a part of the Unicorn Pods / Service)                   |
 
