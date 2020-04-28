@@ -1,6 +1,7 @@
 # Setup standalone Gitaly
 
-The instructions here make use of the [Omnibus GitLab][] package for Ubuntu. This package provides versions of the services that are guaranteed to be compatible with the charts' services.
+The instructions here make use of the [Omnibus GitLab][] package for Ubuntu.
+This package provides versions of the services that are guaranteed to be compatible with the charts' services.
 
 ## Create VM with Omnibus GitLab
 
@@ -25,7 +26,7 @@ _**NOTE**: The values below should be replaced_
 
 <!--
 updates to following example must also be made at
-https://gitlab.com/gitlab-org/gitlab-foss/blob/master/doc/administration/gitaly/index.md#gitaly-server-configuration
+https://gitlab.com/gitlab-org/gitlab/blob/master/doc/administration/gitaly/index.md#gitaly-server-configuration
 -->
 
 ```ruby
@@ -33,10 +34,24 @@ https://gitlab.com/gitlab-org/gitlab-foss/blob/master/doc/administration/gitaly/
 postgresql['enable'] = false
 redis['enable'] = false
 nginx['enable'] = false
-prometheus['enable'] = false
 unicorn['enable'] = false
 sidekiq['enable'] = false
 gitlab_workhorse['enable'] = false
+grafana['enable'] = false
+
+# If you run a seperate monitoring node you can disable these services
+alertmanager['enable'] = false
+prometheus['enable'] = false
+
+# If you don't run a seperate monitoring node you can
+# Enable Prometheus access & disable these extra services
+# This makes Prometheus listen on all interfaces. You must use firewalls to restrict access to this address/port.
+# prometheus['listen_address'] = '0.0.0.0:9090'
+# prometheus['monitor_kubernetes'] = false
+
+# If you don't want to run monitoring services uncomment the following (not recommended)
+# gitlab_exporter['enable'] = false
+# node_exporter['enable'] = false
 
 # Prevent database connections during 'gitlab-ctl reconfigure'
 gitlab_rails['rake_cache_clear'] = false
@@ -58,12 +73,12 @@ gitaly['auth_token'] = 'AUTH_TOKEN'
 gitaly['listen_addr'] = "0.0.0.0:8075"
 
 git_data_dirs({
-  'default' => {
-    'path' => '/var/opt/gitlab/git-data'
-  },
-  'storage1' => {
-    'path' => '/mnt/gitlab/git-data'
-  },
+ 'default' => {
+   'path' => '/var/opt/gitlab/git-data'
+ },
+ 'storage1' => {
+   'path' => '/mnt/gitlab/git-data'
+ },
 })
 
 # To use TLS for Gitaly you need to add
@@ -72,7 +87,9 @@ gitaly['certificate_path'] = "path/to/cert.pem"
 gitaly['key_path'] = "path/to/key.pem"
 ```
 
-After creating `gitlab.rb`, reconfigure the package with `gitlab-ctl reconfigure`. Once the task has completed, check the running processes with `gitlab-ctl status`. The output should appear as such:
+After creating `gitlab.rb`, reconfigure the package with `gitlab-ctl reconfigure`.
+Once the task has completed, check the running processes with `gitlab-ctl status`.
+The output should appear as such:
 
 ```plaintext
 # gitlab-ctl status
