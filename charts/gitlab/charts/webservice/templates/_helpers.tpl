@@ -5,7 +5,7 @@ Returns the secret name for the Secret containing the TLS certificate and key.
 Uses `ingress.tls.secretName` first and falls back to `global.ingress.tls.secretName`
 if there is a shared tls secret for all ingresses.
 */}}
-{{- define "unicorn.tlsSecret" -}}
+{{- define "webservice.tlsSecret" -}}
 {{- $defaultName := (dict "secretName" "") -}}
 {{- if .Values.global.ingress.configureCertmanager -}}
 {{- $_ := set $defaultName "secretName" (printf "%s-gitlab-tls" .Release.Name) -}}
@@ -25,20 +25,20 @@ image repository.
 */}}
 {{- define "workhorse.repository" -}}
 {{- if eq "ce" .Values.global.edition -}}
-{{ index .Values "global" "communityImages" .Chart.Name "workhorse" "repository" }}
+{{ index .Values "global" "communityImages" "workhorse" "repository" }}
 {{- else -}}
-{{ index .Values "global" "enterpriseImages" .Chart.Name "workhorse" "repository" }}
+{{ index .Values "global" "enterpriseImages" "workhorse" "repository" }}
 {{- end -}}
 {{- end -}}
 
 {{/*
-Returns the unicorn image depending on the value of global.edition.
+Returns the webservice image depending on the value of global.edition.
 
 Used to switch the deployment from Enterprise Edition (default) to Community
 Edition. If global.edition=ce, returns the Community Edition image repository
 set in the Gitlab values.yaml, otherwise returns the Enterprise Edition
 image repository.
 */}}
-{{- define "unicorn.image" -}}
+{{- define "webservice.image" -}}
 {{ coalesce .Values.image.repository (include "image.repository" .) }}:{{ coalesce .Values.image.tag (include "gitlab.versionTag" . ) }}
 {{- end -}}

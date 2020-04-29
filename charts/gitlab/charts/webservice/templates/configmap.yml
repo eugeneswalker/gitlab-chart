@@ -43,7 +43,7 @@ data:
     worker_processes {{ .Values.workerProcesses }}
     working_directory "/srv/gitlab"
     listen "0.0.0.0:{{ .Values.service.internalPort }}", :tcp_nopush => true
-    timeout {{ .Values.global.unicorn.workerTimeout }}
+    timeout {{ .Values.global.webservice.workerTimeout }}
     pid "/home/git/unicorn.pid"
     preload_app true
 
@@ -103,8 +103,8 @@ data:
       # server.listen(addr, :tries => -1, :delay => 5, :tcp_nopush => true)
     end
 
-    ENV['GITLAB_UNICORN_MEMORY_MIN'] = ({{ int .Values.memory.min }} * 1 << 20).to_s
-    ENV['GITLAB_UNICORN_MEMORY_MAX'] = ({{ int .Values.memory.max }} * 1 << 20).to_s
+    ENV['GITLAB_UNICORN_MEMORY_MIN'] = ({{ int .Values.unicorn.memory.min }} * 1 << 20).to_s
+    ENV['GITLAB_UNICORN_MEMORY_MAX'] = ({{ int .Values.unicorn.memory.max }} * 1 << 20).to_s
   puma.rb: |
     # This file should be equivalent to `puma.rb` from:
     # * gitlab-foss: https://gitlab.com/gitlab-org/gitlab-foss/blob/master/config/puma.rb.example
@@ -175,7 +175,7 @@ data:
     # the given timeout. If not the worker process will be restarted. Default
     # value is 60 seconds.
     #
-    worker_timeout {{ .Values.global.unicorn.workerTimeout }}
+    worker_timeout {{ .Values.global.webservice.workerTimeout }}
 
     # Use customised JSON formatter for Puma log
     require_relative "/srv/gitlab/lib/gitlab/puma_logging/json_formatter"

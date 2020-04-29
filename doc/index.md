@@ -22,7 +22,7 @@ can be installed separately.
   - GitLab/[GitLab Shell](charts/gitlab/gitlab-shell/index.md)
   - GitLab/[Migrations](charts/gitlab/migrations/index.md)
   - GitLab/[Sidekiq](charts/gitlab/sidekiq/index.md)
-  - GitLab/[Unicorn](charts/gitlab/unicorn/index.md)
+  - GitLab/[Webservice](charts/gitlab/webservice/index.md)
 - Optional dependencies:
   - [PostgreSQL](https://hub.helm.sh/charts/stable/postgresql)
   - [Redis](https://hub.helm.sh/charts/stable/redis)

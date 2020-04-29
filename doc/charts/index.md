@@ -23,4 +23,4 @@ There are some common global settings that apply to multiple charts. See the
 - GitLab/[GitLab Shell](gitlab/gitlab-shell/index.md)
 - GitLab/[migrations](gitlab/migrations/index.md)
 - GitLab/[Sidekiq](gitlab/sidekiq/index.md)
-- GitLab/[Unicorn](gitlab/unicorn/index.md)
+- GitLab/[Webservice](gitlab/webservice/index.md)

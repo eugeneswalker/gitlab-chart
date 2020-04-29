@@ -47,7 +47,7 @@ helm upgrade gitlab gitlab/gitlab --timeout 600s --set global.email.display_name
 
 ## Application containers constantly initializing
 
-If you experience Sidekiq, Unicorn, or other Rails based containers in a constant
+If you experience Sidekiq, Webservice, or other Rails based containers in a constant
 state of Initializing, you're likely waiting on the `dependencies` container to
 pass.
 

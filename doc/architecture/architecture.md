@@ -33,7 +33,7 @@ The following GitLab components have images in the CNG repository.
 - GitLab Shell
 - Sidekiq
 - GitLab task-runner
-- Unicorn
+- Webservice
 - Workhorse
 
 The following are forked charts which also use GitLab specific Docker images.
@@ -89,7 +89,7 @@ component services are documented under the [GitLab](../charts/gitlab/index.md) 
 - GitLab/[GitLab Shell](../charts/gitlab/gitlab-shell/index.md)
 - GitLab/[Migrations](../charts/gitlab/migrations/index.md)
 - GitLab/[Sidekiq](../charts/gitlab/sidekiq/index.md)
-- GitLab/[Unicorn](../charts/gitlab/unicorn/index.md)
+- GitLab/[Webservice](../charts/gitlab/webservice/index.md)
 
 ### Components list
 

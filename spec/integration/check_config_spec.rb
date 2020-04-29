@@ -236,7 +236,7 @@ describe 'checkConfig template' do
       {
         'global' => {
           'appConfig' => { 'maxRequestDurationSeconds' => 50 },
-          'unicorn' => { 'workerTimeout' => 60 }
+          'webservice' => { 'workerTimeout' => 60 }
         }
       }.merge(default_required_values)
     end
@@ -245,12 +245,12 @@ describe 'checkConfig template' do
       {
         'global' => {
           'appConfig' => { 'maxRequestDurationSeconds' => 70 },
-          'unicorn' => { 'workerTimeout' => 60 }
+          'webservice' => { 'workerTimeout' => 60 }
         }
       }.merge(default_required_values)
     end
 
-    let(:error_output) { 'global.appConfig.maxRequestDurationSeconds (70) is greater than or equal to global.unicorn.workerTimeout (60)' }
+    let(:error_output) { 'global.appConfig.maxRequestDurationSeconds (70) is greater than or equal to global.webservice.workerTimeout (60)' }
 
     include_examples 'config validation',
                      success_description: 'when maxRequestDurationSeconds is less than workerTimeout',

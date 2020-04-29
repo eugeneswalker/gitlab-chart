@@ -33,7 +33,7 @@ to the `helm install` command using the `--set` flags.
 | `image.pullPolicy`               | `IfNotPresent`        | GitLab image pull policy                       |
 | `image.pullSecrets`              |                       | Secrets for the image repository               |
 | `image.repository`               | `registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter` | GitLab Exporter image repository |
-| `image.tag`                      |                       | Unicorn image tag                              |
+| `image.tag`                      |                       | image tag                                      |
 | `init.image.repository`          |                       | initContainer image                            |
 | `init.image.tag`                 |                       | initContainer image tag                        |
 | `metrics.enabled`                | `true`                | Toggle Prometheus metrics exporter             |
@@ -62,7 +62,7 @@ Below is an example use of `pullSecrets`:
 
 ```YAML
 image:
-  repository: my.unicorn.repository
+  repository: my.image.repository
   pullPolicy: Always
   pullSecrets:
   - name: my-secret-name

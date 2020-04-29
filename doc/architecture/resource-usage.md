@@ -36,7 +36,7 @@ We will measure:
   defaults, but users will likely want to set resource limits somewhere between the
   average loads/stress task and this value.
 
-### Unicorn
+### Webservice
 
 Load was tested using <https://gitlab.com/andrewn/gitlab-load-kit> each test over
 a period of 5 minutes, on the first 100 urls crawlable by the root user. Values
