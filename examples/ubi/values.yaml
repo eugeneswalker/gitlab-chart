@@ -17,7 +17,7 @@ postgresql:
   install: false
 
 redis:
-  enabled: false
+  install: false
 
 nginx-ingress:
   enabled: false
