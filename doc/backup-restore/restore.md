@@ -53,11 +53,11 @@ Once you have the secrets created as a local YAML file:
 
 ### Restart the pods
 
-In order to use the new secrets, the `unicorn`, `sidekiq` and `task-runner` pods need to be restarted. The safest way to restart those pods is to run:
+In order to use the new secrets, the `webservice`, `sidekiq` and `task-runner` pods need to be restarted. The safest way to restart those pods is to run:
 
 ```bash
 kubectl delete pods -lapp=sidekiq,release=<helm release name>
-kubectl delete pods -lapp=unicorn,release=<helm release name>
+kubectl delete pods -lapp=webservice,release=<helm release name>
 kubectl delete pods -lapp=task-runner,release=<helm release name>
 ```
 
@@ -115,21 +115,21 @@ If the restored backup was not from an existing installation of the chart, you w
 
 ## Restart the pods
 
-In order to use the new changes, the `unicorn` and `sidekiq` pods need to be restarted. The safest way to restart those pods is to run:
+In order to use the new changes, the `webservice` and `sidekiq` pods need to be restarted. The safest way to restart those pods is to run:
 
 ```bash
 kubectl delete pods -lapp=sidekiq,release=<helm release name>
-kubectl delete pods -lapp=unicorn,release=<helm release name>
+kubectl delete pods -lapp=webservice,release=<helm release name>
 ```
 
 ## (Optional) Reset the root user's password
 
 The restoration process does not update the `gitlab-initial-root-password` secret with the value from backup. For logging in as `root`, use the original password included in the backup. In the case that the password is no longer accessible, follow the steps below to reset it.
 
-1. Attach to the Unicorn pod by executing the command
+1. Attach to the webservice pod by executing the command
 
    ```bash
-   kubectl exec <unicorn pod name> -it bash
+   kubectl exec <webservice pod name> -it bash
    ```
 
 1. Run the following command to reset the password of `root` user. Replace `#{password}` with a password of your choice

@@ -18,7 +18,7 @@ for more information on how the global variables work.
 - [appConfig](#configure-appconfig-settings)
 - [Rails](#configure-rails-settings)
 - [GitLab Shell](#configure-gitlab-shell)
-- [Unicorn](#configure-unicorn)
+- [Webservice](#configure-webservice)
 - [Custom Certificate Authorities](#custom-certificate-authorities)
 - [Application Resource](#application-resource)
 - [Busybox image](#busybox-image)
@@ -53,7 +53,7 @@ global:
 | `hostSuffix`           | String  |               | [See Below](#hostsuffix). |
 | `gitlab.https`         | Boolean | `false`       | If `hosts.https` or `gitlab.https` are `true`, the GitLab external url will use `https://` instead of `http://`. |
 | `gitlab.name`          | String  |               | The hostname for GitLab. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
-| `gitlab.serviceName`   | String  | `unicorn`     | The name of the `service` which is operating the GitLab server. The chart will template the hostname of the service (and current `.Release.Name`) to create the proper internal serviceName. |
+| `gitlab.serviceName`   | String  | `webservice`     | The name of the `service` which is operating the GitLab server. The chart will template the hostname of the service (and current `.Release.Name`) to create the proper internal serviceName. |
 | `gitlab.servicePort`   | String  | `workhorse`   | The named port of the `service` where the GitLab server can be reached. |
 | `minio.https`          | Boolean | `false`       | If `hosts.https` or `minio.https` are `true`, the MinIO external url will use `https://` instead of `http://`. |
 | `minio.name`           | String  |               | The hostname for MinIO. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
@@ -104,7 +104,7 @@ Ingress objects.
 
 NOTE: **Note:** If you wish to use an external `cert-manager`, you must provide the following:
 
-- `gitlab.unicorn.ingress.tls.secretName`
+- `gitlab.webservice.ingress.tls.secretName`
 - `registry.ingress.tls.secretName`
 - `minio.ingress.tls.secretName`
 - `global.ingress.annotations`
@@ -122,14 +122,14 @@ the `global.gitlabVersion` key:
 --set global.gitlabVersion=11.0.1
 ```
 
-This impacts the default image tag used in the `unicorn`, `sidekiq`, and `migration`
+This impacts the default image tag used in the `webservice`, `sidekiq`, and `migration`
 charts. Note that the `gitaly`, `gitlab-shell` and `gitlab-runner` image tags should
 be separately updated to versions compatible with the GitLab version.
 
 ## Configure PostgreSQL settings
 
 The GitLab global PostgreSQL settings are located under the `global.psql` key. For
-more details, see the documentation within the [Unicorn chart](gitlab/unicorn/index.md#postgresql).
+more details, see the documentation within the [webservice chart](gitlab/webservice/index.md#postgresql).
 
 ```YAML
 global:
@@ -163,7 +163,7 @@ global:
 ## Configure Redis settings
 
 The GitLab global Redis settings are located under the `global.redis` key. For more
-details on these settings, see the documentation within the [Unicorn chart](gitlab/unicorn/index.md#redis).
+details on these settings, see the documentation within the [Webservice chart](gitlab/webservice/index.md#redis).
 
 ```YAML
 global:
@@ -340,7 +340,7 @@ global:
 
 ## Configure appConfig settings
 
-The [Unicorn](gitlab/unicorn/index.md), [Sidekiq](gitlab/sidekiq/index.md), and
+The [Webservice](gitlab/webservice/index.md), [Sidekiq](gitlab/sidekiq/index.md), and
 [Gitaly](gitlab/gitaly/index.md) charts share multiple settings, which are configured
 with the `global.appConfig` key.
 
@@ -772,7 +772,7 @@ basis using cron style schedules. A few examples are included below. See the
 sample [`gitlab.yml`](https://gitlab.com/gitlab-org/gitlab/blob/master/config/gitlab.yml.example#L346-427)
 for more job examples.
 
-These settings are shared between Sidekiq, Unicorn (for showing tooltips in UI)
+These settings are shared between Sidekiq, Webservice (for showing tooltips in UI)
 and task-runner (for debugging purposes) pods.
 
 ```YAML
@@ -827,21 +827,21 @@ global:
 | `authToken` |         |         | See [authToken](gitlab/gitlab-shell/index.md#authtoken) in the GitLab Shell chart specific documentation. |
 | `hostKeys`  |         |         | See [hostKeys](gitlab/gitlab-shell/index.md#hostkeyssecret) in the GitLab Shell chart specific documentation. |
 
-## Configure Unicorn
+## Configure Webservice
 
-The global Unicorn settings (that are used by other charts also) are located
-under the `global.unicorn` key.
+The global Webservice settings (that are used by other charts also) are located
+under the `global.webservice` key.
 
 ```yaml
 global:
-  unicorn:
+  webservice:
     workerTimeout: 60
 ```
 
 ### workerTimeout
 
-Configure the request timeout (in seconds) after which a Unicorn worker process
-is killed by the Unicorn master process. The default value is 60 seconds.
+Configure the request timeout (in seconds) after which a Webservice worker process
+is killed by the Webservice master process. The default value is 60 seconds.
 
 ## Custom Certificate Authorities
 

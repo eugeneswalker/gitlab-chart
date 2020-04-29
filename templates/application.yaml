@@ -33,7 +33,7 @@ spec:
       ```
       kubectl get \
         --namespace {{ .Release.Namespace }} \
-        ing {{ .Release.Name }}-unicorn \
+        ing {{ .Release.Name }}-webservice \
         -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
       ```
 

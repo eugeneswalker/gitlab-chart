@@ -418,8 +418,8 @@ global:
     # secret:
     # key:
 
-  ## doc/charts/globals.md#configure-unicorn
-  unicorn:
+  ## doc/charts/globals.md#configure-webservice
+  webservice:
     workerTimeout: 60
 
   ## doc/charts/globals.md#custom-certificate-authorities
@@ -667,8 +667,8 @@ gitlab:
 ## doc/charts/gitlab/migrations
 #   migrations:
 #     enabled: false
-## doc/charts/gitlab/unicorn
-#   unicorn:
+## doc/charts/gitlab/webservice
+#   webservice:
 #     enabled: false
 ## doc/charts/gitlab/sidekiq
 #   sidekiq:

@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
   - name: test-runner
-    image: {{ include "unicorn.image" . }}
+    image: {{ include "webservice.image" . }}
     command: ['sh', '/tests/test_login']
     volumeMounts:
       - name: tests

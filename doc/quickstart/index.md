@@ -97,10 +97,10 @@ kubectl get ingress -lrelease=gitlab
 This output should look something like the following:
 
 ```plaintext
-NAME            HOSTS                 ADDRESS         PORTS     AGE
-gitlab-minio    minio.domain.tld      35.239.27.235   80, 443   118m
-gitlab-registry registry.domain.tld   35.239.27.235   80, 443   118m
-gitlab-unicorn  gitlab.domain.tld     35.239.27.235   80, 443   118m
+NAME               HOSTS                 ADDRESS         PORTS     AGE
+gitlab-minio       minio.domain.tld      35.239.27.235   80, 443   118m
+gitlab-registry    registry.domain.tld   35.239.27.235   80, 443   118m
+gitlab-webservice  gitlab.domain.tld     35.239.27.235   80, 443   118m
 ```
 
 You'll notice there are 3 entries, and they all have the same IP address.

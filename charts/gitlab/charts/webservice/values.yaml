@@ -1,4 +1,4 @@
-# Default values for unicorn.
+# Default values for webservice.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
@@ -58,9 +58,10 @@ ingress:
   annotations: {}
 workerProcesses: 2
 
-memory: # in MB units
-  min: 1024
-  max: 1280
+unicorn:
+  memory: # in MB units
+    min: 1024
+    max: 1280
 
 puma:
   workerMaxMemory: 1024 # in MB units
@@ -156,7 +157,7 @@ global:
   minio:
     enabled:
     credentials: {}
-  unicorn: {}
+  webservice: {}
     # workerTimeout: 60
   appConfig:
     incomingEmail:
@@ -263,7 +264,7 @@ maxReplicas: 10
 helmTests:
   enabled: true
 
-webServer: unicorn
+webServer: puma
 
 ## Allow to overwrite under which User and Group we're running.
 securityContext:

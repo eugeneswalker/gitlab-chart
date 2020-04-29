@@ -1,7 +1,7 @@
 {{- if .Values.enabled -}}
 {{- if eq (include "gitlab.ingress.enabled" $) "true" -}}
 {{- $gitlabHostname := include "gitlab.gitlab.hostname" . -}}
-{{- $tlsSecret := include "unicorn.tlsSecret" . -}}
+{{- $tlsSecret := include "webservice.tlsSecret" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

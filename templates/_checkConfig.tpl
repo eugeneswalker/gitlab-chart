@@ -137,14 +137,14 @@ geo: no secondary database password provided
 
 {{/*
 Ensure the provided global.appConfig.maxRequestDurationSeconds value is smaller than
-unicorn's worker timeout */}}
+webservice's worker timeout */}}
 {{- define "gitlab.checkConfig.appConfig.maxRequestDurationSeconds" -}}
 {{- $maxDuration := $.Values.global.appConfig.maxRequestDurationSeconds }}
 {{- if $maxDuration }}
-{{- $workerTimeout := $.Values.global.unicorn.workerTimeout }}
+{{- $workerTimeout := $.Values.global.webservice.workerTimeout }}
 {{- if not (lt $maxDuration $workerTimeout) }}
-gitlab: maxRequestDurationSeconds should be smaller than Unicorn's worker timeout
-        The current value of global.appConfig.maxRequestDurationSeconds ({{ $maxDuration }}) is greater than or equal to global.unicorn.workerTimeout ({{ $workerTimeout }}) while it should be a lesser value.
+gitlab: maxRequestDurationSeconds should be smaller than Webservice's worker timeout
+        The current value of global.appConfig.maxRequestDurationSeconds ({{ $maxDuration }}) is greater than or equal to global.webservice.workerTimeout ({{ $workerTimeout }}) while it should be a lesser value.
 {{- end }}
 {{- end }}
 {{- end }}

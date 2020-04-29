@@ -9,4 +9,4 @@ The following is the documentation list for the GitLab component service subchar
 - GitLab/[GitLab Shell](gitlab-shell/index.md)
 - GitLab/[Migrations](migrations/index.md)
 - GitLab/[Sidekiq](sidekiq/index.md)
-- GitLab/[Unicorn](unicorn/index.md)
+- GitLab/[Webservice](webservice/index.md)

@@ -14,7 +14,7 @@ spec:
     - port: {{ .Values.service.externalPort }}
       targetPort: {{ .Values.service.internalPort }}
       protocol: TCP
-      name: http-unicorn
+      name: http-webservice
     - port: {{ .Values.service.workhorseExternalPort }}
       targetPort: {{ .Values.service.workhorseInternalPort }}
       protocol: TCP

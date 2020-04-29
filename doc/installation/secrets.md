@@ -43,7 +43,7 @@ documentation.
   - [Registry HTTP secret](#registry-http-secret)
   - [Grafana password](#grafana-password)
 - [External Services](#external-services)
-  - [Unicorn OmniAuth](#unicorn-omniauth)
+  - [OmniAuth](#omniauth)
   - [LDAP Password](#ldap-password)
   - [SMTP Password](#smtp-password)
   - [IMAP Password](#imap-password-for-incoming-emails)
@@ -236,7 +236,7 @@ kubectl create secret generic <name>-registry-httpsecret --from-literal=secret=$
 
 Some charts have further secrets to enable functionality that can not be automatically generated.
 
-### Unicorn OmniAuth
+### OmniAuth
 
 In order to enable the use of [OmniAuth Providers](https://docs.gitlab.com/ee/integration/omniauth.html) with the deployed GitLab, please follow the [instructions in the Globals chart](../charts/globals.md#omniauth)
 

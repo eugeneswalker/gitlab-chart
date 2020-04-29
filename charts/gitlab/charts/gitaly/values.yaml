@@ -64,10 +64,10 @@ prometheus: {}
   # grpcLatencyBuckets: "[1.0, 1.5, 2.0, 2.5]"
 
 workhorse:
-  # by default, Workhorse is a part of the Unicorn Pods / Service
-  serviceName: unicorn
+  # by default, Workhorse is a part of the Webservice Pods / Service
+  serviceName: webservice
   # host: '0.0.0.0'
-  # serviceName: 'unicorn'
+  # serviceName: 'webservice'
   # port: 8181
 shell:
   authToken: {}

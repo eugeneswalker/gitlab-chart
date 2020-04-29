@@ -111,7 +111,7 @@ global:
       names: ["default"]
     external: []
     authToken: {}
-  unicorn: {}
+  webservice: {}
   minio:
     enabled:
     credentials: {}

@@ -143,7 +143,7 @@ In order to use the Community Edition, set `image.repository` to
 ## External Services
 
 This chart should be attached to the same Redis, PostgreSQL, and Gitaly instances
-as the Unicorn chart. The values of external services will be populated into a `ConfigMap`
+as the Webservice chart. The values of external services will be populated into a `ConfigMap`
 that is shared across all Sidekiq pods.
 
 ### Redis

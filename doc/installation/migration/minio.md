@@ -7,7 +7,7 @@ Users are advised to setup an [external object storage](../../advanced/external-
 service for production use.
 
 The easiest way to figure out the access details to built-in MinIO cluster is to
-look at the `gitlab.yml` file that is generated in Sidekiq, Unicorn and
+look at the `gitlab.yml` file that is generated in Sidekiq, Webservice and
 task-runner pods. Follow the steps to grab it from the Sidekiq pod
 
 1. Find out the name of the Sidekiq pod

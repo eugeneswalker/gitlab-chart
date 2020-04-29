@@ -49,7 +49,7 @@ helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.annotations."kubernetes\.io/tls-acme"=true \
-  --set gitlab.unicorn.ingress.tls.secretName=RELEASE-gitlab-tls \
+  --set gitlab.webservice.ingress.tls.secretName=RELEASE-gitlab-tls \
   --set registry.ingress.tls.secretName=RELEASE-registry-tls \
   --set minio.ingress.tls.secretName=RELEASE-minio-tls
 ```
@@ -80,7 +80,7 @@ helm install gitlab gitlab/gitlab \
   --set certmanager.install=false \
   --set global.ingress.configureCertmanager=false \
   --set global.ingress.tls.enabled=true \
-  --set gitlab.unicorn.ingress.tls.secretName=RELEASE-gitlab-tls \
+  --set gitlab.webservice.ingress.tls.secretName=RELEASE-gitlab-tls \
   --set registry.ingress.tls.secretName=RELEASE-registry-tls \
   --set minio.ingress.tls.secretName=RELEASE-minio-tls
 ```

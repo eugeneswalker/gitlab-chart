@@ -63,22 +63,22 @@ spec:
         {{- include "gitlab.certificates.initContainer" . | nindent 8 }}
         - name: configure
           command: ['sh']
-          args: [ '-c', 'sh -x /config-unicorn/configure ; sh -x /config-workhorse/configure ; mkdir -p -m 3770 /tmp/gitlab']
+          args: [ '-c', 'sh -x /config-webservice/configure ; sh -x /config-workhorse/configure ; mkdir -p -m 3770 /tmp/gitlab']
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" . | nindent 10 }}
           {{- include "gitlab.psql.ssl.volumeMount" . | nindent 10 }}
           {{- include "gitlab.geo.psql.ssl.volumeMount" . | nindent 10 }}
-          - name: unicorn-config
-            mountPath: /config-unicorn
+          - name: webservice-config
+            mountPath: /config-webservice
             readOnly: true
           - name: workhorse-config
             mountPath: /config-workhorse
             readOnly: true
-          - name: init-unicorn-secrets
+          - name: init-webservice-secrets
             mountPath: /init-config
             readOnly: true
-          - name: unicorn-secrets
+          - name: webservice-secrets
             mountPath: /init-secrets
             readOnly: false
           - name: workhorse-secrets
@@ -90,7 +90,7 @@ spec:
           resources:
             {{- toYaml .Values.init.resources | nindent 12 }}
         - name: dependencies
-          image: {{ include "unicorn.image" . }}
+          image: {{ include "webservice.image" . }}
           {{ template "gitlab.imagePullPolicy" . }}
           args:
             - /scripts/wait-for-deps
@@ -113,12 +113,12 @@ spec:
             {{- end }}
           volumeMounts:
             {{- include "gitlab.extraVolumeMounts" . | nindent 12 }}
-            - name: unicorn-config
+            - name: webservice-config
               mountPath: '/var/opt/gitlab/templates'
-            - name: unicorn-secrets
+            - name: webservice-secrets
               mountPath: '/etc/gitlab'
               readOnly: true
-            - name: unicorn-secrets
+            - name: webservice-secrets
               mountPath: /srv/gitlab/config/secrets.yml
               subPath: rails-secrets/secrets.yml
               readOnly: true
@@ -128,11 +128,11 @@ spec:
       containers:
         {{- include "gitlab.extraContainers" . | nindent 8 }}
         - name: {{ .Chart.Name }}
-          image: {{ include "unicorn.image" . }}
+          image: {{ include "webservice.image" . }}
           {{ template "gitlab.imagePullPolicy" . }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
-              name: unicorn
+              name: webservice
           env:
             - name: GITLAB_WEBSERVER
               value: {{ .Values.webServer }}
@@ -158,21 +158,21 @@ spec:
             {{- end }}
           volumeMounts:
 {{- if .Values.metrics.enabled }}
-            - name: unicorn-metrics
+            - name: webservice-metrics
               mountPath: '/metrics'
 {{- end }}
-            - name: unicorn-config
+            - name: webservice-config
               mountPath: '/var/opt/gitlab/templates'
-            - name: unicorn-secrets
+            - name: webservice-secrets
               mountPath: '/etc/gitlab'
               readOnly: true
-            - name: unicorn-secrets
+            - name: webservice-secrets
               mountPath: /srv/gitlab/config/secrets.yml
               subPath: rails-secrets/secrets.yml
-            - name: unicorn-config
+            - name: webservice-config
               mountPath: '/srv/gitlab/config/initializers/smtp_settings.rb'
               subPath: smtp_settings.rb
-            - name: unicorn-config
+            - name: webservice-config
               mountPath: '/srv/gitlab/INSTALLATION_TYPE'
               subPath: installation_type
             - name: shared-upload-directory
@@ -280,17 +280,17 @@ spec:
       - name: shared-tmp
         emptyDir: {}
 {{- if .Values.metrics.enabled }}
-      - name: unicorn-metrics
+      - name: webservice-metrics
         emptyDir:
           medium: "Memory"
 {{- end }}
-      - name: unicorn-config
+      - name: webservice-config
         configMap:
           name: {{ template "fullname" . }}
       - name: workhorse-config
         configMap:
             name: {{ .Release.Name }}-workhorse-config
-      - name: init-unicorn-secrets
+      - name: init-webservice-secrets
         projected:
           defaultMode: 0400
           sources:
@@ -358,7 +358,7 @@ spec:
             - key: {{ .Values.global.email.smime.certName }}
               path: .gitlab_smime_cert
 {{- end }}
-      - name: unicorn-secrets
+      - name: webservice-secrets
         emptyDir:
           medium: "Memory"
       - name: workhorse-secrets

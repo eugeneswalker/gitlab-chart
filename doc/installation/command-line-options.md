@@ -38,7 +38,7 @@ helm inspect values gitlab/gitlab
 | Parameter                               | Description                                                       | Default |
 |-----------------------------------------|-------------------------------------------------------------------|---------|
 | `certmanager-issuer.email`              | Email for Let's Encrypt account                                   | false   |
-| `gitlab.unicorn.ingress.tls.secretName` | Existing `Secret` containing TLS certificate and key for GitLab   | _none_  |
+| `gitlab.webservice.ingress.tls.secretName` | Existing `Secret` containing TLS certificate and key for GitLab   | _none_  |
 | `global.hosts.https`                    | Serve over https                                                  | true    |
 | `global.ingress.configureCertmanager`   | Configure cert-manager to get certificates from Let's Encrypt     | true    |
 | `global.ingress.tls.secretName`         | Existing `Secret` containing wildcard TLS certificate and key     | _none_  |
@@ -254,7 +254,7 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.gitlab-shell.service.internalPort`                   | Shell internal port                            | `22`                                                             |
 | `gitlab.gitlab-shell.service.name`                           | Shell service name                             | `gitlab-shell`                                                   |
 | `gitlab.gitlab-shell.service.type`                           | Shell service type                             | `ClusterIP`                                                      |
-| `gitlab.gitlab-shell.unicorn.serviceName`                    | Unicorn service name                           | `unicorn`                                                        |
+| `gitlab.gitlab-shell.webservice.serviceName`                    | Webservice service name                           | `unicorn`                                                        |
 | `gitlab.mailroom.securityContext.fsGroup`                    | Group ID under which the pod should be started | `1000`                                                           |
 | `gitlab.mailroom.securityContext.runAsUser`                  | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.migrations.bootsnap.enabled`                         | Migrations Bootsnap enable flag                | true                                                             |
@@ -327,40 +327,40 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 |                                                                  |
 | `gitlab.task-runner.securityContext.fsGroup`                 | Group ID under which the pod should be started | `1000`                                                           |
 | `gitlab.task-runner.securityContext.runAsUser`               | User ID under which the pod should be started  | `1000`                                                           |
-| `gitlab.unicorn.enabled`                                     | Unicorn enabled flag                           | true                                                             |
-| `gitlab.unicorn.gitaly.authToken.key`                        | Key to Gitaly token in Gitaly secret           | `token`                                                          |
-| `gitlab.unicorn.gitaly.authToken.secret`                     | Gitaly secret name                             | `{.Release.Name}-gitaly-secret`                                  |
-| `gitlab.unicorn.gitaly.serviceName`                          | Gitaly service name                            | `gitaly`                                                         |
-| `gitlab.unicorn.image.pullPolicy`                            | Unicorn image pull policy                      |                                                          |
-| `gitlab.unicorn.image.repository`                            | Unicorn image repository                       | `registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee`     |
-| `gitlab.unicorn.image.tag`                                   | Unicorn image tag                              | `latest`                                                         |
-| `gitlab.unicorn.psql.password.key`                           | Key to psql password in psql secret            | `psql-password`                                                  |
-| `gitlab.unicorn.psql.password.secret`                        | psql secret name                               | `gitlab-postgres`                                                |
-| `gitlab.unicorn.psql.port`                                   | Set PostgreSQL server port. Takes precedence over `global.psql.port`
+| `gitlab.webservice.enabled`                                     | webservice enabled flag                           | true                                                             |
+| `gitlab.webservice.gitaly.authToken.key`                        | Key to Gitaly token in Gitaly secret           | `token`                                                          |
+| `gitlab.webservice.gitaly.authToken.secret`                     | Gitaly secret name                             | `{.Release.Name}-gitaly-secret`                                  |
+| `gitlab.webservice.gitaly.serviceName`                          | Gitaly service name                            | `gitaly`                                                         |
+| `gitlab.webservice.image.pullPolicy`                            | webservice image pull policy                      |                                                          |
+| `gitlab.webservice.image.repository`                            | webservice image repository                       | `registry.gitlab.com/gitlab-org/build/cng/gitlab-webservice-ee`     |
+| `gitlab.webservice.image.tag`                                   | webservice image tag                              | `latest`                                                         |
+| `gitlab.webservice.psql.password.key`                           | Key to psql password in psql secret            | `psql-password`                                                  |
+| `gitlab.webservice.psql.password.secret`                        | psql secret name                               | `gitlab-postgres`                                                |
+| `gitlab.webservice.psql.port`                                   | Set PostgreSQL server port. Takes precedence over `global.psql.port`
 |                                                                  |
-| `gitlab.unicorn.registry.api.port`                           | Registry port                                  | `5000`                                                           |
-| `gitlab.unicorn.registry.api.protocol`                       | Registry protocol                              | `http`                                                           |
-| `gitlab.unicorn.registry.api.serviceName`                    | Registry service name                          | `registry`                                                       |
-| `gitlab.unicorn.registry.tokenIssuer`                        | Registry token issuer                          | `gitlab-issuer`                                                  |
-| `gitlab.unicorn.replicaCount`                                | Unicorn number of replicas                     | `1`                                                              |
-| `gitlab.unicorn.resources.requests.cpu`                      | Unicorn minimum cpu                            | `200m`                                                           |
-| `gitlab.unicorn.resources.requests.memory`                   | Unicorn minimum memory                         | `1.4G`                                                           |
-| `gitlab.unicorn.securityContext.fsGroup`                     | Group ID under which the pod should be started | `1000`                                                           |
-| `gitlab.unicorn.securityContext.runAsUser`                   | User ID under which the pod should be started  | `1000`                                                           |
-| `gitlab.unicorn.service.annotations`                         | Annotations to add to the `Service`            | {}                                                               |
-| `gitlab.unicorn.service.externalPort`                        | Unicorn exposed port                           | `8080`                                                           |
-| `gitlab.unicorn.service.internalPort`                        | Unicorn internal port                          | `8080`                                                           |
-| `gitlab.unicorn.service.type`                                | Unicorn service type                           | `ClusterIP`                                                      |
-| `gitlab.unicorn.service.workhorseExternalPort`               | Workhorse exposed port                         | `8181`                                                           |
-| `gitlab.unicorn.service.workhorseInternalPort`               | Workhorse internal port                        | `8181`                                                           |
-| `gitlab.unicorn.shell.authToken.key`                         | Key to shell token in shell secret             | `secret`                                                         |
-| `gitlab.unicorn.shell.authToken.secret`                      | Shell token secret                             | `{Release.Name}-gitlab-shell-secret`                             |
-| `gitlab.unicorn.workerProcesses`                             | Unicorn number of workers                      | `2`                                                              |
-| `gitlab.unicorn.workerTimeout`                               | Unicorn worker timeout                         | `60`                                                             |
-| `gitlab.unicorn.workhorse.extraArgs`                         | String of extra parameters for workhorse       | ""                                                               |
-| `gitlab.unicorn.workhorse.image`                             | Workhorse image repository                     | `registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee`   |
-| `gitlab.unicorn.workhorse.sentryDSN`                         | DSN for Sentry instance for error reporting    | ""                                                               |
-| `gitlab.unicorn.workhorse.tag`                               | Workhorse image tag                            |                                                                  |
+| `gitlab.webservice.registry.api.port`                           | Registry port                                  | `5000`                                                           |
+| `gitlab.webservice.registry.api.protocol`                       | Registry protocol                              | `http`                                                           |
+| `gitlab.webservice.registry.api.serviceName`                    | Registry service name                          | `registry`                                                       |
+| `gitlab.webservice.registry.tokenIssuer`                        | Registry token issuer                          | `gitlab-issuer`                                                  |
+| `gitlab.webservice.replicaCount`                                | webservice number of replicas                     | `1`                                                              |
+| `gitlab.webservice.resources.requests.cpu`                      | webservice minimum cpu                            | `200m`                                                           |
+| `gitlab.webservice.resources.requests.memory`                   | webservice minimum memory                         | `1.4G`                                                           |
+| `gitlab.webservice.service.annotations`                         | Annotations to add to the `Service`            | {}                                                               |
+| `gitlab.webservice.securityContext.fsGroup`                     | Group ID under which the pod should be started | `1000`                                                           |
+| `gitlab.webservice.securityContext.runAsUser`                   | User ID under which the pod should be started  | `1000`                                                           |
+| `gitlab.webservice.service.externalPort`                        | webservice exposed port                           | `8080`                                                           |
+| `gitlab.webservice.service.internalPort`                        | webservice internal port                          | `8080`                                                           |
+| `gitlab.webservice.service.type`                                | webservice service type                           | `ClusterIP`                                                      |
+| `gitlab.webservice.service.workhorseExternalPort`               | Workhorse exposed port                         | `8181`                                                           |
+| `gitlab.webservice.service.workhorseInternalPort`               | Workhorse internal port                        | `8181`                                                           |
+| `gitlab.webservice.shell.authToken.key`                         | Key to shell token in shell secret             | `secret`                                                         |
+| `gitlab.webservice.shell.authToken.secret`                      | Shell token secret                             | `{Release.Name}-gitlab-shell-secret`                             |
+| `gitlab.webservice.workerProcesses`                             | webservice number of workers                      | `2`                                                              |
+| `gitlab.webservice.workerTimeout`                               | webservice worker timeout                         | `60`                                                             |
+| `gitlab.webservice.workhorse.extraArgs`                         | String of extra parameters for workhorse       | ""                                                               |
+| `gitlab.webservice.workhorse.image`                             | Workhorse image repository                     | `registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee`   |
+| `gitlab.webservice.workhorse.sentryDSN`                         | DSN for Sentry instance for error reporting    | ""                                                               |
+| `gitlab.webservice.workhorse.tag`                               | Workhorse image tag                            |                                                                  |
 
 ## External Charts
 
