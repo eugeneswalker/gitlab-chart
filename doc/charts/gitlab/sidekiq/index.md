@@ -35,7 +35,7 @@ to the `helm install` command using the `--set` flags:
 | ------------------------------------ | ----------------- | ---------------------------------------- |
 | `annotations`                        |                   | Pod annotations                          |
 | `concurrency`                        | `25`              | Sidekiq default concurrency              |
-| `cluster`                            | `false`           | [See below](#cluster).                   |
+| `cluster`                            | `true`            | [See below](#cluster).                   |
 | `enabled`                            | `true`            | Sidekiq enabled flag                     |
 | `extraContainers`                    |                   | List of extra containers to include      |
 | `extraInitContainers`                |                   | List of extra init containers to include |
@@ -243,7 +243,7 @@ on a per-pod basis.
 | Name          | Type    | Default | Description |
 |:------------- |:-------:|:------- |:----------- |
 | `concurrency`               | Integer | `25`      | The number of tasks to process simultaneously. |
-| `cluster`                   | Bool    | `false`   | [See below](#cluster). Overridden by per-Pod value, if present. |
+| `cluster`                   | Bool    | `true`    | [See below](#cluster). Overridden by per-Pod value, if present. |
 | `timeout`                   | Integer | `4`       | The Sidekiq shutdown timeout. The number of seconds after Sidekiq gets the TERM signal before it forcefully shuts down its processes. |
 | `memoryKiller.maxRss`       | Integer | `2000000` | Maximum RSS before delayed shutdown triggered expressed in kilobytes |
 | `memoryKiller.graceTime`    | Integer | `900`     | Time to wait before a triggered shutdown expressed in seconds|
@@ -269,10 +269,10 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | Name           | Type    | Default | Description |
 |:-------------- |:-------:|:------- |:----------- |
 | `concurrency`  | Integer |         | The number of tasks to process simultaneously. If not provided, it will be pulled from the chart-wide default. |
-| `cluster`      | Bool    | `false` | [See below](#cluster). |
+| `cluster`      | Bool    | `true`  | [See below](#cluster). |
 | `name`         | String  |         | Used to name the `Deployment` and `ConfigMap` for this pod. It should be kept short, and should not be duplicated between any two entries. |
-| `queues`       |         |         | [See below](#queues). |
-| `negateQueues` |         |         | [See below](#negateQueues). |
+| `queues`       | String / Array |         | [See below](#queues). |
+| `negateQueues` | String / Array |         | [See below](#negateQueues). |
 | `experimentalQueueSelector` | Bool | `false` | Use the [experimental queue selector](https://docs.gitlab.com/ee/administration/operations/extra_sidekiq_processes.html#queue-selector-experimental). Only valid when `cluster` is enabled. |
 | `timeout`      | Integer |         | The Sidekiq shutdown timeout. The number of seconds after Sidekiq gets the TERM signal before it forcefully shuts down its processes. If not provided, it will be pulled from the chart-wide default. |
 | `resources`    |         |         | Each pod can present it's own `resources` requirements, which will be added to the `Deployment` created for it, if present. These match the Kubernetes documentation. |
@@ -284,39 +284,44 @@ a different pod configuration. It will not add a new pod in addition to the defa
 
 ### queues
 
-The `queues` value will be directly templated into the Sidekiq configuration file.
-As such, you may follow the documentation from Sidekiq for the value of `:queues:`.
-If this is not provided, the [upstream defaults](https://gitlab.com/gitlab-org/gitlab/blob/master/config/sidekiq_queues.yml)
-will be used, resulting in the handling of *all* queues.
+The `queues` value is a string containing a comma-separated list of queues to be
+processed. By default, it is not set, meaning that all queues will be processed.
 
-In summary, provide a list of queue names to process. Each item in the list may be
-a queue name (`merge`) or an array of queue names with priorities (`[merge, 5]`).
+Any queue to which jobs are added but are not represented as a part of at least
+one pod item *will not be processed*. For a complete list of all queues, see
+these files in the GitLab source:
 
-Any queue to which jobs are added but are not represented as a part of at least one
-pod item *will not be processed*. See [`config/sidekiq_queues.yml`](https://gitlab.com/gitlab-org/gitlab/blob/master/config/sidekiq_queues.yml)
-in the GitLab source for a complete list of all queues.
+1. [`app/workers/all_queues.yml`](https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/workers/all_queues.yml)
+1. [`ee/app/workers/all_queues.yml`](https://gitlab.com/gitlab-org/gitlab/-/blob/master/ee/app/workers/all_queues.yml)
+
+NOTE: **Note**: When [`cluster`](#cluster) is `false`, this must be an array of
+queue names as strings.
 
 ### negateQueues
 
-`negateQueues` is a list of queue names (strings) which will be filtered from the
-default list of Sidekiq queues. Unlike [queues](#queues) above which will replace
-the default list, `negateQueues` will consume the defaults, remove those named
-here, and populate the rest for consumption.
+`negateQueues` is in the same format as [`queues`](#queues), but it represents
+queues to be ignored rather than processed.
 
-NOTE: **Note**: `negateQueues` _should not_ be provided alongside `queues`, as it will have no
-affect.
+This is useful if you have a pod processing important queues, and another pod
+processing other queues: they can use the same list of queues, with one being in
+`queues` and the other being in `negateQueues`.
+
+NOTE: **Note**: `negateQueues` _should not_ be provided alongside `queues`, as
+it will have no effect.
 
 ### cluster
 
-`cluster` is a boolean, used to opt into the use of [Sidekiq
+`cluster` indicates the use of [Sidekiq
 Cluster](https://docs.gitlab.com/ee/administration/operations/extra_sidekiq_processes.html)
-to start the Sidekiq process. If a non-boolean is provided, then the
-value is ignored.
+to start the Sidekiq process. If a non-boolean is provided, then the value is
+ignored.
 
-Currently defaults to `false`.
+Currently defaults to `true`.
 
-When using Sidekiq Cluster, `queues` (or `negateQueues`) must be a
-string, not an array.
+When using Sidekiq Cluster, `queues` (or `negateQueues`) must be a string. When
+not using Sidekiq Cluster, they must be an array of strings. The latter option
+will [not be supported from GitLab
+14.0](https://gitlab.com/gitlab-com/gl-infra/scalability/-/issues/337).
 
 NOTE: **Note**: Unlike in other installation methods, `cluster` will never start
 more than one Sidekiq process inside a pod. To run additional Sidekiq processes,
