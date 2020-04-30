@@ -27,6 +27,7 @@ production:
   secret_key_base: <your secret key base value>
   otp_key_base: <your otp key base value>
   openid_connect_signing_key: <your openid signing key>
+  ci_jwt_signing_key: <your ci jwt signing key>
 ```
 
 The values should be replaced with matching values from your backup instances rails secrets. For omnibus install they were found in the `/etc/gitlab/gitlab-secrets.json` file, and for other install types you should have a `secrets.yml` file that contains them.
