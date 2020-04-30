@@ -97,16 +97,11 @@ Once your GitLab Chart is installed, configuration changes and chart updates
 should be done using `helm upgrade`:
 
 ```sh
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm get values gitlab > gitlab.yaml
 helm upgrade gitlab gitlab/gitlab -f gitlab.yaml
 ```
-
-NOTE: **Note**:
-If using Helm v2, the stable repository is installed by Helm automatically.
-There are no adverse effects if it is added again.
 
 For more detailed information see [Upgrading](installation/upgrade.md).
 
