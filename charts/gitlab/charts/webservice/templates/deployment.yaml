@@ -156,6 +156,27 @@ spec:
             - name: ENABLE_BOOTSNAP
               value: "1"
             {{- end }}
+            - name: WORKER_PROCESSES
+              value: "{{ .Values.workerProcesses }}"
+            - name: WORKER_TIMEOUT
+              value: "{{ .Values.global.webservice.workerTimeout }}"
+            - name: INTERNAL_PORT
+              value: "{{ .Values.service.internalPort }}"
+            {{- if eq .Values.webServer "puma" }}
+            - name: PUMA_THREADS_MIN
+              value: "{{ .Values.puma.threads.min }}"
+            - name: PUMA_THREADS_MAX
+              value: "{{ .Values.puma.threads.max }}"
+            - name: PUMA_WORKER_MAX_MEMORY
+              value: "{{ .Values.puma.workerMaxMemory }}"
+            - name: DISABLE_PUMA_WORKER_KILLER
+              value: "{{ .Values.puma.disableWorkerKiller }}"
+            {{- else }}
+            - name: UNICORN_MEMORY_MIN
+              value: "{{ .Values.memory.min }}"
+            - name: UNICORN_MEMORY_MAX
+              value: "{{ .Values.memory.max }}"
+            {{- end }}
           volumeMounts:
 {{- if .Values.metrics.enabled }}
             - name: webservice-metrics

@@ -68,6 +68,7 @@ puma:
   threads:
     min: 4
     max: 4
+  disableWorkerKiller: false
 
 hpa:
   targetAverageValue: 1
