@@ -109,6 +109,25 @@ data:
     # The directory where gitlab-shell is installed
     dir = "/srv/gitlab-shell"
 
+    # Url to gitlab instance. Used for api calls. Should end with a slash.
+    gitlab_url = "http://{{ template "gitlab.workhorse.host" . }}:{{ template "gitlab.workhorse.port" . }}/"
+
+    secret_file = "/etc/gitlab-secrets/shell/.gitlab_shell_secret"
+
+    [gitlab-shell.http-settings]
+    self_signed_cert = false
+
+    # GitLab user. git by default
+    user = "git"
+
+    # File used as authorized_keys for gitlab user
+    auth_file = "/home/git/.ssh/authorized_keys"
+
+    # Audit usernames.
+    # Set to true to see real usernames in the logs instead of key ids, which is easier to follow, but
+    # incurs an extra API call on every gitlab-shell command.
+    audit_usernames = false
+
     {{- if .Values.shell.concurrency }}
     {{- range .Values.shell.concurrency }}
     {{- if and .rpc .maxPerRepo }}
@@ -118,25 +137,5 @@ data:
     {{- end }}
     {{- end }}
     {{- end }}
-
-  shell-config.yml.erb: |
-    # GitLab user. git by default
-    user: git
-
-    # Url to gitlab instance. Used for api calls. Should end with a slash.
-    gitlab_url: "http://{{ template "gitlab.workhorse.host" . }}:{{ template "gitlab.workhorse.port" . }}/"
-
-    secret_file: /etc/gitlab-secrets/shell/.gitlab_shell_secret
-
-    http_settings:
-      self_signed_cert: false
-
-    # File used as authorized_keys for gitlab user
-    auth_file: "/home/git/.ssh/authorized_keys"
-
-    # Audit usernames.
-    # Set to true to see real usernames in the logs instead of key ids, which is easier to follow, but
-    # incurs an extra API call on every gitlab-shell command.
-    audit_usernames: false
 # Leave this here - This line denotes end of block to the parser.
 {{- end }}
