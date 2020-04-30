@@ -2,6 +2,19 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 3.3.2 (2020-04-30)
+
+### Fixed (3 changes)
+
+- Fixed PostgreSQL port when enabling Geo. !1304
+- Fix redis secret templating when password.enabled=false. !1312
+- Add terraform_state secret to task-runner. !1315
+
+### Other (1 change)
+
+- Update GitLab Version to 12.10.2.
+
+
 ## 3.3.1 (2020-04-24)
 
 ### Other (1 change)

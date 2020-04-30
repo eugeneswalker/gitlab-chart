@@ -1,5 +1,0 @@
----
-title: Fixed PostgreSQL port when enabling Geo
-merge_request: 1304
-author:
-type: fixed
