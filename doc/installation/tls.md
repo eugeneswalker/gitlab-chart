@@ -88,7 +88,7 @@ helm install gitlab gitlab/gitlab \
 ## Option 4: Use auto-generated self-signed wildcard certificate
 
 These charts also provide the capability to provide a auto-generated self-signed wildcard certificate.
-This can be useful in environments where Let's Encrypt is not an option, but security via SSL is stil
+This can be useful in environments where Let's Encrypt is not an option, but security via SSL is still
 desired. This functionality is provided by the [shared-secrets](../charts/shared-secrets/index.md) chart.
 
 > **Note**: The `gitlab-runner` chart does not function properly with self-signed certificates. We recommend

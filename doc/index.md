@@ -123,7 +123,7 @@ With Helm v2, you need to use the command `helm delete --purge gitlab`.
 
 For the purposes of continuity, these charts have some Kubernetes objects that
 are not removed when performing `helm uninstall`. These are items we require you to
-_conciously_ remove them, as they affect re-deployment should you chose to.
+_consciously_ remove them, as they affect re-deployment should you choose to.
 
 - PVCs for stateful data, which you must _consciously_ remove
   - Gitaly: This is your repository data.
