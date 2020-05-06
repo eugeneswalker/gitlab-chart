@@ -73,7 +73,7 @@ expectations of the codebase.
 1. Find the Pod being run by the Job. `kubectl get pod -ljob-name=<job-name>`
 1. Examine the output, checking the `STATUS` column.
 
-If the `STATUS` is `Running`, continue. If the `STATUS` is `Completed`, the application conainers should start shortly after the next check passes.
+If the `STATUS` is `Running`, continue. If the `STATUS` is `Completed`, the application containers should start shortly after the next check passes.
 
 Examine the logs from this pod. `kubectl logs <pod-name>`
 

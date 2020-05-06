@@ -82,7 +82,6 @@ purposes only.
 
 > **NOTE: This configuration is not recommended for use in production.**
 >
-> - The container runs as root
 > - A single, non-resilient Deployment is used
 
 You can read more about setting up your production-ready database in the [advanced database docs](../advanced/external-db/index.md).
