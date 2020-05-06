@@ -72,7 +72,7 @@ sidekiq: mixed queues
 {{- define "gitlab.checkConfig.sidekiq.queues.cluster" -}}
 {{- if .Values.gitlab.sidekiq.pods -}}
 {{-   range $pod := .Values.gitlab.sidekiq.pods -}}
-{{-     $cluster := eq "true" (include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.cluster "local" $pod.cluster "default" true)) }}
+{{-     $cluster := include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.cluster "local" $pod.cluster "default" true) }}
 {{-     if and $cluster (hasKey $pod "queues") (ne (kindOf $pod.queues) "string") }}
 sidekiq: cluster
     The pod definition `{{ $pod.name }}` has `cluster` enabled, but `queues` is not a string. (Note that `cluster` is enabled by default since version 4.0 of the GitLab Sidekiq chart.)
@@ -89,8 +89,8 @@ sidekiq: cluster
 {{- define "gitlab.checkConfig.sidekiq.experimentalQueueSelector" -}}
 {{- if .Values.gitlab.sidekiq.pods -}}
 {{-   range $pod := .Values.gitlab.sidekiq.pods -}}
-{{-     $cluster := eq "true" (include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.cluster "local" $pod.cluster "default" true)) }}
-{{-     $experimentalQueueSelector := eq "true" (include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.experimentalQueueSelector "local" $pod.experimentalQueueSelector "default" false)) }}
+{{-     $cluster := include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.cluster "local" $pod.cluster "default" true) }}
+{{-     $experimentalQueueSelector := include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.experimentalQueueSelector "local" $pod.experimentalQueueSelector "default" false) }}
 {{-     if and $experimentalQueueSelector (not $cluster) }}
 sidekiq: experimentalQueueSelector
     The pod definition `{{ $pod.name }}` has `experimentalQueueSelector` enabled, but does not have `cluster` enabled. `experimentalQueueSelector` only works when `cluster` is enabled.
