@@ -6,7 +6,7 @@ corresponding to the specific release you want to upgrade to and look for any
 [release notes](../releases/index.md) that might pertain to the new GitLab chart
 version.
 
-Warning: **Warning:**
+CAUTION: **Caution:**
 If you are upgrading from the `2.x` version of the chart to the latest 3.0 release, you need
 to first update to the latest `2.6.x` patch release in order for the upgrade to work.
 The [3.0 release notes](../releases/3_0.md) describe the supported upgrade path.

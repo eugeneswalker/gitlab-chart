@@ -175,17 +175,12 @@ When using the recommended 3 CPU and 8 GB of RAM, use
 as a base.
 
 ```shell
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube.yaml
 ```
-
-NOTE: **Note**:
-If using Helm v2, the stable repository is installed by Helm automatically.
-There are no adverse effects if it is added again.
 
 NOTE: **Note**:
 If using Helm v2, please see notes about the `--timeout` option
@@ -198,17 +193,12 @@ and disable unneeded services. See [`values-minikube-minimum.yaml`](https://gitl
 as a reasonable base.
 
 ```shell
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   -f https://gitlab.com/gitlab-org/charts/gitlab/raw/master/examples/values-minikube-minimum.yaml
 ```
-
-NOTE: **Note**:
-If using Helm v2, the stable repository is installed by Helm automatically.
-There are no adverse effects if it is added again.
 
 NOTE: **Note**:
 If using Helm v2, please see notes about the `--timeout` option

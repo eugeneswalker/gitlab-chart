@@ -24,8 +24,8 @@ can be installed separately.
   - GitLab/[Sidekiq](charts/gitlab/sidekiq/index.md)
   - GitLab/[Webservice](charts/gitlab/webservice/index.md)
 - Optional dependencies:
-  - [PostgreSQL](https://hub.helm.sh/charts/stable/postgresql)
-  - [Redis](https://hub.helm.sh/charts/stable/redis)
+  - [PostgreSQL](https://hub.helm.sh/charts/bitnami/postgresql)
+  - [Redis](https://hub.helm.sh/charts/bitnami/redis)
   - [MinIO](charts/minio/index.md)
 - Optional additions:
   - [Prometheus](https://hub.helm.sh/charts/stable/prometheus)
@@ -97,16 +97,11 @@ Once your GitLab Chart is installed, configuration changes and chart updates
 should be done using `helm upgrade`:
 
 ```sh
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm get values gitlab > gitlab.yaml
 helm upgrade gitlab gitlab/gitlab -f gitlab.yaml
 ```
-
-NOTE: **Note**:
-If using Helm v2, the stable repository is installed by Helm automatically.
-There are no adverse effects if it is added again.
 
 For more detailed information see [Upgrading](installation/upgrade.md).
 
