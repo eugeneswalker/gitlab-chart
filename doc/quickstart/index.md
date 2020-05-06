@@ -123,7 +123,7 @@ Secret. Let's fetch that password from the secret, and decode it:
 kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
 ```
 
-Yes, you read that right, thats `gitlab-gitlab-...`.
+Yes, you read that right, that's `gitlab-gitlab-...`.
 
 We can now sign in to GitLab with username `root`, and the password retrieved.
 You can change this password via the user preferences once logged in, we only
