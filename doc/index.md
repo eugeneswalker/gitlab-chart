@@ -60,7 +60,7 @@ into production under sustained load, you should follow the complete
 We've done our best to make these charts as seamless as possible, but occasionally
 troubles do surface outside of our control. We've collected tips and tricks for
 troubleshooting common issues. Please examine these first before raising an
-[Issue](htps://gitlab.com/gitlab-org/charts/gitlab/-/issues), and feel free to add
+[Issue](https://gitlab.com/gitlab-org/charts/gitlab/-/issues), and feel free to add
 to them by raising a [Merge Request](https://gitlab.com/gitlab-org/charts/gitlab/-/merge_requests)!
 
 See [Troubleshooting](troubleshooting/index.md).
