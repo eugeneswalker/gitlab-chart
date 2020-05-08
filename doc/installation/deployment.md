@@ -109,15 +109,117 @@ You can bring an external Redis instance by setting `redis.install=false`, and
 following our [advanced documentation](../advanced/external-redis/index.md) for
 configuration.
 
+```yaml
+global:
+  redis:
+    host: redis.example.com
+    serviceName: redis
+    port: 6379
+    password:
+      enabled: true
+      secret: gitlab-redis
+      key: redis-password
+```
+
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `host`             | String  |         | The hostname of the Redis server with the database to use. This can be omitted in lieu of `serviceName`. |
+| `serviceName`      | String  | `redis` | The name of the `service` which is operating the Redis database. If this is present, and `host` is not, the chart will template the hostname of the service (and current `.Release.Name`) in place of the `host` value. This is convenient when using Redis as a part of the overall GitLab chart. |
+| `port`             | Integer | `6379`  | The port on which to connect to the Redis server. |
+| `password.key`     | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
+| `password.secret`  | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
+| `password.enabled` | Bool    | true    | The `password.enabled` provides a toggle for using a password with the Redis instance. |
+
+
+#### Redis Sentinel Support
+
+The current Redis Sentinel support only supports Sentinels that have
+been deployed separately from the GitLab chart. As a result, the Redis
+deployment through the GitLab chart should be disabled with `redis.install=false`.
+The Secret containing the Redis password will need to be manually created
+before deploying the GitLab chart.
+
 The installation of an HA Redis cluster from the GitLab chart does not
 support using sentinels. If sentinel support is desired, a Redis cluster
 needs to be created separately from the GitLab chart install. This can be
-done inside or outside the Kubernetes cluster. Sentinel settings can be
-found in the [webservice chart](../charts/gitlab/webservice/index.md#redis).
+done inside or outside the Kubernetes cluster.
 
 An issue to track the [supporting of sentinels in a GitLab deployed
 Redis cluster](https://gitlab.com/gitlab-org/charts/gitlab/issues/1810) has
 been created for tracking purposes.
+
+```yaml
+redis:
+  install: false
+global:
+  redis:
+    host: redis.example.com
+    serviceName: redis
+    port: 6379
+    sentinels:
+      - host: sentinel1.example.com
+        port: 26379
+      - host: sentinel2.exeample.com
+        port: 26379
+    password:
+      enabled: true
+      secret: gitlab-redis
+      key: redis-password
+```
+
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `host`             | String  |         | The `host` attribute needs to be set to the cluster name as specified in the `sentinel.conf`.|
+| `sentinels.[].host`| String  |         | The hostname of Redis Sentinel server for a Redis HA setup. |
+| `sentinels.[].port`| Integer | `26379` | The port on which to connect to the Redis Sentinel server. |
+
+NOTE: **Note**:
+All the prior Redis attributes in the general [Redis section](#redis) continue
+to apply with the Sentinel support unless respecified in the table above.
+
+#### Multiple Redis Support
+
+```yaml
+redis:
+  install: false
+global:
+  redis:
+    host: redis.example
+    port: 9001
+    password:
+      enabled: true
+      secret: redis-secret
+      key: redis-password
+    cache:
+      host: cache.redis.example
+      port: 9002
+      password:
+        enabled: true
+        secret: cache-secret
+        key: cache-password
+    sharedState:
+      host: shared.redis.example
+      port: 9003
+      password:
+        enabled: true
+        secret: shared-secret
+        key: shared-password
+    queues:
+      host: queues.redis.example
+      port: 9004
+      password:
+        enabled: true
+        secret: queues-secret
+        key: queues-password
+    actioncable:
+      host: cable.redis.example
+      port: 9005
+      password:
+        enabled: true
+        secret: cable-secret
+        key: cable-password
+```
+
 
 ### MinIO
 
