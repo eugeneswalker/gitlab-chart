@@ -246,6 +246,10 @@ Redis instances.
 | `.password.key`    | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
 | `.password.secret` | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
 
+NOTE: **Note**:
+Each instance definition may also use the Redis Sentinel support. Please
+refer to the [Sentinel configuration](#redis-sentinel-support).
+
 ### MinIO
 
 By default this chart provides an in-cluster MinIO deployment to provide an object storage API.
