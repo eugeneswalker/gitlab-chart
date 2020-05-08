@@ -126,9 +126,9 @@ global:
 | `host`             | String  |         | The hostname of the Redis server with the database to use. This can be omitted in lieu of `serviceName`. |
 | `serviceName`      | String  | `redis` | The name of the `service` which is operating the Redis database. If this is present, and `host` is not, the chart will template the hostname of the service (and current `.Release.Name`) in place of the `host` value. This is convenient when using Redis as a part of the overall GitLab chart. |
 | `port`             | Integer | `6379`  | The port on which to connect to the Redis server. |
+| `password.enabled` | Bool    | true    | The `password.enabled` provides a toggle for using a password with the Redis instance. |
 | `password.key`     | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
 | `password.secret`  | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
-| `password.enabled` | Bool    | true    | The `password.enabled` provides a toggle for using a password with the Redis instance. |
 
 
 #### Redis Sentinel Support
@@ -179,47 +179,72 @@ to apply with the Sentinel support unless respecified in the table above.
 
 #### Multiple Redis Support
 
+The GitLab chart includes support for running with separate Redis instances
+for different persistence classes, currently: cache, queues, shared_state and
+actioncable.
+
+| Instance     | Purpose                                             |
+|:-------------|:----------------------------------------------------|
+| cache        | Store cached data                                   |
+| queues       | Store Sidekiq background jobs                       |
+| shared_state | Store session-related and other persistent data     |
+| actioncable  | Pub/Sub queue backend for ActionCable               |
+
+Any number of the instances may be specified and for the instances that
+are not specified, they are handled by the primary Redis instance specified
+by `global.redis.host` or use the deployed Redis instance from the chart.
+
 ```yaml
 redis:
   install: false
 global:
   redis:
     host: redis.example
-    port: 9001
+    port: 6379
     password:
       enabled: true
       secret: redis-secret
       key: redis-password
     cache:
       host: cache.redis.example
-      port: 9002
+      port: 6379
       password:
         enabled: true
         secret: cache-secret
         key: cache-password
     sharedState:
       host: shared.redis.example
-      port: 9003
+      port: 6379
       password:
         enabled: true
         secret: shared-secret
         key: shared-password
     queues:
       host: queues.redis.example
-      port: 9004
+      port: 6379
       password:
         enabled: true
         secret: queues-secret
         key: queues-password
     actioncable:
       host: cable.redis.example
-      port: 9005
+      port: 6379
       password:
         enabled: true
         secret: cable-secret
         key: cable-password
 ```
 
+The following table describes the attributes for each dictionary of the
+Redis instances.
+
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `.host`            | String  |         | The hostname of the Redis server with the database to use. |
+| `.port`            | Integer | `6379`  | The port on which to connect to the Redis server. |
+| `.password.enabled`| Bool    | true    | The `password.enabled` provides a toggle for using a password with the Redis instance. |
+| `.password.key`    | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
+| `.password.secret` | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
 
 ### MinIO
 
