@@ -130,7 +130,6 @@ global:
 | `password.key`     | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
 | `password.secret`  | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
 
-
 #### Redis Sentinel Support
 
 The current Redis Sentinel support only supports Sentinels that have
