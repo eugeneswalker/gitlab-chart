@@ -16,7 +16,7 @@ init:
 tolerations: []
 
 antiAffinityLabels:
-  app: "gitaly"
+  matchLabels: {}
 
 enabled: true
 replicas: 1

@@ -56,7 +56,7 @@ spec:
           resources:
             {{- toYaml .Values.init.resources | nindent 12 }}
 {{- include "pullsecrets" .Values.image | indent 6 }}
-      {{- if .Values.antiAffinityLabels }}
+      {{- if .Values.antiAffinityLabels.matchLabels }}
       {{- if eq (default .Values.global.antiAffinity .Values.antiAffinity) "hard" }}
       affinity:
         podAntiAffinity:
@@ -64,7 +64,7 @@ spec:
             - topologyKey: "kubernetes.io/hostname"
               labelSelector:
                 matchLabels:
-                  {{- toYaml .Values.antiAffinityLabels | nindent 18 -}}
+                  {{- toYaml .Values.antiAffinityLabels.matchLabels | nindent 18 }}
                   release: {{ .Release.Name }}
       {{- else if eq (default .Values.global.antiAffinity .Values.antiAffinity) "soft" }}
       affinity:
@@ -75,7 +75,7 @@ spec:
               topologyKey: kubernetes.io/hostname
               labelSelector:
                 matchLabels:
-                  {{- toYaml .Values.antiAffinityLabels | nindent 18 -}}
+                  {{- toYaml .Values.antiAffinityLabels.matchLabels | nindent 18 }}
                   release: {{ .Release.Name }}
       {{- end }}
       {{- end }}
