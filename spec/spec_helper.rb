@@ -52,7 +52,7 @@ RSpec.configure do |config|
   # show retry status in spec process
   config.verbose_retry = true
 
-  config.around do |example|
+  config.around :each, :feature do |example|
     example.run_with_retry retry: 2
   end
 end

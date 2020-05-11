@@ -19,7 +19,7 @@ function need_kubectl(){
 }
 
 function need_helm(){
-  need_tool "helm" "https://github.com/kubernetes/helm/blob/master/docs/install.md"
+  need_tool "helm" "https://github.com/helm/helm/#install"
 }
 
 function need_eksctl(){
@@ -37,7 +37,7 @@ function validate_required_tools(){
     command  -v "${comm}" > /dev/null 2>&1 || "need_${comm}"
   done
 
-  gcloud container clusters list >/dev/null 2>&1 || { echo >&2 "Gcloud seems to be configured incorrectly or authentication is unsuccessfull"; exit 1; }
+  gcloud container clusters list --project $PROJECT >/dev/null 2>&1 || { echo >&2 "Gcloud seems to be configured incorrectly or authentication is unsuccessfull"; exit 1; }
 
 }
 

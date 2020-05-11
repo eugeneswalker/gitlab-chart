@@ -5,8 +5,9 @@ image:
   # tag: latest
 
 init:
-  image: busybox
-  tag: latest
+  image: {}
+    # repository:
+    # tag:
   resources:
     requests:
       cpu: 50m
@@ -18,7 +19,12 @@ antiAffinityLabels:
   app: "gitaly"
 
 enabled: true
+replicas: 1
 annotations: {}
+
+psql: {}
+  # port: 5432 
+
 global:
   # imagePullPolicy: IfNotPresent
   hosts:
@@ -33,6 +39,7 @@ global:
     # port: '5432'
     # database: 'gitlabhq_production'
     # username: 'gitlab'
+    # pool: 10
     # preparedStatements: false
     # ssl:
     #   secret: gitlab-ssl-secret
@@ -50,6 +57,7 @@ global:
   minio:
     enabled:
     credentials: {}
+  webservice: {}
   appConfig:
     lfs:
       enabled: true
@@ -74,6 +82,10 @@ global:
     externalDiffs:
       when:
       proxy_download: true
+      bucket:
+      connection: {}
+    terraformState:
+      enabled: false
       bucket:
       connection: {}
     ldap:
@@ -219,3 +231,8 @@ persistence:
   ## Only bind to a volume with the following exppression matched labels.
   ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
   matchExpressions: []
+
+## Allow to overwrite under which User and Group we're running.
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000

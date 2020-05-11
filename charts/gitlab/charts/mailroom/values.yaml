@@ -1,14 +1,15 @@
 image:
   repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-mailroom
-  tag: 0.9.1
+  # tag: v0.9.1
   pullSecrets: []
   # pullPolicy: IfNotPresent
 
 enabled: true
 
 init:
-  image: busybox
-  tag: latest
+  image: {}
+    # repository:
+    # tag:
   resources:
     requests:
       cpu: 50m
@@ -32,6 +33,9 @@ global:
       password:
         secret: ""
         key: password
+      expungeDeleted: false
+      logger:
+        logPath: "/dev/stdout"
       mailbox: inbox
       idleTimeout: 60
 
@@ -97,3 +101,8 @@ resources:
   requests:
     cpu: 50m
     memory: 150M
+
+## Allow to overwrite under which User and Group we're running.
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000

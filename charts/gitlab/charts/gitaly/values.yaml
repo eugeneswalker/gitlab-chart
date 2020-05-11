@@ -4,9 +4,18 @@
 
 global:
   gitaly:
+    enabled: true
     internal:
       names: ["default"]
     external: []
+    authToken: {}
+  # serviceName:
+  # imagePullPolicy: IfNotPresent
+  redis:
+    password: {}
+
+gitaly: {}
+# serviceName:
 
 internal: {}
 image:
@@ -22,13 +31,12 @@ service:
   tls:
     externalPort: 8076
     internalPort: 8076
-enabled: true
-serviceName: gitaly
 annotations: {}
 
 init:
-  image: busybox
-  tag: latest
+  image: {}
+    # repository:
+    # tag:
   resources:
     requests:
       cpu: 50m
@@ -36,12 +44,8 @@ init:
 ## Support for tolerations for pod scheduling
 tolerations: []
 
-global:
-  # imagePullPolicy: IfNotPresent
-  redis:
-    password: {}
-  gitaly:
-    authToken: {}
+## The Gitaly StatefulSet's priorityClassName
+# priorityClassName:
 
 logging:
   format: "json"
@@ -59,11 +63,12 @@ ruby: {}
 prometheus: {}
   # grpcLatencyBuckets: "[1.0, 1.5, 2.0, 2.5]"
 
-unicorn: {}
+workhorse:
+  # by default, Workhorse is a part of the Webservice Pods / Service
+  serviceName: webservice
   # host: '0.0.0.0'
-  # serviceName: 'unicorn'
-  # port: 8080
-redis: {}
+  # serviceName: 'webservice'
+  # port: 8181
 shell:
   authToken: {}
   concurrency: []
