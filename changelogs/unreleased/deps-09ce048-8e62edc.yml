@@ -2,4 +2,4 @@
 title: Update GitLab runner chart to 0.16.1
 merge_request: 1331
 author:
-type: fixed
+type: changed
