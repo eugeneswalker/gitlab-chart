@@ -176,7 +176,7 @@ NOTE: **Note**:
 All the prior Redis attributes in the general [Redis section](#redis) continue
 to apply with the Sentinel support unless respecified in the table above.
 
-#### Multiple Redis Support
+#### Multiple Redis support
 
 The GitLab chart includes support for running with separate Redis instances
 for different persistence classes, currently: `cache`, `queues`, `shared_state` and
