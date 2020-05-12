@@ -33,14 +33,9 @@ deployed cloud native GitLab installation.
 
 [Read more in the GitLab QA chart docs](gitlab-qa/index.md).
 
-## Kube monkey
+## ChaosKube
 
-[kube monkey](https://github.com/asobti/kube-monkey) is an implementation of
-Netflix's [chaos monkey](https://github.com/Netflix/chaosmonkey) for Kubernetes
-clusters. It schedules randomly killing of pods in order to test fault tolerance
-of a highly available system.
-
-[Read more in the kube monkey chart docs](kube-monkey/index.md).
+Read more in the [ChaosKube chart docs](chaoskube/index.md).
 
 ## Developing for Kubernetes with Minikube
 
