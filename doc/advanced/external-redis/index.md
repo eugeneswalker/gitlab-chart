@@ -39,7 +39,7 @@ values for the `--set` flag. The index is zero based.
 
 ## Using Multiple Redis Instances
 
-The GitLab chart supports splitting several of the resource intensive
+GitLab supports splitting several of the resource intensive
 Redis operations across multiple Redis instances. The persistence classes
 that are supported for moving to other Redis instances are `cache`, `queues`,
 `shared_state` and `actioncable`.
