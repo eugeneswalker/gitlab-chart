@@ -37,7 +37,7 @@ name as specified in the `sentinel.conf`. Sentinel servers can be referenced
 using the `global.redis.sentinels[0].host` and `global.redis.sentinels[0].port`
 values for the `--set` flag. The index is zero based.
 
-## Using Multiple Redis Instances
+## Using multiple Redis instances
 
 GitLab supports splitting several of the resource intensive
 Redis operations across multiple Redis instances. This chart supports distributing
