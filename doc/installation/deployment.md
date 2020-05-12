@@ -179,8 +179,8 @@ to apply with the Sentinel support unless respecified in the table above.
 #### Multiple Redis Support
 
 The GitLab chart includes support for running with separate Redis instances
-for different persistence classes, currently: cache, queues, shared_state and
-actioncable.
+for different persistence classes, currently: `cache`, `queues`, `shared_state` and
+`actioncable`
 
 | Instance     | Purpose                                             |
 |:-------------|:----------------------------------------------------|
