@@ -189,8 +189,8 @@ for different persistence classes, currently: `cache`, `queues`, `shared_state` 
 | shared_state | Store session-related and other persistent data     |
 | actioncable  | Pub/Sub queue backend for ActionCable               |
 
-Any number of the instances may be specified and for the instances that
-are not specified, they are handled by the primary Redis instance specified
+Any number of the instances may be specified. Any instances not specified
+will be handled by the primary Redis instance specified
 by `global.redis.host` or use the deployed Redis instance from the chart.
 
 ```yaml
