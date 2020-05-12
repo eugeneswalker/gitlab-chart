@@ -44,9 +44,9 @@ existing one.
 
 We usually use `cloud-native-win` or `k8s-ftw`.
 
-## Kube monkey
+## ChaosKube
 
-Follow our [kube monkey](../kube-monkey/index.md) guide for running kube monkey,
+Follow our [chaoskube](../chaoskube/index.md) guide for running ChaosKube,
 this is usually done after the demo.
 
 ## Git LFS
