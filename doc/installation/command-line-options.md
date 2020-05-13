@@ -156,7 +156,7 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 |--------------------------------------|-----------------------------------------|--------------------------------|
 | `minio.defaultBuckets`               | MinIO default buckets                   | `[{"name": "registry"}]`       |
 | `minio.image`                        | MinIO image                             | `minio/minio`                  |
-| `minio.imagePullPolicy`              | MinIO image pull policy                 | `Always`                       |
+| `minio.imagePullPolicy`              | MinIO image pull policy                 |                                |
 | `minio.imageTag`                     | MinIO image tag                         | `RELEASE.2017-12-28T01-21-00Z` |
 | `minio.minioConfig.browser`          | MinIO browser flag                      | `on`                           |
 | `minio.minioConfig.domain`           | MinIO domain                            |                                |
