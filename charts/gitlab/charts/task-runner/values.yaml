@@ -15,6 +15,9 @@ init:
 # Tolerations for pod scheduling
 tolerations: []
 
+antiAffinityLabels:
+  matchLabels: {}
+
 enabled: true
 replicas: 1
 annotations: {}

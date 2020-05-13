@@ -56,6 +56,29 @@ spec:
           resources:
             {{- toYaml .Values.init.resources | nindent 12 }}
 {{- include "pullsecrets" .Values.image | indent 6 }}
+      {{- if .Values.antiAffinityLabels.matchLabels }}
+      {{- if eq (default .Values.global.antiAffinity .Values.antiAffinity) "hard" }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: "kubernetes.io/hostname"
+              labelSelector:
+                matchLabels:
+                  {{- toYaml .Values.antiAffinityLabels.matchLabels | nindent 18 }}
+                  release: {{ .Release.Name }}
+      {{- else if eq (default .Values.global.antiAffinity .Values.antiAffinity) "soft" }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  {{- toYaml .Values.antiAffinityLabels.matchLabels | nindent 18 }}
+                  release: {{ .Release.Name }}
+      {{- end }}
+      {{- end }}
       containers:
         {{- include "gitlab.extraContainers" . | nindent 8 }}
         - name: {{ .Chart.Name }}
