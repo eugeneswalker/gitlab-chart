@@ -1,0 +1,5 @@
+---
+title: Add task-runner pod antiAffinity support to helm chart
+merge_request: 1025
+author: Sam Wenham
+type: added
