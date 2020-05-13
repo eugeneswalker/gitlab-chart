@@ -101,6 +101,13 @@ spec:
         - name: configure
           command: ['sh', '/config/configure']
           image: {{ include "gitlab.busybox.image" (dict "local" $.Values.init "global" $.Values.global.busybox) | quote }}
+          {{- if $.Values.extraEnv }}
+          env:
+          {{- range $key, $value := $.Values.extraEnv }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
+          {{- end }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           {{- include "gitlab.psql.ssl.volumeMount" $ | nindent 10 }}
@@ -139,6 +146,12 @@ spec:
             {{- if $.Values.global.rails.bootsnap.enabled }}
             - name: ENABLE_BOOTSNAP
               value: "1"
+            {{- end }}
+            {{- if $.Values.extraEnv }}
+            {{- range $key, $value := $.Values.extraEnv }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
             {{- end }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
@@ -200,6 +213,12 @@ spec:
             {{- if $.Values.global.rails.bootsnap.enabled }}
             - name: ENABLE_BOOTSNAP
               value: "1"
+            {{- end }}
+            {{- if $.Values.extraEnv }}
+            {{- range $key, $value := $.Values.extraEnv }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
             {{- end }}
 {{- if $metricsEnabled }}
           ports:
