@@ -72,12 +72,13 @@ sidekiq: mixed queues
 {{- define "gitlab.checkConfig.sidekiq.queues.cluster" -}}
 {{- if .Values.gitlab.sidekiq.pods -}}
 {{-   range $pod := .Values.gitlab.sidekiq.pods -}}
-{{-     if and ($pod.cluster) (hasKey $pod "queues") (ne (kindOf $pod.queues) "string") }}
+{{-     $cluster := include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.cluster "local" $pod.cluster "default" true) }}
+{{-     if and $cluster (hasKey $pod "queues") (ne (kindOf $pod.queues) "string") }}
 sidekiq: cluster
-    The pod definition `{{ $pod.name }}` has `cluster` enabled, but `queues` is not a string.
-{{-     else if and ($pod.cluster) (hasKey $pod "negateQueues") (ne (kindOf $pod.negateQueues) "string") }}
+    The pod definition `{{ $pod.name }}` has `cluster` enabled, but `queues` is not a string. (Note that `cluster` is enabled by default since version 4.0 of the GitLab Sidekiq chart.)
+{{-     else if and $cluster (hasKey $pod "negateQueues") (ne (kindOf $pod.negateQueues) "string") }}
 sidekiq: cluster
-    The pod definition `{{ $pod.name }}` has `cluster` enabled, but `negateQueues` is not a string.
+    The pod definition `{{ $pod.name }}` has `cluster` enabled, but `negateQueues` is not a string. (Note that `cluster` is enabled by default since version 4.0 of the GitLab Sidekiq chart.)
 {{-     end -}}
 {{-   end -}}
 {{- end -}}
@@ -88,7 +89,9 @@ sidekiq: cluster
 {{- define "gitlab.checkConfig.sidekiq.experimentalQueueSelector" -}}
 {{- if .Values.gitlab.sidekiq.pods -}}
 {{-   range $pod := .Values.gitlab.sidekiq.pods -}}
-{{-     if and ($pod.experimentalQueueSelector) (not $pod.cluster) }}
+{{-     $cluster := include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.cluster "local" $pod.cluster "default" true) }}
+{{-     $experimentalQueueSelector := include "gitlab.boolean.local" (dict "global" $.Values.gitlab.sidekiq.experimentalQueueSelector "local" $pod.experimentalQueueSelector "default" false) }}
+{{-     if and $experimentalQueueSelector (not $cluster) }}
 sidekiq: experimentalQueueSelector
     The pod definition `{{ $pod.name }}` has `experimentalQueueSelector` enabled, but does not have `cluster` enabled. `experimentalQueueSelector` only works when `cluster` is enabled.
 {{-     end -}}

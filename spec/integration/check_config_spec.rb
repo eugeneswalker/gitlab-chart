@@ -86,8 +86,8 @@ describe 'checkConfig template' do
         'gitlab' => {
           'sidekiq' => {
             'pods' => [
-              { 'name' => 'valid-1', 'queues' => ['merge'] },
-              { 'name' => 'valid-2', 'negateQueues' => ['post_receive'] }
+              { 'name' => 'valid-1', 'queues' => 'merge' },
+              { 'name' => 'valid-2', 'negateQueues' => 'post_receive' }
             ]
           }
         }
@@ -99,8 +99,8 @@ describe 'checkConfig template' do
         'gitlab' => {
           'sidekiq' => {
             'pods' => [
-              { 'name' => 'invalid-1', 'queues' => ['merge'], 'negateQueues' => ['post_receive'] },
-              { 'name' => 'invalid-2', 'queues' => ['merge'], 'negateQueues' => ['post_receive'] }
+              { 'name' => 'invalid-1', 'queues' => 'merge', 'negateQueues' => 'post_receive' },
+              { 'name' => 'invalid-2', 'queues' => 'merge', 'negateQueues' => 'post_receive' }
             ]
           }
         }
@@ -121,7 +121,7 @@ describe 'checkConfig template' do
           'sidekiq' => {
             'pods' => [
               { 'name' => 'valid-1', 'cluster' => true, 'queues' => 'merge,post_receive' },
-              { 'name' => 'valid-2', 'cluster' => true, 'negateQueues' => 'merge,post_receive' }
+              { 'name' => 'valid-2', 'cluster' => false, 'negateQueues' => ['merge', 'post_receive'] }
             ]
           }
         }
@@ -166,7 +166,7 @@ describe 'checkConfig template' do
         'gitlab' => {
           'sidekiq' => {
             'pods' => [
-              { 'name' => 'valid-1', 'experimentalQueueSelector' => true },
+              { 'name' => 'valid-1', 'cluster' => false, 'experimentalQueueSelector' => true },
             ]
           }
         }

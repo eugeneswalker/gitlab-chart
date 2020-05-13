@@ -19,7 +19,7 @@ init:
 tolerations: []
 
 enabled: true
-cluster: false
+cluster: true
 experimentalQueueSelector: false
 
 annotations: {}
@@ -239,7 +239,7 @@ pods:
     # minReplicas: 1
     # maxReplicas: 10
     # updateStrategy: {}
-    queues:
+    # queues: ''
 
 ## Allow to overwrite under which User and Group we're running.
 securityContext:

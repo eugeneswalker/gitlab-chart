@@ -1,0 +1,5 @@
+---
+title: Make sidekiq-cluster the default
+merge_request: 1317
+author:
+type: changed
