@@ -174,6 +174,7 @@ review_gke:
     name: gke_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_gke
+    auto_stop_in: 4 days
   resource_group: "gke-review-app-${CI_COMMIT_REF_NAME}"
 
 review_eks:
@@ -184,6 +185,7 @@ review_eks:
     name: eks_review/$CI_COMMIT_REF_NAME
     url: https://gitlab-$CI_ENVIRONMENT_SLUG.$KUBE_INGRESS_BASE_DOMAIN
     on_stop: stop_review_eks
+    auto_stop_in: 4 days
   resource_group: "eks-review-app-${CI_COMMIT_REF_NAME}"
 
 .stop_review_template:
