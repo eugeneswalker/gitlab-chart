@@ -16,6 +16,11 @@ Build a dict of redis configuration
 {{-     range $want := list "host" "port" "password" "scheme" -}}
 {{-       $_ := set $.redisMergedConfig $want (pluck $want (index $.Values.global.redis $.redisConfigName) $.Values.global.redis | first) -}}
 {{-     end -}}
+{{-     range $key := keys $.Values.global.redis.password -}}
+{{-       if not (hasKey $.redisMergedConfig $key) -}}
+{{-         $_ := set $.redisMergedConfig.password $key (get $.Values.global.redis.password $key) -}}
+{{-       end -}}
+{{-     end -}}
 {{-   end -}}
 {{- end -}}
 
