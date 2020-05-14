@@ -80,7 +80,7 @@ az webapp config set \
 
 ## Conclusion
 
-You can proceed to use this gateway with any client with s3-compability. Your webapp url will be the `s3 endpoint`, storage account name will be your `accesskey` and storage account key will be your `secretkey`.
+You can proceed to use this gateway with any client with s3-compability. Your webapp URL will be the `s3 endpoint`, storage account name will be your `accesskey`, and storage account key will be your `secretkey`.
 
 ## Reference
 

@@ -51,10 +51,10 @@ of your artifacts by setting the `BACKUP_BACKEND` environment variable to `gcs`.
 
 The backup utility when given an argument `--restore` attempts to restore from an existing backup to the running instance. This
 backup can be from either an Omnibus GitLab or a CNG Helm chart installation given that both the instance that was
-backed up and the running instance runs the same version of GitLab. The restore expects a file in backup bucket using `-t <backup-name>` or a remote url using `-f <url>`.
+backed up and the running instance runs the same version of GitLab. The restore expects a file in backup bucket using `-t <backup-name>` or a remote URL using `-f <url>`.
 
 When given a `-t` parameter it looks into backup bucket in object storage for a backup tar with such name. When
-given a `-f` parameter it expects that the given url is a valid uri of a backup tar in a location accessible from the container.
+given a `-f` parameter it expects that the given URL is a valid uri of a backup tar in a location accessible from the container.
 
 After fetching the backup tar the sequence of execution is:
 

@@ -14,7 +14,7 @@ There are no required settings, it should work out of the box if you deploy all 
 
 By default we do infer `gitlabUrl`, automatically generate a registration token, and generate it through the `migrations` chart. This behaviour will not work if you intend to deploy it with a running GitLab instance.
 
-In this case you will need to set `gitlabUrl` value to be the url of the running GitLab instance. You will also need to manually create `gitlab-runner` secret and fill it with the `registrationToken` provided by the running GitLab.
+In this case you will need to set `gitlabUrl` value to be the URL of the running GitLab instance. You will also need to manually create `gitlab-runner` secret and fill it with the `registrationToken` provided by the running GitLab.
 
 ## Using docker-in-docker
 
