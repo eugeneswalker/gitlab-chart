@@ -194,7 +194,7 @@ global:
 | `password.key`     | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
 | `password.secret`  | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
 
-#### Redis Sentinel support
+### Redis Sentinel support
 
 The current Redis Sentinel support only supports Sentinels that have
 been deployed separately from the GitLab chart. As a result, the Redis
@@ -240,7 +240,7 @@ NOTE: **Note**:
 All the prior Redis attributes in the general [configure Redis settings](#configure-redis-settings)
 continue to apply with the Sentinel support unless respecified in the table above.
 
-#### Multiple Redis support
+### Multiple Redis support
 
 The GitLab chart includes support for running with separate Redis instances
 for different persistence classes, currently: `cache`, `queues`, `shared_state` and
