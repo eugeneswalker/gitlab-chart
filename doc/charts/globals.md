@@ -162,31 +162,157 @@ global:
 
 ## Configure Redis settings
 
-The GitLab global Redis settings are located under the `global.redis` key. For more
-details on these settings, see the documentation within the [Webservice chart](gitlab/webservice/index.md#redis).
+The GitLab global Redis settings are located under the `global.redis` key.
 
-```YAML
+By default we use an single, non-replicated Redis instance. If desired, a
+highly available Redis can be deployed instead. To install an HA Redis
+cluster one needs to set `redis.cluster.enabled=true` when the GitLab
+chart is installed.
+
+You can bring an external Redis instance by setting `redis.install=false`, and
+following our [advanced documentation](../advanced/external-redis/index.md) for
+configuration.
+
+```yaml
 global:
   redis:
     host: redis.example.com
-    # serviceName:
+    serviceName: redis
+    port: 6379
+    password:
+      enabled: true
+      secret: gitlab-redis
+      key: redis-password
+```
+
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `host`             | String  |         | The hostname of the Redis server with the database to use. This can be omitted in lieu of `serviceName`. |
+| `serviceName`      | String  | `redis` | The name of the `service` which is operating the Redis database. If this is present, and `host` is not, the chart will template the hostname of the service (and current `.Release.Name`) in place of the `host` value. This is convenient when using Redis as a part of the overall GitLab chart. |
+| `port`             | Integer | `6379`  | The port on which to connect to the Redis server. |
+| `password.enabled` | Bool    | true    | The `password.enabled` provides a toggle for using a password with the Redis instance. |
+| `password.key`     | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
+| `password.secret`  | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
+
+#### Redis Sentinel support
+
+The current Redis Sentinel support only supports Sentinels that have
+been deployed separately from the GitLab chart. As a result, the Redis
+deployment through the GitLab chart should be disabled with `redis.install=false`.
+The Kubernetes Secret containing the Redis password will need to be manually created
+before deploying the GitLab chart.
+
+The installation of an HA Redis cluster from the GitLab chart does not
+support using sentinels. If sentinel support is desired, a Redis cluster
+needs to be created separately from the GitLab chart install. This can be
+done inside or outside the Kubernetes cluster.
+
+An issue to track the [supporting of sentinels in a GitLab deployed
+Redis cluster](https://gitlab.com/gitlab-org/charts/gitlab/issues/1810) has
+been created for tracking purposes.
+
+```yaml
+redis:
+  install: false
+global:
+  redis:
+    host: redis.example.com
+    serviceName: redis
     port: 6379
     sentinels:
       - host: sentinel1.example.com
         port: 26379
-      - host: sentinel2.example.com
+      - host: sentinel2.exeample.com
         port: 26379
     password:
       enabled: true
-      secret: gitlab-redis-secret
+      secret: gitlab-redis
       key: redis-password
 ```
 
-_Note:_ The current Redis Sentinel support only supports Sentinels that have
-been deployed separately from the GitLab chart. As a result, the Redis
-deployment through the GitLab chart should be disabled with `redis.install=false`.
-The Secret containing the Redis password will need to be manually created
-before deploying the GitLab chart.
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `host`             | String  |         | The `host` attribute needs to be set to the cluster name as specified in the `sentinel.conf`.|
+| `sentinels.[].host`| String  |         | The hostname of Redis Sentinel server for a Redis HA setup. |
+| `sentinels.[].port`| Integer | `26379` | The port on which to connect to the Redis Sentinel server. |
+
+NOTE: **Note**:
+All the prior Redis attributes in the general [configure Redis settings](#configure-redis-settings)
+continue to apply with the Sentinel support unless respecified in the table above.
+
+#### Multiple Redis support
+
+The GitLab chart includes support for running with separate Redis instances
+for different persistence classes, currently: `cache`, `queues`, `shared_state` and
+`actioncable`
+
+| Instance     | Purpose                                             |
+|:-------------|:----------------------------------------------------|
+| cache        | Store cached data                                   |
+| queues       | Store Sidekiq background jobs                       |
+| shared_state | Store session-related and other persistent data     |
+| actioncable  | Pub/Sub queue backend for ActionCable               |
+
+Any number of the instances may be specified. Any instances not specified
+will be handled by the primary Redis instance specified
+by `global.redis.host` or use the deployed Redis instance from the chart.
+For example:
+
+```yaml
+redis:
+  install: false
+global:
+  redis:
+    host: redis.example
+    port: 6379
+    password:
+      enabled: true
+      secret: redis-secret
+      key: redis-password
+    cache:
+      host: cache.redis.example
+      port: 6379
+      password:
+        enabled: true
+        secret: cache-secret
+        key: cache-password
+    sharedState:
+      host: shared.redis.example
+      port: 6379
+      password:
+        enabled: true
+        secret: shared-secret
+        key: shared-password
+    queues:
+      host: queues.redis.example
+      port: 6379
+      password:
+        enabled: true
+        secret: queues-secret
+        key: queues-password
+    actioncable:
+      host: cable.redis.example
+      port: 6379
+      password:
+        enabled: true
+        secret: cable-secret
+        key: cable-password
+```
+
+The following table describes the attributes for each dictionary of the
+Redis instances.
+
+| Name               | Type    | Default | Description |
+|:------------------ |:-------:|:------- |:----------- |
+| `.host`            | String  |         | The hostname of the Redis server with the database to use. |
+| `.port`            | Integer | `6379`  | The port on which to connect to the Redis server. |
+| `.password.enabled`| Bool    | true    | The `password.enabled` provides a toggle for using a password with the Redis instance. |
+| `.password.key`    | String  |         | The `password.key` attribute for Redis defines the name of the key in the secret (below) that contains the password. |
+| `.password.secret` | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
+
+NOTE: **Note**:
+Each instance definition may also use Redis Sentinel support. Sentinel
+configurations **are not shared**. Please refer to the [Sentinel configuration](#redis-sentinel-support).
 
 ## Configure Grafana integration
 
