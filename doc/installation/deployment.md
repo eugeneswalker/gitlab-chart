@@ -192,6 +192,7 @@ for different persistence classes, currently: `cache`, `queues`, `shared_state` 
 Any number of the instances may be specified. Any instances not specified
 will be handled by the primary Redis instance specified
 by `global.redis.host` or use the deployed Redis instance from the chart.
+For example:
 
 ```yaml
 redis:
