@@ -34,6 +34,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.secondary.database" .) -}}
 {{- $messages := append $messages (include "gitlab.task-runner.replicas" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -192,3 +193,21 @@ redis:
 {{- end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.multipleRedis */}}
+
+{{/*
+Ensure that `postgresql.image.tag` is not less than postgres version 11
+*/}}
+{{- define "gitlab.checkConfig.postgresql.deprecatedVersion" -}}
+{{-   $imageTag := .Values.postgresql.image.tag -}}
+{{-   $majorVersion := (split "." (split "-" ($imageTag | toString))._0)._0 | int -}}
+{{-   if or (eq $majorVersion 0) (lt $majorVersion 11) -}}
+postgresql:
+  Image tag is "{{ $imageTag }}".
+{{-     if (eq $majorVersion 0) }}
+  Image tag is malformed. It should begin with the numeric major version.
+{{-     else if (lt $majorVersion 11) }}
+  PostgreSQL 10 and earlier will no longer be supported in GitLab 13. The minimum required version will be PostgreSQL 11.
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.postgresql.deprecatedVersion */}}
