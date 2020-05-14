@@ -49,17 +49,17 @@ global:
 |:---------------------- |:-------:|:------------- |:----------- |
 | `domain`               | String  | `example.com` | The base domain. GitLab and Registry will be exposed on the subdomain of this setting. This defaults to `example.com`, but is not used for hosts that have their `name` property configured. See the `gitlab.name`, `minio.name`, and `registry.name` sections below. |
 | `externalIP`           |         | `nil`         | Set the external IP address that will be claimed from the provider. This will be templated into the [NGINX chart](nginx/index.md#configuring-nginx), in place of the more complex `nginx.service.loadBalancerIP`. |
-| `https`                | Boolean | `true`        | If set to true, you will need to ensure the NGINX chart has access to the certificates. In cases where you have TLS-termination in front of your Ingresses, you probably want to look at [`global.ingress.tls.enabled`](#configure-ingress-settings). Set to false for external urls to use `http://` instead of `https`. |
+| `https`                | Boolean | `true`        | If set to true, you will need to ensure the NGINX chart has access to the certificates. In cases where you have TLS-termination in front of your Ingresses, you probably want to look at [`global.ingress.tls.enabled`](#configure-ingress-settings). Set to false for external URLs to use `http://` instead of `https`. |
 | `hostSuffix`           | String  |               | [See Below](#hostsuffix). |
-| `gitlab.https`         | Boolean | `false`       | If `hosts.https` or `gitlab.https` are `true`, the GitLab external url will use `https://` instead of `http://`. |
+| `gitlab.https`         | Boolean | `false`       | If `hosts.https` or `gitlab.https` are `true`, the GitLab external URL will use `https://` instead of `http://`. |
 | `gitlab.name`          | String  |               | The hostname for GitLab. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
 | `gitlab.serviceName`   | String  | `webservice`     | The name of the `service` which is operating the GitLab server. The chart will template the hostname of the service (and current `.Release.Name`) to create the proper internal serviceName. |
 | `gitlab.servicePort`   | String  | `workhorse`   | The named port of the `service` where the GitLab server can be reached. |
-| `minio.https`          | Boolean | `false`       | If `hosts.https` or `minio.https` are `true`, the MinIO external url will use `https://` instead of `http://`. |
+| `minio.https`          | Boolean | `false`       | If `hosts.https` or `minio.https` are `true`, the MinIO external URL will use `https://` instead of `http://`. |
 | `minio.name`           | String  |               | The hostname for MinIO. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
 | `minio.serviceName`    | String  | `minio`       | The name of the `service` which is operating the MinIO server. The chart will template the hostname of the service (and current `.Release.Name`) to create the proper internal serviceName. |
 | `minio.servicePort`    | String  | `minio`       | The named port of the `service` where the MinIO server can be reached. |
-| `registry.https`       | Boolean | `false`       | If `hosts.https` or `registry.https` are `true`, the Registry external url will use `https://` instead of `http://`. |
+| `registry.https`       | Boolean | `false`       | If `hosts.https` or `registry.https` are `true`, the Registry external URL will use `https://` instead of `http://`. |
 | `registry.name`        | String  |               | The hostname for Registry. If set, this hostname is used, regardless of the `global.hosts.domain` and `global.hosts.hostSuffix` settings. |
 | `registry.serviceName` | String  | `registry`    | The name of the `service` which is operating the Registry server. The chart will template the hostname of the service (and current `.Release.Name`) to create the proper internal serviceName. |
 | `registry.servicePort` | String  | `registry`    | The named port of the `service` where the Registry server can be reached. |
@@ -472,7 +472,7 @@ under the `extra` key below `appConfig`:
 |:------------------------- |:------:|:------- |:----------- |
 | `extra.googleAnalyticsId` | String | (empty) | Tracking ID for Google Analytics. |
 | `extra.piwikSiteId`       | String | (empty) | Piwik Site ID. |
-| `extra.piwikUrl`          | String | (empty) | Piwik Url. |
+| `extra.piwikUrl`          | String | (empty) | Piwik URL. |
 
 ### LFS, Artifacts, Uploads, Packages, and External MR diffs
 

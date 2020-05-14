@@ -227,7 +227,7 @@ This section controls the registry Ingress.
 | `annotations`     | String  |         | This field is an exact match to the standard `annotations` for [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/). |
 | `enabled`         | Boolean | `false` | Setting that controls whether to create Ingress objects for services that support them. When `false` the `global.ingress.enabled` setting is used. |
 | `tls.enabled`     | Boolean | `true`  | When set to `false`, you disable TLS for the Registry subchart. This is mainly useful for cases in which you cannot use TLS termination at `ingress-level`, like when you have a TLS-terminating proxy before the Ingress Controller. |
-| `tls.serviceName` | String  | `redis` | The name of the Kubernetes TLS Secret that contains a valid certificate and key for the registry url. When not set, the `global.ingress.tls.secretName` is used instead. Defaults to not being set. |
+| `tls.serviceName` | String  | `redis` | The name of the Kubernetes TLS Secret that contains a valid certificate and key for the registry URL. When not set, the `global.ingress.tls.secretName` is used instead. Defaults to not being set. |
 
 ## Configuring the `networkpolicy`
 
