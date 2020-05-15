@@ -885,6 +885,9 @@ specs_without_cluster:
   variables:
     RSPEC_TAGS: ~type:feature
   needs: []
+  except:
+    refs:
+      - /(^docs[\/-].+|.+-docs$)/
 
 .production_specs:
   extends: .specs
@@ -899,6 +902,9 @@ production_specs_without_cluster:
   extends: .production_specs
   variables:
     RSPEC_TAGS: ~type:feature
+  except:
+    refs:
+      - /(^docs[\/-].+|.+-docs$)/
 
 production_specs_gke:
   extends: .production_specs
