@@ -50,13 +50,13 @@ helm upgrade --install gitlab gitlab/gitlab \
 
 NOTE: **Note**:
 If using Helm v2, please see notes about the `--timeout` option
-in the [Deployment documentation](../installation/deployment.md#deploy-using-helm).
+in the [Deployment documentation](../../installation/deployment.md#deploy-using-helm).
 
 - `<your-domain>`: your desired domain, eg. ``gitlab.example.com``.
 - `<external-ip>`: the external IP pointing to your Kubernetes cluster.
 - `<email>`: email to register in Let's Encrypt to retrieve TLS certificates.
 
-Once you've deployed the GitLab instance, follow the instructions for the [initial login](../installation/deployment.md#initial-login).
+Once you've deployed the GitLab instance, follow the instructions for the [initial login](../../installation/deployment.md#initial-login).
 
 ## Create an OAuth application with GitLab
 
