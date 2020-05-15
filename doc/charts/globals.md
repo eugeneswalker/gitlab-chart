@@ -311,8 +311,14 @@ Redis instances.
 | `.password.secret` | String  |         | The `password.secret` attribute for Redis defines the name of the Kubernetes `Secret` to pull from. |
 
 NOTE: **Note**:
+The primary Redis definition is required as there are additional persistence
+ classes that have not been separated.
+
+NOTE: **Note**:
 Each instance definition may also use Redis Sentinel support. Sentinel
-configurations **are not shared**. Please refer to the [Sentinel configuration](#redis-sentinel-support).
+configurations **are not shared** and needs to be specified for each
+instance that uses Sentinels. Please refer to the [Sentinel configuration](#redis-sentinel-support)
+for the attributes that are used to configure Sentinel servers.
 
 ## Configure Grafana integration
 
