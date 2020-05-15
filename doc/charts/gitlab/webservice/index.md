@@ -231,7 +231,7 @@ resources:
 
 ### Redis
 
-The Redis documentation has been consolidated in the [installation/deployment](../../../installation/deployment.md#redis)
+The Redis documentation has been consolidated in the [globals](../../charts/globals.md#multiple-redis-support)
 page. Please consult this page for the latest Redis configuration options.
 
 ### PostgreSQL
