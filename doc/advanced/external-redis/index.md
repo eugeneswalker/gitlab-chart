@@ -36,3 +36,13 @@ running, the `global.redis.host` attribute needs to be set to the cluster
 name as specified in the `sentinel.conf`. Sentinel servers can be referenced
 using the `global.redis.sentinels[0].host` and `global.redis.sentinels[0].port`
 values for the `--set` flag. The index is zero based.
+
+## Using multiple Redis instances
+
+GitLab supports splitting several of the resource intensive
+Redis operations across multiple Redis instances. This chart supports distributing
+those persistence classes to other Redis instances: `cache`, `queues`, `shared_state` and `actioncable`.
+
+More detailed information on configuring the chart for using multiple Redis
+instances can be found in the [globals](../../charts/globals.md#multiple-redis-support)
+documentation.
