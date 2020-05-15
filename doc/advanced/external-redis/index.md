@@ -44,5 +44,5 @@ Redis operations across multiple Redis instances. This chart supports distributi
 those persistence classes to other Redis instances: `cache`, `queues`, `shared_state` and `actioncable`.
 
 More detailed information on configuring the chart for using multiple Redis
-instances can be found in the [installation/deployment](../../charts/globals.md#multiple-redis-support)
+instances can be found in the [globals](../../charts/globals.md#multiple-redis-support)
 documentation.
