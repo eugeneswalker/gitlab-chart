@@ -214,7 +214,7 @@ describe 'Redis configuration' do
         expect(cache_mount.length).to eq(0)
       end
     end
-        
+
     context 'When sub-queue defines port, but not host' do
       let(:values) do
         {
@@ -266,7 +266,6 @@ describe 'Redis configuration' do
 
       it 'separate sentinels are populated' do
         t = HelmTemplate.new(values)
-        print "Values:\r\n #{t.values.to_yaml} \r\n"
         expect(t.exit_code).to eq(0)
         # check that it they consumed only in sub-queue
         expect(t.dig('ConfigMap/test-webservice','data','resque.yml.erb')).to include("sentinels:")
