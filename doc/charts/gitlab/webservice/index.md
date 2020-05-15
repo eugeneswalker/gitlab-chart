@@ -374,9 +374,9 @@ shell:
 
 ### WebServer options
 
-Current version of chart supports both Webservice and Puma web servers.
-Webservice is the default, however you can switch to the experimental
-Puma server by setting `webServer: puma`
+Current version of chart supports both Unicorn and Puma web servers.
+Puma is the default, however you can switch to the Unicorn
+server by setting `webServer: unicorn`
 
 Puma unique options:
 
