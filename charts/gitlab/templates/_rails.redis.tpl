@@ -8,9 +8,7 @@ Input: dict "context" $ "name" string
 {{ .name }}.yml.erb: |
   production:
     url: {{ template "gitlab.redis.url" .context }}
-    {{- if .context.Values.global.redis.sentinels }}
-    {{-   include "gitlab.redis.sentinels" .context | nindent 4 }}
-    {{- end }}
+    {{- include "gitlab.redis.sentinels" .context | nindent 4 }}
     id:
     {{- if eq .name "cable" }}
     adapter: redis
