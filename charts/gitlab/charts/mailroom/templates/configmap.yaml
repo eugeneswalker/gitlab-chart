@@ -28,30 +28,16 @@ data:
         {{- end }}
         {{- end }}
         :delivery_options:
-          :redis_url: {{ template "gitlab.redis.url" . }}
+          :redis_url: {{ include "gitlab.mailroom.redis.url" . }}
           :namespace: resque:gitlab
           :queue: email_receiver
           :worker: EmailReceiverWorker
-          {{- if .Values.global.redis.sentinels }}
-          :sentinels:
-            {{- range $i, $entry := .Values.global.redis.sentinels }}
-            -
-              :host: {{ $entry.host }}
-              :port: {{ $entry.port}}
-            {{- end }}
-          {{- end }}
+          {{- include "gitlab.mailroom.redis.sentinels" . | nindent 10 }}
         :arbitration_method: redis
         :arbitration_options:
-          :redis_url: {{ template "gitlab.redis.url" . }}
+          :redis_url: {{ include "gitlab.mailroom.redis.url" . }}
           :namespace: mail_room:gitlab
-          {{- if .Values.global.redis.sentinels }}
-          :sentinels:
-            {{- range $i, $entry := .Values.global.redis.sentinels }}
-            -
-              :host: {{ $entry.host }}
-              :port: {{ $entry.port}}
-            {{- end }}
-          {{- end }}
+          {{- include "gitlab.mailroom.redis.sentinels" . | nindent 10 }}
 
   configure: |
     {{- include "gitlab.scripts.configure.secrets" (dict "required" "mailroom" "optional" "redis") | nindent 4 }}
