@@ -18,6 +18,6 @@ If global.redis.queues is present, use this. If not present, use global.redis
 {{- end -}}
 {{- $sentinels := include "gitlab.redis.sentinels" . }}
 {{- if $sentinels -}}
-:{{- $sentinels -}}
+:{{- $sentinels | replace " port:" " :port:" | replace " host:" " :host:" -}}
 {{- end -}}
 {{- end -}}
