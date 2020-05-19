@@ -80,7 +80,6 @@ describe 'Mailroom configuration' do
       expect(t.dig('ConfigMap/test-mailroom','data','mail_room.yml')).to include(":sentinels:")
       expect(t.dig('ConfigMap/test-mailroom','data','mail_room.yml')).to include("s1.resque.redis")
     end
-
   end
 
   context 'When global.redis.queues is present' do
