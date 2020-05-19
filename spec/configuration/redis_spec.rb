@@ -274,5 +274,35 @@ describe 'Redis configuration' do
         expect(t.dig('ConfigMap/test-webservice','data','redis.cache.yml.erb')).to include("s1.cache.redis")
       end
     end
+
+    context 'When only sub-queue defines Sentinels' do
+      let(:values) do
+        {
+          'global' => {
+            'redis' => {
+              'host' => 'resque.redis',
+              'port' => 6379,
+              'cache' => {
+                'host' => 'cache.redis',
+                'sentinels' => [
+                  {'host' => 's1.cache.redis', 'port' => 26379},
+                  {'host' => 's2.cache.redis', 'port' => 26379}
+                ]
+              }
+            }
+          },
+          'redis' => { 'install' => false }
+        }.merge(default_values)
+      end
+
+      it 'sub-queue sentinels are populated' do
+        t = HelmTemplate.new(values)
+        expect(t.exit_code).to eq(0)
+        # check that it they consumed only in sub-queue
+        expect(t.dig('ConfigMap/test-webservice','data','resque.yml.erb')).not_to include("sentinels:")
+        expect(t.dig('ConfigMap/test-webservice','data','redis.cache.yml.erb')).to include("sentinels:")
+        expect(t.dig('ConfigMap/test-webservice','data','redis.cache.yml.erb')).to include("s1.cache.redis")
+      end
+    end
   end
 end

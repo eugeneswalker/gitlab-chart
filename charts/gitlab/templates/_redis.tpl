@@ -63,11 +63,13 @@ Build the structure describing sentinels
 {{- else -}}
 {{-   $_ := set . "redisMergedConfig" .Values.global.redis -}}
 {{- end -}}
+{{- if .redisMergedConfig.sentinels -}}
 sentinels:
 {{- range $i, $entry := .redisMergedConfig.sentinels }}
   - host: {{ $entry.host }}
     port: {{ default 26379 $entry.port }}
 {{- end }}
+{{- end -}}
 {{- end -}}
 
 {{/*
