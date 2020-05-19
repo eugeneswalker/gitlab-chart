@@ -62,6 +62,7 @@ describe 'Mailroom configuration' do
       expect(redis_mount.length).to eq(1)
       expect(t.dig('ConfigMap/test-mailroom','data','mail_room.yml')).not_to include(":sentinels:")
     end
+
     it 'Populates Sentinels, when configured' do
       local = {
         'global' => {
