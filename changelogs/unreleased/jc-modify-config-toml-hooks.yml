@@ -1,0 +1,5 @@
+---
+title: Break up gitlab-shell of gitaly config
+merge_request: 1353
+author:
+type: changed
