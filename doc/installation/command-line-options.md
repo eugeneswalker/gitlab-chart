@@ -6,7 +6,7 @@ to the `helm install` command using the `--set` flags.
 The source of the default `values.yaml` file can be found [here](https://gitlab.com/gitlab-org/charts/gitlab/-/blob/master/values.yaml).
 These contents change over releases, but you can use Helm itself to retrieve these on a per-version basis:
 
-```sh
+```shell
 helm inspect values gitlab/gitlab
 ```
 
@@ -55,7 +55,7 @@ helm inspect values gitlab/gitlab
 | `global.email.smime.certName`     | Secret object key value for locating the S/MIME certificate file                        | tls.crt               |
 | `global.email.smime.enabled`      | Add the S/MIME signatures to outgoing email                                             | false                 |
 | `global.email.smime.keyName`      | Secret object key value for locating the S/MIME key file                                | tls.key               |
-| `global.email.smime.secretName`   | Kubernetes Secret object to find the X.509 certificate ([S/MIME Cert][] for creation )  | ""                    |
+| `global.email.smime.secretName`   | Kubernetes Secret object to find the X.509 certificate ([S/MIME Cert](secrets.md#smime-certificate) for creation )  | ""                    |
 | `global.email.subject_suffix`     | Suffix on the subject of all outgoing email from GitLab                                 | ""                    |
 | `global.smtp.address`             | Hostname or IP of the remote mail server                                                | `smtp.mailgun.org`    |
 | `global.smtp.authentication`      | Type of SMTP authentication ("plain", "login", "cram_md5", or "" for no authentication) | `plain`               |
@@ -68,8 +68,6 @@ helm inspect values gitlab/gitlab
 | `global.smtp.starttls_auto`       | Use STARTTLS if enabled on the mail server                                              | false                 |
 | `global.smtp.tls`                 | Enables SMTP/TLS (SMTPS: SMTP over direct TLS connection)                               | _none_                |
 | `global.smtp.user_name`           | Username for SMTP authentication https                                                  | ""                    |
-
-[S/MIME Cert]: secrets.md#smime-certificate
 
 ## Incoming Email configuration
 

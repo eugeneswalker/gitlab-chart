@@ -17,7 +17,7 @@ Follow the installation instructions for [Omnibus GitLab](https://about.gitlab.c
 
 Create a minimal `gitlab.rb` file to be placed at `/etc/gitlab/gitlab.rb`. Be very explicit about what is enabled on this node, use the contents below.
 
-*Note*: This example is not intended to provide [PG HA](https://docs.gitlab.com/ee/administration/high_availability/database.html).
+*Note*: This example is not intended to provide [PostgreSQL HA](https://docs.gitlab.com/ee/administration/high_availability/database.html).
 
 _**NOTE**: The values below should be replaced_
 

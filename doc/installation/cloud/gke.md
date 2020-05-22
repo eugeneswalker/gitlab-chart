@@ -5,13 +5,11 @@ deploying the `gitlab` chart. The following is how these charts are deployed
 and tested within GitLab.
 
 NOTE: **Note:** Google provides a whitepaper for [deploying production-ready GitLab on
-Google Kubernetes Engine][whitepaper], including all steps and external
+Google Kubernetes Engine](https://cloud.google.com/solutions/deploying-production-ready-gitlab-on-gke), including all steps and external
 resource configuration. These are alternative to this document, and the
 deployed chart will behave slightly differently. For example, the default
 domain is configured with [nip.io](https://nip.io), which may experience issues due to [rate limiting](https://letsencrypt.org/docs/rate-limits/) with
 Let's Encrypt.
-
-[whitepaper]: https://cloud.google.com/solutions/deploying-production-ready-gitlab-on-gke
 
 ## Creating the GKE cluster
 
@@ -56,13 +54,13 @@ The table below describes all variables.
 Run the script, by passing in your desired parameters. It can work with the
 default parameters except for `PROJECT` which is required:
 
-```bash
+```shell
 PROJECT=<gcloud project id> ./scripts/gke_bootstrap_script.sh up
 ```
 
 The script can also be used to clean up the created GKE resources:
 
-```bash
+```shell
 PROJECT=<gcloud project id> ./scripts/gke_bootstrap_script.sh down
 ```
 

@@ -1,6 +1,6 @@
 # Using the GitLab-Migrations Chart
 
-The `migrations` sub-chart provides a single migration [Job][] that handles seeding/migrating the GitLab database. The chart runs using the GitLab Rails codebase.
+The `migrations` sub-chart provides a single migration [Job](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) that handles seeding/migrating the GitLab database. The chart runs using the GitLab Rails codebase.
 
 After migrating, this Job also edits the application settings in the database to turn off [writes to authorized keys file](https://docs.gitlab.com/ee/administration/operations/fast_ssh_key_lookup.html#setting-up-fast-lookup-via-gitlab-shell). In the charts we are only supporting use of the GitLab Authorized Keys API with the SSH `AuthorizedKeysCommand` instead of support for writing to an authorized keys file.
 
@@ -10,7 +10,7 @@ This chart depends on Redis, and PostgreSQL, either as part of the complete GitL
 
 ## Design Choices
 
-The `migrations` creates a new migrations [Job][] each time the chart is deployed. In order to prevent job name collisions, we append the chart revision, and a random alpha-numeric value to the Job name each time is created. The purpose of the random text is described further in this section.
+The `migrations` creates a new migrations [Job](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) each time the chart is deployed. In order to prevent job name collisions, we append the chart revision, and a random alpha-numeric value to the Job name each time is created. The purpose of the random text is described further in this section.
 
 For now we also have the jobs remain as objects in the cluster after they complete. This is so we can observe the migration logs. Currently this means these Jobs persist even after a `helm uninstall`. This is one of the reasons why we append random text to the Job name, so that future deployments using the same release name don't cause conflicts. Once we have some form of log-shipping in place, we can revisit the persistence of these objects.
 
@@ -130,7 +130,7 @@ before deploying the GitLab chart.
 
 ### PostgreSQL
 
-```YAML
+```yaml
 psql:
   host: psql.example.com
   serviceName: pgbouncer
@@ -173,5 +173,3 @@ The `password` attribute for PostgreSQL has to sub keys:
 
 - `secret` defines the name of the Kubernetes `Secret` to pull from
 - `key` defines the name of the key in the above secret that contains the password.
-
-[Job]: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/

@@ -42,13 +42,13 @@ The table below describes all variables.
 Run the script, by passing in your desired parameters. It can work with the
 default parameters.
 
-```bash
+```shell
 ./scripts/eks_bootstrap_script up
 ```
 
 The script can also be used to clean up the created EKS resources:
 
-```bash
+```shell
 ./scripts/eks_bootstrap_script down
 ```
 

@@ -96,7 +96,7 @@ the amount of context we're comfortable placing here. Please see our (nearly)
 Once your GitLab Chart is installed, configuration changes and chart updates
 should be done using `helm upgrade`:
 
-```sh
+```shell
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
 helm get values gitlab > gitlab.yaml
@@ -109,7 +109,7 @@ For more detailed information see [Upgrading](installation/upgrade.md).
 
 To uninstall the GitLab Chart, run the following:
 
-```sh
+```shell
 helm uninstall gitlab
 ```
 

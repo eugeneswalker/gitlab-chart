@@ -5,7 +5,7 @@ You may find it useful for more advanced use-cases such as development or CI-man
 
 ## Usage
 
-```bash
+```shell
 crdctl ACTION [PREFIX]
 ```
 

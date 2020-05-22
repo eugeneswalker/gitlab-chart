@@ -11,13 +11,13 @@ Follow these steps for backing up a GitLab Helm chart based installation
 
 1. Ensure the task runner pod is running, by executing the following command
 
-   ```sh
+   ```shell
    kubectl get pods -lrelease=RELEASE_NAME,app=task-runner
    ```
 
 1. Run the backup utility
 
-   ```sh
+   ```shell
    kubectl exec <task-runner pod name> -it backup-utility
    ```
 
@@ -49,13 +49,13 @@ You should also save a copy of the rails secrets. (These are not included in the
 
 1. Find the object name for the rails secrets
 
-   ```sh
+   ```shell
    kubectl get secrets | grep rails-secret
    ```
 
 1. Save a copy of the rails secrets
 
-   ```sh
+   ```shell
    kubectl get secrets <rails-secret-name> -o jsonpath="{.data['secrets\.yml']}" | base64 --decode > secrets.yaml
    ```
 

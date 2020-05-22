@@ -438,7 +438,7 @@ as items to the `storage` map:
   to `/etc/docker/registry/storage/${extraKey}` within the container. This can be
   used to provide the `keyfile` for the `gcs` driver.
 
-```bash
+```shell
 # Example using S3
 kubectl create secret generic registry-storage \
     --from-file=config=registry-storage.yaml
@@ -505,7 +505,7 @@ Manual garbage collection requires the registry to be in read-only mode first. L
 installed the GitLab Chart using Helm, named it `mygitlab` and installed it in the namespace `gitlabns`.
 Replace these values in the commands below according to your actual configuration.
 
-```bash
+```shell
 # Because of https://github.com/helm/helm/issues/2948 we can't rely on --reuse-values, so let's get our current config.
 helm get values mygitlab > mygitlab.yml
 # Upgrade Helm installation and configure the registry to be read-only.

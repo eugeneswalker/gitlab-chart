@@ -27,7 +27,7 @@ for more information on how the global variables work.
 
 The GitLab global host settings are located under the `global.hosts` key.
 
-```YAML
+```yaml
 global:
   hosts:
     domain: example.com
@@ -118,7 +118,7 @@ in [Deploy using Helm](../installation/deployment.md#deploy-using-helm)
 The GitLab version used in the default image tag for the charts can be changed using
 the `global.gitlabVersion` key:
 
-```bash
+```shell
 --set global.gitlabVersion=11.0.1
 ```
 
@@ -131,7 +131,7 @@ be separately updated to versions compatible with the GitLab version.
 The GitLab global PostgreSQL settings are located under the `global.psql` key. For
 more details, see the documentation within the [webservice chart](gitlab/webservice/index.md#postgresql).
 
-```YAML
+```yaml
 global:
   psql:
     host: db.example.com
@@ -148,7 +148,7 @@ If you want to connect GitLab with a PostgreSQL database over mutual TLS, create
 containing the client key, client certificate and server certificate authority as different
 secret keys. Then describe the secret's structure using the `global.psql.ssl` mapping.
 
-```YAML
+```yaml
 global:
   psql:
     host: db.example.com
@@ -333,7 +333,7 @@ The GitLab chart connects to the deployed Prometheus instance.
 The global Registry settings are located under the `global.registry` key. For more
 details on these settings, see the documentation within the [registry chart](registry/index.md).
 
-```YAML
+```yaml
 global:
   registry:
     bucket: registry
@@ -345,7 +345,7 @@ global:
 
 The global Gitaly settings are located under the `global.gitaly` key.
 
-```YAML
+```yaml
 global:
   gitaly:
     internal:
@@ -611,7 +611,7 @@ under the `extra` key below `appConfig`:
 Details on these settings are below. Documentation is not repeated individually,
 as they are structurally identical aside from the default value of the `bucket` property.
 
-```YAML
+```yaml
   enabled: true
   proxy_download: true
   bucket:
@@ -651,7 +651,7 @@ providers can be found in [examples/objectstorage](https://gitlab.com/gitlab-org
 Once a YAML file containing the contents of the `connection` has been created, use
 this file to create the secret in Kubernetes.
 
-```bash
+```shell
 kubectl create secret generic gitlab-rails-storage \
     --from-file=connection=rails.yaml
 ```
@@ -678,7 +678,7 @@ This password will then be injected into GitLab's configuration at runtime.
 
 An example configuration snippet:
 
-```YAML
+```yaml
 ldap:
   preventSignin: false
   servers:
@@ -725,13 +725,13 @@ If the LDAP server uses a custom CA or self-signed certificate, you must:
 
 1. Ensure that the custom CA/Self-Signed certificate is created as a secret in the cluster/namespace:
 
-   ```bash
+   ```shell
    kubectl -n gitlab create secret generic my-custom-ca --from-file=my-custom-ca.pem
    ```
 
 1. Then, specify:
 
-   ```bash
+   ```shell
    --set global.certificates.customCAs[0].secret=my-custom-ca.pem
    --set global.appConfig.ldap.servers.main.ca_file=/etc/ssl/certs/ca-cert-my-custom-ca.pem
    ```
@@ -744,7 +744,7 @@ GitLab can leverage OmniAuth to allow users to sign in using Twitter, GitHub, Go
 and other popular services. Expanded documentation can be found in the [OmniAuth documentation](https://docs.gitlab.com/ee/integration/omniauth.html)
 for GitLab.
 
-```YAML
+```yaml
 omniauth:
   enabled: false
   autoSignInWithProvider:
@@ -795,7 +795,7 @@ and create a YAML or JSON file.
 
 Example of configuration of Google OAuth2:
 
-```YAML
+```yaml
 name: google_oauth2
 label: Google
 app_id: 'APP ID'
@@ -807,14 +807,14 @@ args:
 
 This content can be saved as `provider.yaml`, and then a secret created from it:
 
-```bash
+```shell
 kubectl create secret generic -n NAMESPACE SECRET_NAME --from-file=provider=provider.yaml
 ```
 
 Once created, the `providers` are enabled by providing the maps in configuration, as
 shown below:
 
-```YAML
+```yaml
 omniauth:
   providers:
     - secret: gitlab-google-oauth2
@@ -824,7 +824,7 @@ omniauth:
 
 Example configuration `--set` items, when using the global chart:
 
-```bash
+```shell
 --set global.appConfig.omniauth.providers[0].secret=gitlab-google-oauth2 \
 ```
 
@@ -859,7 +859,7 @@ Users can provide a custom one as a configMap.
 
 First, create a configMap:
 
-```bash
+```shell
 kubectl create configmap <name of the configmap> --from-file=pseudonymizer.yml=<path to pseudonymizer_config.yml>
 ```
 
@@ -892,7 +892,7 @@ providers can be found in [examples/objectstorage](https://gitlab.com/gitlab-org
 Once a YAML file containing the contents of the `connection` has been created, create
 the secret in Kubernetes:
 
-```bash
+```shell
 kubectl create secret generic gitlab-rails-storage \
     --from-file=connection=rails.yaml
 ```
@@ -907,7 +907,7 @@ for more job examples.
 These settings are shared between Sidekiq, Webservice (for showing tooltips in UI)
 and task-runner (for debugging purposes) pods.
 
-```YAML
+```yaml
 global:
   appConfig:
     cron_jobs:
@@ -1001,7 +1001,7 @@ NOTE: **Note:** These secrets can be named in any fashion, but they *must not* c
 
 To create a secret:
 
-```bash
+```shell
 kubectl create secret generic custom-ca --from-file=unique_name=/path/to/cert
 ```
 

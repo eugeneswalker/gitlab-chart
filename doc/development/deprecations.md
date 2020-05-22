@@ -24,7 +24,7 @@ The developer should be careful not to assume that a key, or parent key will exi
 
 All messages should have the following format:
 
-```text
+```plaintext
 
 chart:
     message
@@ -36,7 +36,7 @@ chart:
 
 Example message:
 
-```text
+```plaintext
 
 gitlab.unicorn:
     Chart-local configuration of Minio features has been moved to global. Please remove `gitlab.unicorn.minio.enabled` from your properties, and set `global.minio.enabled` instead.
