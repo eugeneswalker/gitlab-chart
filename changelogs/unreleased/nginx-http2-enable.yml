@@ -1,5 +1,0 @@
----
-title: 'NGINX: Enable HTTP2, as all services support it'
-merge_request: 1338
-author:
-type: changed

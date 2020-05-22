@@ -1,5 +1,0 @@
----
-title: Moved gitlab-shell settings to gitaly config.toml
-merge_request: 1308
-author:
-type: changed

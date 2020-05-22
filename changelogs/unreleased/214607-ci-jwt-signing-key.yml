@@ -1,5 +1,0 @@
----
-title: Add support for ci_jwt_signing_key Rails secret
-merge_request: 1318
-author:
-type: added

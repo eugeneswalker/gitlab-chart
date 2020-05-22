@@ -1,5 +1,0 @@
----
-title: Adds update strategy to be configured for sidekiq
-merge_request: 1294
-author:
-type: added

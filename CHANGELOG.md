@@ -2,6 +2,42 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.0.0 (2020-05-22)
+
+### Fixed (2 changes)
+
+- Add defaulting of multi-redis password enabled (#2030). !1335
+- Mailroom: follow Redis Queues instance (#2097). !1347
+
+### Changed (9 changes, 1 of them is from the community)
+
+- Deploy ChaosKube Helm chart. !1296
+- Allow configuration of security context user to help with Openshift installs. !1306 (Mickaël Canévet)
+- Moved gitlab-shell settings to gitaly config.toml. !1308
+- Make sidekiq-cluster the default. !1317
+- Update gitlab-exporter to 7.0.2. !1321
+- Bump Container Registry to v2.9.1-gitlab. !1326
+- Updated documention to include multi Redis support. !1330
+- NGINX: Enable HTTP2, as all services support it. !1338
+- Bump gitlab-exporter to 7.0.3. !1345
+
+### Added (8 changes, 2 of them are from the community)
+
+- Add task-runner pod antiAffinity support to helm chart. !1025 (Sam Wenham)
+- Replace unicorn chart with webservice. !1145 (Dmitry Chepurovskiy)
+- Provides capability to configure PDB per sidekiq pod config. !1292
+- Adds update strategy to be configured for Container Registry. !1293
+- Adds update strategy to be configured for sidekiq. !1294
+- Update min chart/gitlab versions for the major release. !1300
+- Add support for ci_jwt_signing_key Rails secret. !1318
+- Add extraEnvs for Sidekiq. !1333
+
+### Other (2 changes)
+
+- Update bitnami/postgres -> 8.9.4, postgres -> 11.7.0. !1320
+- Update GitLab Version to 13.0.0.
+
+
 ## 3.3.5 (2020-05-15)
 
 ### Changed (1 change)
