@@ -173,9 +173,9 @@ spec:
               value: "{{ .Values.puma.disableWorkerKiller }}"
             {{- else }}
             - name: UNICORN_MEMORY_MIN
-              value: "{{ .Values.memory.min }}"
+              value: "{{ .Values.unicorn.memory.min }}"
             - name: UNICORN_MEMORY_MAX
-              value: "{{ .Values.memory.max }}"
+              value: "{{ .Values.unicorn.memory.max }}"
             {{- end }}
           volumeMounts:
 {{- if .Values.metrics.enabled }}
