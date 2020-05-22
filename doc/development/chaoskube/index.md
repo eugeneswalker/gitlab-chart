@@ -29,7 +29,7 @@ the needed service account and role if RBAC is enabled.
 
 After you clone the charts repository, to install and unleash chaoskube, run:
 
-```bash
+```shell
 scripts/deploy_chaoskube.sh up
 ```
 
@@ -40,7 +40,7 @@ file. For more info read the official [chaoskube docs](https://github.com/linki/
 
 You can also configure the deployment with flags on the script. To find all available options, run:
 
-```bash
+```shell
 scripts/deploy_chaoskube.sh -h
 ```
 

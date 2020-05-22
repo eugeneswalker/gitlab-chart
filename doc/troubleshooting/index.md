@@ -31,7 +31,7 @@ An error like this could occur when you run `helm upgrade`
 and there are some spaces in the parameters. In the following
 example, `Test Username` is the culprit:
 
-```sh
+```shell
 helm upgrade gitlab gitlab/gitlab --timeout 600s --set global.email.display_name=Test Username ...
 ```
 
@@ -41,7 +41,7 @@ in the [Deployment documentation](../installation/deployment.md#deploy-using-hel
 
 To fix it, pass the parameters in single quotes:
 
-```sh
+```shell
 helm upgrade gitlab gitlab/gitlab --timeout 600s --set global.email.display_name='Test Username' ...
 ```
 
@@ -125,7 +125,7 @@ This can happen when you have TLS termination before the NGINX Ingress, and the 
 
    Via the Helm CLI:
 
-   ```sh
+   ```shell
    helm ... --set-string global.ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect"=false
    ```
 

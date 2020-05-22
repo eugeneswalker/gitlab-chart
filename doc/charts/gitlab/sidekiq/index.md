@@ -67,7 +67,7 @@ to the `helm install` command using the `--set` flags:
 | `memoryKiller.maxRss`                | `2000000`         | Maximum RSS before delayed shutdown triggered expressed in kilobytes |
 | `memoryKiller.graceTime`             | `900`             | Time to wait before a triggered shutdown expressed in seconds|
 | `memoryKiller.shutdownWait`          | `30`              | Amount of time after triggered shutdown for existing jobs to finish expressed in seconds |
-| `memoryKiller.hardLimitRss`          |                   | Maximum RSS before imediate shutdown triggered expressed in kilobyte in daemon mode |
+| `memoryKiller.hardLimitRss`          |                   | Maximum RSS before immediate shutdown triggered expressed in kilobyte in daemon mode |
 | `memoryKiller.checkInterval`         | `3`               | Amount of time between memory checks in daemon mode |
 | `livenessProbe.initialDelaySeconds`  | 20                | Delay before liveness probe is initiated                                                              |
 | `livenessProbe.periodSeconds`        | 60                | How often to perform the liveness probe                                                               |
@@ -97,9 +97,9 @@ extraEnv:
   SOME_OTHER_KEY: some_other_value
 ```
 
-When the container is started, you can confirm that the enviornment variables are exposed:
+When the container is started, you can confirm that the environment variables are exposed:
 
-```bash
+```shell
 env | grep SOME
 SOME_KEY=some_value
 SOME_OTHER_KEY=some_other_value

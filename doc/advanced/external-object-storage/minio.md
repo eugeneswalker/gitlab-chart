@@ -12,7 +12,7 @@ in this [example configuration file](https://gitlab.com/gitlab-org/charts/gitlab
 
 Using the [MinIO client](https://docs.min.io/docs/minio-client-complete-guide), create the necessary buckets before use:
 
-```sh
+```shell
 mc mb gitlab-registry-storage
 mc mb gitlab-lfs-storage
 mc mb gitlab-artifacts-storage

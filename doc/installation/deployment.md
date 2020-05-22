@@ -112,12 +112,12 @@ You can read more about setting up your production-ready object storage in the [
 
 ### Prometheus
 
-We use the [upstream Prometheus chart][prometheus-configuration],
+We use the [upstream Prometheus chart](https://github.com/helm/charts/tree/master/stable/prometheus#configuration),
 and do not override values from our own defaults.
 We do, however, default disable `alertmanager`, `nodeExporter`, and
 `pushgateway`.
 
-Refer to the [Prometheus chart documentation][prometheus-configuration] for the
+Refer to the [Prometheus chart documentation](https://github.com/helm/charts/tree/master/stable/prometheus#configuration) for the
 exhaustive list of configuration options and ensure they are sub-keys to
 `prometheus`, as we use this as requirement chart.
 
@@ -140,8 +140,6 @@ prometheus:
       enabled: true
       size: 8Gi
 ```
-
-[prometheus-configuration]: https://github.com/helm/charts/tree/master/stable/prometheus#configuration
 
 ### Outgoing email
 
@@ -276,6 +274,3 @@ if you used the command above).
 ```shell
 kubectl get secret <name>-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo
 ```
-
-[secret-gl-certs]: secrets.md#gitlab-certificates
-[secret-reg-certs]: secrets.md#registry-certificates

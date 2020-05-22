@@ -223,7 +223,7 @@ If this is not available to you, then you may need to make alterations to your
 
 Example `/etc/hosts` file addition:
 
-```text
+```plaintext
 192.168.99.100 gitlab.some.domain registry.some.domain minio.some.domain
 ```
 

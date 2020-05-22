@@ -13,7 +13,7 @@ managed via Bundler.
 To run this task manually, begin with a clone of this repository. You must have push
 access to the `master` branch.
 
-```sh
+```shell
 git checkout master
 git pull master
 bundle install
