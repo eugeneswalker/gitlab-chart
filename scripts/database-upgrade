@@ -20,7 +20,7 @@ selector() {
 
 # Run command in the task-runner pod
 in_task_runner() {
-    task_pod=$(kubectl ${namespace} get pods -l "$(selector task-runner)" --field-selector status.phase=Running  -o custom-columns=N:.metadata.name --no-headers)
+    task_pod=$(kubectl ${namespace} get pods -l "$(selector task-runner)"  -o custom-columns=N:.metadata.name --no-headers | grep -v backup)
     kubectl ${namespace} exec -it "${task_pod}" -- "${@}"
 }
 
