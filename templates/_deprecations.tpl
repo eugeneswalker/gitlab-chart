@@ -157,7 +157,8 @@ unicorn:
 {{- end -}}
 {{- if hasKey .Values.gitlab.webservice "memory" -}}
 webservice:
-    The `gitlab.webservice.memory.*` properties has been moved under the unicorn specific section. Please create a configuration with the new path: `gitlab.webservice.unicorn.memory.*`.
+    The `gitlab.webservice.memory.*` properties have been moved under the unicorn specific section.
+    You can move the configuration to `gitlab.webservice.unicorn.memory.*` when you've set the `gitlab.webservice.webServer` to `unicorn`, or remove the `gitlab.webservice.memory` configuration and instead use `gitlab.webservice.puma.workerMaxMemory` to configure Puma's worker memory limits.
 {{- end -}}
 {{- end -}}
 {{/* END gitlab.deprecate.unicorn */}}
