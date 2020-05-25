@@ -117,7 +117,7 @@ kubectl delete pvc data-RELEASE_NAME-postgresql-0
 
 ### Upgrade GitLab
 
-Upgrade GitLab following our [standard procedure](#upgrade-guide), with the following additions of:
+Upgrade GitLab following our [standard procedure](#steps), with the following additions of:
 
 If you are using the bundled PostgreSQL, disable migrations using the following flag on your upgrade command:
 
@@ -234,7 +234,7 @@ This will change any dynamic value for the `LoadBalancer` for NGINX Ingress from
 
 ### Upgrade GitLab
 
-Upgrade GitLab following our [standard procedure](#upgrade-guide), with the following additions of:
+Upgrade GitLab following our [standard procedure](#steps), with the following additions of:
 
 If you are using the bundled PostgreSQL, disable migrations using the following flag on your upgrade command:
 
