@@ -34,10 +34,11 @@ https://gitlab.com/gitlab-org/gitlab/blob/master/doc/administration/gitaly/index
 postgresql['enable'] = false
 redis['enable'] = false
 nginx['enable'] = false
-unicorn['enable'] = false
+puma['enable'] = false
 sidekiq['enable'] = false
 gitlab_workhorse['enable'] = false
 grafana['enable'] = false
+gitlab_exporter['enable'] = false
 
 # If you run a seperate monitoring node you can disable these services
 alertmanager['enable'] = false
@@ -50,7 +51,6 @@ prometheus['enable'] = false
 # prometheus['monitor_kubernetes'] = false
 
 # If you don't want to run monitoring services uncomment the following (not recommended)
-# gitlab_exporter['enable'] = false
 # node_exporter['enable'] = false
 
 # Prevent database connections during 'gitlab-ctl reconfigure'
