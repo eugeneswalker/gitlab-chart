@@ -92,21 +92,6 @@ kubectl get secret gitlab-wildcard-tls-ca -ojsonpath='{.data.cfssl_ca}' | base64
 
 Now that the root CA is downloaded, you can add it to your local chain (instructions vary per platform and are readily available online).
 
-#### (Optional) Connect GitLab Runner
-
-By default, the GitLab Runner pod will not work with the self-signed certificates. To address this:
-
-```shell
-# Download self-signed certificate
-kubectl get secret gitlab-wildcard-tls -ojsonpath='{.data.tls\.crt}' | base64 --decode > gitlab.(your host IP).nip.io.crt
-# Create certificate chain
-cat gitlab.(your host IP).nip.io.ca.pem gitlab.(your host IP).nip.io.crt > chain.crt
-# Create secret from self-signed certificate
-kubectl create secret generic self-signed-crt --from-file=gitlab.(your host IP).nip.io.crt=chain.crt
-```
-
-When the pod starts, you can check the logs to confirm that it has successfully registered.
-
 NOTE: **Note:**
 If you would prefer not to run GitLab Runner at all, you can disable it in the relevant values file: `gitlab-runner.install=false`.
 
