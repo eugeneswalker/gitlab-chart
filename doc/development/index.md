@@ -47,7 +47,7 @@ Read how to [use KinD for setting up a local Kubernetes development environment]
 
 ## Developing RSpec tests
 
-Read the notes on [creating RSpec tests](#rspec.md) to validate the
+Read the notes on [creating RSpec tests](rspec.md) to validate the
 functionality of the chart.
 
 ## Naming Conventions
