@@ -45,6 +45,11 @@ Read how to [use Minikube for setting up a local Kubernetes development environm
 
 Read how to [use KinD for setting up a local Kubernetes development environment](kind/index.md).
 
+## Developing RSpec tests
+
+Read the notes on [creating RSpec tests](#rspec.md) to validate the
+functionality of the chart.
+
 ## Naming Conventions
 
 We are using [camelCase](https://en.wikipedia.org/wiki/Camel_case) for our function names, and properties where they are used in `values.yaml`.
