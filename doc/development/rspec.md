@@ -14,7 +14,7 @@ obj = HelmTemplate.new(values)
 ```
 
 The resulting `obj` encodes the YAML documents returned by the `helm template`
-command indexed by the Kubernetes object and the object name. This indexed
+command indexed by the [Kubernetes object `kind`](https://kubernetes.io/docs/concepts/#kubernetes-objects) and the object name (`metadata.name`). This indexed
 valued is used by most of the methods to locate values within the YAML.
 
 For example:
