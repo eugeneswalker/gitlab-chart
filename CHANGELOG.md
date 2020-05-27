@@ -2,6 +2,21 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.0.1 (2020-05-27)
+
+### Fixed (1 change)
+
+- Ensure database-upgrade scripts ignores running on the backup pods. !1367
+
+### Changed (1 change)
+
+- Update GitLab Runner to 0.17.0. !1356
+
+### Other (1 change)
+
+- Update GitLab Version to 13.0.1.
+
+
 ## 4.0.0 (2020-05-22)
 
 ### Fixed (2 changes)
