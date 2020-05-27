@@ -38,6 +38,17 @@ entry.
 - Update GitLab Version to 13.0.0.
 
 
+## 3.3.6 (2020-05-27)
+
+### Fixed (1 change)
+
+- backport Mailroom: follow Redis Queues instance (#2097). !1354
+
+### Other (1 change)
+
+- Update GitLab Version to 12.10.7.
+
+
 ## 3.3.5 (2020-05-15)
 
 ### Changed (1 change)
