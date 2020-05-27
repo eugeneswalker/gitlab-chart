@@ -64,36 +64,45 @@ set of tests.
 The `HelmTemplate` object has a number of methods that assist with writing
 RSpec tests. The following are a summary of the available methods.
 
-- .exit_code()
+- `.exit_code()`
 
 This returns the exit code of the `helm template` command used to create the
 YAML documents that instantiates the chart in the Kubernetes cluster. A
 successful completion of the `helm template` will return an exit code of 0.
 
-- .dig(key, ...)
+- `.dig(key, ...)`
 
 Walk down the YAML document returned by the `HelmTemplate` instance and
 return the value residing at the last key. If no value is found, then `nil`
 is returned.
 
-- .volumes(item)
+- `.volumes(item)`
 
 Return an array of all the volumes for the specified deployment object.
 
-- .find_volume(item, volume_name)
+- `.find_volume(item, volume_name)`
 
 Return a dictionary of the specified volume from the specified deployment
 object.
 
-- .projected_volume_sources("KubernetesObj/name", "mount name")
+- `.projected_volume_sources(item, mount_name)`
 
+Return an array of sources for the specified projected volume. The returned
+array has the following structure:
 
+```
+- secret:
+    name: gitlab-rails-secret
+    items:
+     - key: secrets.yml
+       path: rails-secrets/secrets.yml
+```
 
-- .stderr()
+- `.stderr()`
 
 Return the STDERR output from the execution of `helm template` command.
 
-- .values()
+- `.values()`
 
 Return a dictionary of all values that were used in the execution of the
 `helm template` command.
