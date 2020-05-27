@@ -78,7 +78,10 @@ is returned.
 
 - `.volumes(item)`
 
-Return an array of all the volumes for the specified deployment object.
+Return an array of all the volumes for the specified deployment object. The
+returned array is a direct copy of the `volumes` key from the deployment
+object.
+
 
 - `.find_volume(item, volume_name)`
 
