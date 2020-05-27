@@ -24,7 +24,11 @@ obj.dig('ConfigMap/test-gitaly', 'data', 'config.toml.erb')
 ```
 
 This will return the contents of the `config.toml.erb` file contained in the
-`gitlab-gitaly` ConfigMap.
+`test-gitaly` ConfigMap.
+
+NOTE: **Note**:
+Using the `HelmTemplate` class will always use the release name of "test"
+when executing the `helm template` command.
 
 ## Chart inputs
 
@@ -82,7 +86,6 @@ Return an array of all the volumes for the specified deployment object. The
 returned array is a direct copy of the `volumes` key from the deployment
 object.
 
-
 - `.find_volume(item, volume_name)`
 
 Return a dictionary of the specified volume from the specified deployment
@@ -93,9 +96,9 @@ object.
 Return an array of sources for the specified projected volume. The returned
 array has the following structure:
 
-```
+```yaml
 - secret:
-    name: gitlab-rails-secret
+    name: test-rails-secret
     items:
      - key: secrets.yml
        path: rails-secrets/secrets.yml
