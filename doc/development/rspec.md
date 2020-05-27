@@ -20,7 +20,7 @@ valued is used by most of the methods to locate values within the YAML.
 For example:
 
 ```ruby
-obj.dig('ConfigMap/gitlab-gitaly', 'data', 'config.toml.erb')
+obj.dig('ConfigMap/test-gitaly', 'data', 'config.toml.erb')
 ```
 
 This will return the contents of the `config.toml.erb` file contained in the
