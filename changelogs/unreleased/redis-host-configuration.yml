@@ -1,0 +1,5 @@
+---
+title: 'Ensure global.redis.host is present if redis.install is false. Ref #2087'
+merge_request:
+author:
+type: fixed
