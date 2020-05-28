@@ -121,7 +121,7 @@ Our [MinIO chart](../charts/minio/index.md) was altered from the upstream [MinIO
 
 ### registry
 
-Our [registry chart](../charts/registry/index.md) was altered from the upstream [docker-registry](https://github.com/helm/charts/tree/master/stable/docker-registry).
+Our [registry chart](../charts/registry/index.md) was altered from the upstream [`docker-registry`](https://github.com/helm/charts/tree/master/stable/docker-registry).
 
 - Enable the use of in-chart MinIO services automatically.
 - Automatically hook authentication to the GitLab services.

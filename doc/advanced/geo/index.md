@@ -521,9 +521,9 @@ postgresql:
 
 1. Update the configuration to reflect the correct values for:
 
-   - [global.hosts.domain](../../charts/globals.md#configure-host-settings)
-   - [global.psql.host](../../charts/globals.md#configure-postgresql-settings)
-   - [global.geo.psql.host](../../charts/globals.md#configure-postgresql-settings)
+   - [`global.hosts.domain`](../../charts/globals.md#configure-host-settings)
+   - [`global.psql.host`](../../charts/globals.md#configure-postgresql-settings)
+   - [`global.geo.psql.host`](../../charts/globals.md#configure-postgresql-settings)
    - Also configure any additional settings, such as:
      - [Configuring SSL/TLS](../../installation/deployment.md#tls-certificates)
      - [Using external Redis](../external-redis/index.md)
