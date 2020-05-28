@@ -36,7 +36,7 @@ to the `helm install` command using the `--set` flags.
 | `deployment.readinessProbe.timeoutSeconds`      | 2      | When the readiness probe times out             |
 | `deployment.readinessProbe.successThreshold`    | 1      | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `deployment.readinessProbe.failureThreshold`    | 3      | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded |
-| `deployment.updateStrategy`      | `{}`                  | Allows one to configure the update strategy utilized by the deployment |
+| `deployment.updateStrategy`      | `{}`                  | Allows one to configure the update strategy utilized by the deployment. By default `StrategyType: RollingUpdate` |
 | `enabled`                        | `true`                | Webservice enabled flag                           |
 | `extraContainers`                |                       | List of extra containers to include            |
 | `extraInitContainers`            |                       | List of extra init containers to include       |
