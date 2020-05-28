@@ -248,6 +248,8 @@ pods:
     # maxReplicas: 10
     # updateStrategy: {}
     # queues: ''
+    # extraVolumes
+    # extraVolumeMounts
 
 ## Allow to overwrite under which User and Group we're running.
 securityContext:

@@ -30,6 +30,8 @@
 {{- range .Values.pods -}}
 {{- $queueName := printf "%s-%s" $fullname .name | trunc 63}}
 {{- $podNodeSelector := default $nodeSelector .nodeSelector -}}
+{{- $extraVolumes := default "" .extraVolumes -}}
+{{- $extraVolumeMounts := default "" .extraVolumeMounts -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -109,6 +111,7 @@ spec:
           {{- end }}
           {{- end }}
           volumeMounts:
+          {{- toYaml $extraVolumeMounts | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           {{- include "gitlab.psql.ssl.volumeMount" $ | nindent 10 }}
           {{- include "gitlab.geo.psql.ssl.volumeMount" $ | nindent 10 }}
@@ -154,6 +157,7 @@ spec:
             {{- end }}
             {{- end }}
           volumeMounts:
+          {{- toYaml $extraVolumeMounts | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           - name: sidekiq-config
             mountPath: '/var/opt/gitlab/templates'
@@ -226,6 +230,7 @@ spec:
             name: metrics
 {{- end }}
           volumeMounts:
+          {{- toYaml $extraVolumeMounts | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
 {{- if $metricsEnabled }}
           - name: sidekiq-metrics
@@ -277,6 +282,7 @@ spec:
           resources:
             {{- toYaml ( default $resources .resources ) | nindent 12 }}
       volumes:
+      {{- toYaml $extraVolumes | nindent 6 }}
       {{- include "gitlab.extraVolumes" $ | nindent 6 }}
       {{- include "gitlab.psql.ssl.volume" $ | nindent 6 }}
       {{- include "gitlab.geo.psql.ssl.volume" $ | nindent 6 }}
