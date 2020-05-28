@@ -39,8 +39,8 @@ to the `helm install` command using the `--set` flags:
 | `enabled`                            | `true`            | Sidekiq enabled flag                     |
 | `extraContainers`                    |                   | List of extra containers to include      |
 | `extraInitContainers`                |                   | List of extra init containers to include |
-| `extraVolumeMounts`                  |                   | List of extra volumes mountes to do      |
-| `extraVolumes`                       |                   | List of extra volumes to create          |
+| `extraVolumeMounts`                  |                   | String template of extra volume mounts to configure |
+| `extraVolumes`                       |                   | String template of extra volumes to configure |
 | `extraEnv`                           |                   | List of extra environment variables to expose |
 | `gitaly.serviceName`                 | `gitaly`          | Gitaly service name                      |
 | `hpa.targetAverageValue`             | `350m`            | Set the autoscaling target value         |
@@ -103,6 +103,31 @@ When the container is started, you can confirm that the environment variables ar
 env | grep SOME
 SOME_KEY=some_value
 SOME_OTHER_KEY=some_other_value
+```
+
+### extraVolumes
+
+`extraVolumes` allows you to configure extra volumes chart-wide.
+
+Below is an example use of `extraVolumes`:
+
+```yaml
+extraVolumes: |
+  - name: example-volume
+    persistentVolumeClaim:
+      claimName: example-pvc
+```
+
+### extraVolumeMounts
+
+`extraVolumeMounts` allows you to configure extra volumeMounts on all containers chart-wide.
+
+Below is an example use of `extraVolumeMounts`:
+
+```yaml
+extraVolumeMounts: |
+  - name: example-volume-mount
+    mountPath: /etc/example
 ```
 
 ### image.pullSecrets
@@ -302,6 +327,8 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `maxReplicas`  | Integer | `10`    | Maximum number of replicas |
 | `maxUnavailable` | Integer | `1`   | Limit of maximum number of Pods to be unavailable |
 | `updateStrategy` |       | `{}`    | Allows one to configure the update strategy utilized by the deployment |
+| `extraVolumes` | String  |         | Configures extra volumes for the given pod. |
+| `extraVolumeMounts` | String |     | Configures extra volume mounts for the given pod. |
 
 ### queues
 
@@ -364,6 +391,13 @@ pods:
     - [process_commit, 3]
     - [new_note, 2]
     - [new_issue, 2]
+    extraVolumeMounts: |
+      - name: example-volume-mount
+        mountPath: /etc/example
+    extraVolumes: |
+      - name: example-volume
+        persistentVolumeClaim:
+          claimName: example-pvc
     resources:
       limits:
         cpu: 800m
