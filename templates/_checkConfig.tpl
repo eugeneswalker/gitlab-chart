@@ -34,6 +34,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.geo.secondary.database" .) -}}
 {{- $messages := append $messages (include "gitlab.task-runner.replicas" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.redisHost" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
@@ -193,6 +194,17 @@ redis:
 {{- end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.multipleRedis */}}
+
+{{/*
+Ensure that `global.redis.host: <hostname>` is present if `redis.install: false` 
+*/}}
+{{- define "gitlab.checkConfig.redisHost" -}}
+{{-   if and (not .Values.redis.install) (not .Values.global.redis.host) }}
+redis:
+  You've disabled the installation of Redis. When using an external Redis, you must populate `global.redis.host`. Please see https://docs.gitlab.com/charts/advanced/external-redis/
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.redisHost */}}
 
 {{/*
 Ensure that `postgresql.image.tag` is not less than postgres version 11
