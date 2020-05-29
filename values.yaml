@@ -446,6 +446,12 @@ global:
     image:
       repository: busybox
       tag: latest
+  
+  ## docs/charts/globals/tracing.md#tracing
+  tracing:
+    connection:
+      string: ""
+    urlTemplate: ""
 ## End of global
 
 upgradeCheck:

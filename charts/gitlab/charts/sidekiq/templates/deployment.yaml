@@ -220,6 +220,7 @@ spec:
               value: {{ $value | quote }}
             {{- end }}
             {{- end }}
+            {{- include "gitlab.tracing.env" $ | nindent 12 }}
 {{- if $metricsEnabled }}
           ports:
           - containerPort: {{ $metricsPort }}

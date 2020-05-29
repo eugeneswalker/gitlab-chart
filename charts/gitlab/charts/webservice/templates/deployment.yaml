@@ -177,6 +177,9 @@ spec:
             - name: UNICORN_MEMORY_MAX
               value: "{{ .Values.unicorn.memory.max }}"
             {{- end }}
+            {{- include "gitlab.tracing.env" . | nindent 12 }}
+            - name: GITLAB_TRACING_URL
+              value: {{ .Values.global.tracing.urlTemplate | quote }}
           volumeMounts:
 {{- if .Values.metrics.enabled }}
             - name: webservice-metrics
@@ -257,6 +260,7 @@ spec:
               value: '/var/opt/gitlab/templates'
             - name: CONFIG_DIRECTORY
               value: '/srv/gitlab/config'
+            {{- include "gitlab.tracing.env" . | nindent 12 }}
           volumeMounts:
             - name: workhorse-config
               mountPath: '/var/opt/gitlab/templates'
