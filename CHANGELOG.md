@@ -2,6 +2,23 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.0.2 (2020-05-29)
+
+### Fixed (3 changes, 1 of them is from the community)
+
+- Mailroom: follow Redis Queues instance (#2097). !1347
+- Fix an bug in which it was impossible to configure the unicorn memory killer. !1365 (Matthias van de Meent)
+- Ensure database-upgrade scripts ignores running on the backup pods. !1367
+
+### Changed (1 change)
+
+- Update GitLab Runner to 0.17.0. !1356
+
+### Other (1 change)
+
+- Update GitLab Version to 13.0.3.
+
+
 ## 4.0.1 (2020-05-27)
 
 ### Fixed (1 change)

@@ -1,5 +1,0 @@
----
-title: "Fix an bug in which it was impossible to configure the unicorn memory killer"
-merge_request: 1365
-author: Matthias van de Meent
-type: fixed
