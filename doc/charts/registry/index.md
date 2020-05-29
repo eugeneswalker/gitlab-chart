@@ -500,7 +500,7 @@ health:
 
 The Docker Registry will build up extraneous data over time which can be freed using
 [garbage collection](https://docs.docker.com/registry/garbage-collection/).
-As of [now](https://gitlab.com/gitlab-org/charts/gitlab/issues/1586) there is no
+As of [now](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1586) there is no
 fully automated or scheduled way to run the garbage collection with this Chart.
 
 ### Manual Garbage Collection

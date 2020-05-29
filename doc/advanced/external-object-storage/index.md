@@ -18,11 +18,11 @@ This documentation specifies usage of access and secret keys for AWS. It is also
 
 NOTE: **Note:** GitLab does not currently support using [Amazon KMS](https://aws.amazon.com/kms/)
 to encrypt data stored in S3 buckets. Adding KMS support is being discussed in
-[issue #1012](https://gitlab.com/gitlab-org/charts/gitlab/issues/1012).
+[issue #1012](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1012).
 
 ## Azure Blob Storage
 
-GitLab uses [fog](https://github.com/fog/fog), but [doesn't currently support Fog Azure](https://gitlab.com/gitlab-org/gitlab-foss/issues/55624). To make use Azure Blob Storage, you will have to set up an [Azure MinIO gateway](azure-minio-gateway.md).
+GitLab uses [fog](https://github.com/fog/fog), but [doesn't currently support Fog Azure](https://gitlab.com/gitlab-org/gitlab-foss/-/issues/55624). To make use Azure Blob Storage, you will have to set up an [Azure MinIO gateway](azure-minio-gateway.md).
 
 ## Docker Registry images
 
