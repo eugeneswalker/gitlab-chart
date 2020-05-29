@@ -104,9 +104,9 @@ spec:
             - name: PACKAGES_BUCKET_NAME
               value: {{ .Values.global.appConfig.packages.bucket }}
             - name: EXTERNAL_DIFFS_BUCKET_NAME
-              value: {{ .Values.global.externalDiffs.packages.bucket }}
+              value: {{ .Values.global.appConfig.externalDiffs.bucket }}
             - name: TERRAFORM_STATE_BUCKET_NAME
-              value: {{ .Values.global.terraformState.packages.bucket }}
+              value: {{ .Values.global.appConfig.terraformState.bucket }}
             - name: BACKUP_BUCKET_NAME
               value: {{ .Values.global.appConfig.backups.bucket }}
             - name: BACKUP_BACKEND
