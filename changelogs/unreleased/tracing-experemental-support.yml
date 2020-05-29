@@ -1,0 +1,5 @@
+---
+title: Add tracing support to helm chart
+merge_request: 1234
+author: Dmitry Chepurovskiy
+type: added

@@ -22,6 +22,7 @@ for more information on how the global variables work.
 - [Custom Certificate Authorities](#custom-certificate-authorities)
 - [Application Resource](#application-resource)
 - [Busybox image](#busybox-image)
+- [Tracing](#tracing)
 
 ## Configure Host settings
 
@@ -1065,3 +1066,18 @@ global:
 Many charts also provide `init.image.repository` and `init.image.tag` settings
 locally that can be used to override this global setting for that specific
 chart.
+
+## Tracing
+
+GitLab Helm charts support tracing, and you can configure it with:
+
+```yaml
+global:
+  tracing:
+    connection:
+      string: 'opentracing://jaeger?http_endpoint=http%3A%2F%2Fjaeger.example.com%3A14268%2Fapi%2Ftraces&sampler=const&sampler_param=1'
+    urlTemplate: 'http://jaeger-ui.example.com/search?service={{ service }}&tags=%7B"correlation_id"%3A"{{ correlation_id }}"%7D'
+```
+
+- `global.tracing.connection.string` is used to configure where tracing spans would be sent. You can read more about that in [GitLab tracing documentation](https://docs.gitlab.com/ee/development/distributed_tracing.html)
+- `global.tracing.urlTemplate` is used as a template for tracing info URL rendering in GitLab perfomance bar.
