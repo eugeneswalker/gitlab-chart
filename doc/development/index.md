@@ -251,7 +251,7 @@ Let's look at two snippet examples, which easily exmplify the reasoning:
       gravatar:
 ```
 
-Related issue: [#729 Refactoring: Helm templates](https://gitlab.com/gitlab-org/charts/gitlab/issues/729)
+Related issue: [#729 Refactoring: Helm templates](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/729)
 
 ### When to utilize `toYaml` in templates
 

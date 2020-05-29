@@ -23,7 +23,7 @@ is also fully supported.
 
 NOTE: **Note**:
 We are not using Helm v3 for testing in CI. If you find issues
-specific to Helm v3, please create an issue in our [issue tracker](https://gitlab.com/gitlab-org/charts/gitlab/issues)
+specific to Helm v3, please create an issue in our [issue tracker](https://gitlab.com/gitlab-org/charts/gitlab/-/issues)
 and start the issue title with the keyword `[Helm3]`.
 
 NOTE: **Note**:

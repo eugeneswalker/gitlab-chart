@@ -60,8 +60,8 @@ via [initContainers](https://kubernetes.io/docs/concepts/workloads/pods/init-con
 
 Related issues:
 
-- [#90](https://gitlab.com/gitlab-org/charts/gitlab/issues/90)
-- [#114](https://gitlab.com/gitlab-org/charts/gitlab/issues/114)
+- [#90](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/90)
+- [#114](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/114)
 
 ## Sub-charts are deployed from global chart
 
@@ -73,7 +73,7 @@ This decision simplifies both the use and maintenance of the repository as a who
 
 Related issue:
 
-- [#352](https://gitlab.com/gitlab-org/charts/gitlab/issues/352)
+- [#352](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/352)
 
 ## Template partials for `gitlab/*` should be global whenever possible
 
@@ -92,7 +92,7 @@ The benefits of this are straight-forward:
 
 Related issue:
 
-- [#352](https://gitlab.com/gitlab-org/charts/gitlab/issues/352)
+- [#352](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/352)
 
 ## Forked charts
 
@@ -139,12 +139,12 @@ To maximize support for different Kubernetes versions, use a `kubectl` that's
 one minor version lower than the current stable release of Kubernetes.
 This should allow support for at least three, and quite possibly more
 Kubernetes minor versions. For further discussion on `kubectl` versions, see
-[issue 1509](https://gitlab.com/gitlab-org/charts/gitlab/issues/1509).
+[issue 1509](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1509).
 
 Related Issues:
 
-- [`charts/gitlab#1509`](https://gitlab.com/gitlab-org/charts/gitlab/issues/1509)
-- [`charts/gitlab#1583`](https://gitlab.com/gitlab-org/charts/gitlab/issues/1583)
+- [`charts/gitlab#1509`](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1509)
+- [`charts/gitlab#1583`](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1583)
 
 Related Merge Requests:
 

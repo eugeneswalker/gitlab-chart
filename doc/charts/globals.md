@@ -208,7 +208,7 @@ needs to be created separately from the GitLab chart install. This can be
 done inside or outside the Kubernetes cluster.
 
 An issue to track the [supporting of sentinels in a GitLab deployed
-Redis cluster](https://gitlab.com/gitlab-org/charts/gitlab/issues/1810) has
+Redis cluster](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1810) has
 been created for tracking purposes.
 
 ```yaml
