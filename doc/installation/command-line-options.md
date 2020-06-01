@@ -87,6 +87,30 @@ helm inspect values gitlab/gitlab
 | `global.appConfig.incomingEmail.expungeDeleted`  | Whether to expunge (permanently remove) messages from the mailbox when they are deleted after delivery | false       |
 | `global.appConfig.incomingEmail.logger.logPath`  | Path to write JSON structured logs to; set to "" to disable this logging                               | /dev/stdout |
 
+## Service Desk Email configuration
+
+As a requirement for Service Desk, the Incoming Mail must be [configured](#incoming-email-configuration).
+Note that the email address for both Incoming Mail and Service Desk must use
+[email sub-addressing](https://docs.gitlab.com/ee/administration/incoming_email.html#email-sub-addressing).
+When setting the email addresses in each section the tag added to the username
+must be `+%{key}`.
+
+| Parameter                                        | Description                                                                                            | Default     |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------|-------------|
+| `global.appConfig.serviceDeskEmail.address`         | The email address to reference the item being replied to (example: `project_contact+%{key}@gmail.com`) | empty       |
+| `global.appConfig.serviceDeskEmail.enabled`         | Enable service desk email                                                                              | false       |
+| `global.appConfig.serviceDeskEmail.host`            | Host for IMAP                                                                                          | empty       |
+| `global.appConfig.serviceDeskEmail.idleTimeout`     | The IDLE command timeout                                                                               | `60`        |
+| `global.appConfig.serviceDeskEmail.mailbox`         | Mailbox where service desk mail will end up.                                                           | `inbox`     |
+| `global.appConfig.serviceDeskEmail.password.key`    | Key in `global.appConfig.serviceDeskEmail.password.secret` that contains the IMAP password             | `password`  |
+| `global.appConfig.serviceDeskEmail.password.secret` | Name of a `Secret` containing the IMAP password                                                        | empty       |
+| `global.appConfig.serviceDeskEmail.port`            | Port for IMAP                                                                                          | `993`       |
+| `global.appConfig.serviceDeskEmail.ssl`             | Whether IMAP server uses SSL                                                                           | true        |
+| `global.appConfig.serviceDeskEmail.startTls`        | Whether IMAP server uses StartTLS                                                                      | false       |
+| `global.appConfig.serviceDeskEmail.user`            | Username for IMAP authentication                                                                       | empty       |
+| `global.appConfig.serviceDeskEmail.expungeDeleted`  | Whether to expunge (permanently remove) messages from the mailbox when they are deleted after delivery | false       |
+| `global.appConfig.serviceDeskEmail.logger.logPath`  | Path to write JSON structured logs to; set to "" to disable this logging                               | /dev/stdout |
+
 ## Default Project Features configuration
 
 | Parameter                                                    | Description                               | Default |

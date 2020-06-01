@@ -119,6 +119,9 @@ global:
     incomingEmail:
       enabled: false
       address:
+    serviceDeskEmail:
+      enabled: false
+      address:
     lfs:
       enabled: true
       proxy_download: true

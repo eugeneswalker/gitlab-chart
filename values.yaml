@@ -278,6 +278,25 @@ global:
       mailbox: inbox
       idleTimeout: 60
 
+    ## doc/charts/globals.md#service-desk-email-settings
+    ## doc/installation/deployment.md#service-desk-email
+    serviceDeskEmail:
+      enabled: false
+      address: ""
+      host: "imap.gmail.com"
+      port: 993
+      ssl: true
+      startTls: false
+      user: ""
+      password:
+        secret: ""
+        key: password
+      expungeDeleted: false
+      logger:
+        logPath: "/dev/stdout"
+      mailbox: inbox
+      idleTimeout: 60
+
     ## doc/charts/globals.md#ldap
     ldap:
       # prevent the use of LDAP for sign-in via web.

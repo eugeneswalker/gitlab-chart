@@ -14,6 +14,7 @@ Optional External Services:
 - LDAP
 - OmniAuth
 - IMAP for incoming emails (via mail_room service)
+- IMAP for service desk emails (via mail_room service)
 - S/MIME certificate
 
 Any secret not provided manually will be automatically generated with a random value. Automatic generation of HTTPS certificates is provided by Let's Encrypt.
@@ -46,7 +47,8 @@ documentation.
   - [OmniAuth](#omniauth)
   - [LDAP Password](#ldap-password)
   - [SMTP Password](#smtp-password)
-  - [IMAP Password](#imap-password-for-incoming-emails)
+  - [IMAP Password for incoming email](#imap-password-for-incoming-emails)
+  - [IMAP Password for service desk](#imap-password-for-service-desk-emails)
   - [S/MIME Certificate](#smime-certificate)
 
 ### Registry authentication certificates
@@ -279,6 +281,20 @@ kubectl create secret generic incoming-email-password --from-literal=password=yo
 
 Then use `--set global.appConfig.incomingEmail.password.secret=incoming-email-password`
 in your Helm command along with other required settings as specified [in the docs](command-line-options.md#incoming-email-configuration).
+
+NOTE: **Note** Use the `Secret` name, not the _actual password_ when configuring the Helm property.
+
+### IMAP password for service desk emails
+
+To let GitLab have access to [service_desk emails](https://docs.gitlab.com/ee/user/project/service_desk.html#using-custom-email-address)
+store the password of the IMAP account in a Kubernetes secret.
+
+```shell
+kubectl create secret generic service-desk-email-password --from-literal=password=yourpasswordhere
+```
+
+Then use `--set global.appConfig.serviceDeskEmail.password.secret=service-desk-email-password`
+in your Helm command along with other required settings as specified [in the docs](command-line-options.md#service-desk-email-configuration).
 
 NOTE: **Note** Use the `Secret` name, not the _actual password_ when configuring the Helm property.
 

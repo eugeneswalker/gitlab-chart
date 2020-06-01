@@ -166,6 +166,16 @@ To use reply-by-email feature, where users can reply to notification emails to
 comment on issues and MRs, you need to configure both outgoing email and
 incoming email settings.
 
+### Service desk email
+
+By default service desk email is disabled. To enable it, provide details of your
+IMAP server and access credentials using the `global.appConfig.serviceDeskEmail`
+settings. You can find details for these settings in the [command line options](command-line-options.md#service-desk-email-configuration).
+You will also have to create a Kubernetes secret containing IMAP password as
+described in the [secrets guide](secrets.md#imap-password-for-service-desk-emails).
+
+NOTE: **Note** Service desk email _requires_ that [Incoming email](#incoming-email) be configured.
+
 ### Deploy the Community Edition
 
 By default, the Helm charts use the Enterprise Edition of GitLab. If desired, you can instead use the Community Edition. Learn more about the [difference between the two](https://about.gitlab.com/install/ce-or-ee/).

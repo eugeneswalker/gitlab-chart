@@ -17,6 +17,12 @@ incoming_email:
   address: {{ .incomingEmail.address | quote }}
 {{- end -}}
 
+{{- define "gitlab.appConfig.service_desk_email" -}}
+service_desk_email:
+  enabled: {{ eq .serviceDeskEmail.enabled true }}
+  address: {{ .serviceDeskEmail.address | quote }}
+{{- end -}}
+
 {{- define "gitlab.appConfig.shell" -}}
 gitlab_shell:
   path: /home/git/gitlab-shell/

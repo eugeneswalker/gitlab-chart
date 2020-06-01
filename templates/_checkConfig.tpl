@@ -35,6 +35,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.task-runner.replicas" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.serviceDesk" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -211,3 +212,22 @@ postgresql:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.postgresql.deprecatedVersion */}}
+
+{{/*
+Ensure that incomingEmail is enabled too if serviceDesk is enabled
+*/}}
+{{- define "gitlab.checkConfig.serviceDesk" -}}
+{{-   if $.Values.global.appConfig.serviceDeskEmail.enabled }}
+{{-     if not $.Values.global.appConfig.incomingEmail.enabled }}
+serviceDesk:
+    When configuring Service Desk email, you must also configure incoming email.
+    See https://docs.gitlab.com/charts/charts/globals#incoming-email-settings
+{{-     end -}}
+{{-     if (not (and (contains "+%{key}@" $.Values.global.appConfig.incomingEmail.address) (contains "+%{key}@" $.Values.global.appConfig.serviceDeskEmail.address))) }}
+serviceDesk:
+    When configuring Service Desk email, both incoming email and Service Desk email address must contain the "+%{key}" tag.
+    See https://docs.gitlab.com/ee/user/project/service_desk.html#using-custom-email-address
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.multipleRedis */}}
