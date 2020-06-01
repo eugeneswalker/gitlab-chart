@@ -91,7 +91,7 @@ deployment:
   # configuration for the deployment.  See the Kubernetes documentation
   # related to this subject.
   # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
-  updateStrategy: {}
+  strategy: {}
 
 workhorse:
   sentryDSN: ""
