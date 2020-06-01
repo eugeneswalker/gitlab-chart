@@ -153,7 +153,7 @@ annotations:
 
 ### strategy
 
-`strategy` allows you to change the deployment update strategy for pods. RollingUpdate with 25% max unavailable, 25% max surge used by default.
+`strategy` allows you to change the deployment update strategy. It defines how the pods will be recreated when deployment is updated. RollingUpdate with 25% max unavailable, 25% max surge used by default.
 For example if you don't want to create extra pods when the rolling update starts and change max unavailable pods to 50%:
 
 ```yaml
