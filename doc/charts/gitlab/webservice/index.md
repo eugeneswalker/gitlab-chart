@@ -151,6 +151,26 @@ annotations:
   kubernetes.io/example-annotation: annotation-value
 ```
 
+### strategy
+
+`strategy` allows you to change the deployment update strategy for pods. RollingUpdate with 25% max unavailable, 25% max surge used by default.
+For example if you don't want to create extra pods when the rolling update starts and change max unavailable pods to 50%:
+
+```yaml
+deployment:
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+```
+
+Or you can just change type of update strategy to `Recreate`, be careful it will kill all pods before schedule the new ones, WEB UI will be unavailable untill the pods will be started. In this case don't need to define RollingUpdate:
+
+```yaml
+deployment:
+  strategy:
+    type: Recreate
+```
+
 ## Using the Community Edition of this chart
 
 By default, the Helm charts use the Enterprise Edition of GitLab. If desired, you
