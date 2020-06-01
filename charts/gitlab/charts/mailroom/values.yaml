@@ -38,6 +38,22 @@ global:
         logPath: "/dev/stdout"
       mailbox: inbox
       idleTimeout: 60
+    serviceDeskEmail:
+      enabled: false
+      address:
+      host:
+      port: 993
+      ssl: true
+      startTls: false
+      user:
+      password:
+        secret: ""
+        key: password
+      expungeDeleted: false
+      logger:
+        logPath: "/dev/stdout"
+      mailbox: inbox
+      idleTimeout: 60
 
 hpa:
   minReplicas: 1

@@ -66,6 +66,9 @@ data:
       {{- if eq .incomingEmail.enabled true }}
       {{- include "gitlab.appConfig.incoming_email" . | nindent 6 }}
       {{- end }}
+      {{- if eq .serviceDeskEmail.enabled true }}
+      {{- include "gitlab.appConfig.service_desk_email" . | nindent 6 }}
+      {{- end }}
       {{- include "gitlab.appConfig.cronJobs" . | nindent 6 }}
       gravatar:
         plain_url: {{ .gravatar.plainUrl }}

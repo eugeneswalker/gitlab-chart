@@ -115,7 +115,14 @@ spec:
               name: {{ .Values.global.appConfig.incomingEmail.password.secret | required "Missing required secret containing the IMAP password for incoming email. Make sure to set `global.appConfig.incomingEmail.password.secret`" }}
               items:
                 - key: {{ .Values.global.appConfig.incomingEmail.password.key }}
-                  path: mailroom/password
+                  path: mailroom/password_incoming_email
+          {{- if .Values.global.appConfig.serviceDeskEmail.enabled }}
+          - secret:
+              name: {{ .Values.global.appConfig.serviceDeskEmail.password.secret | required "Missing required secret containing the IMAP password for service desk email. Make sure to set `global.appConfig.serviceDeskEmail.password.secret`"}}
+              items:
+                - key: {{ .Values.global.appConfig.serviceDeskEmail.password.key }}
+                  path: mailroom/password_service_desk
+          {{- end }}
       - name: mailroom-secrets
         emptyDir:
           medium: "Memory"

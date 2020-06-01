@@ -547,6 +547,19 @@ global:
         key: password
       mailbox: inbox
       idleTimeout: 60
+    serviceDeskEmail:
+      enabled: false
+      address: ""
+      host: "imap.gmail.com"
+      port: 993
+      ssl: true
+      startTls: false
+      user: ""
+      password:
+        secret:
+        key: password
+      mailbox: inbox
+      idleTimeout: 60
     pseudonymizer:
       configMap:
       bucket: gitlab-pseudo
