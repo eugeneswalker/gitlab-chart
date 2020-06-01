@@ -161,6 +161,7 @@ deployment:
   strategy:
     rollingUpdate:
       maxSurge: 0
+      maxUnavailable: 50%
 ```
 
 Or you can just change type of update strategy to `Recreate`, be careful it will kill all pods before schedule the new ones, WEB UI will be unavailable untill the pods will be started. In this case don't need to define RollingUpdate:
