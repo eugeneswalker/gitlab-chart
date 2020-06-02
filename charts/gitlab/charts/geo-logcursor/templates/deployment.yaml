@@ -6,6 +6,8 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "gitlab.standardLabels" . | nindent 4 }}
+  annotations:
+    {{- include "gitlab.deploymentAnnotations" . | nindent 4 }}
 spec:
   {{- if .Values.global.operator.enabled }}
   paused: true

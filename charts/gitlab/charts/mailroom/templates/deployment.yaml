@@ -7,7 +7,7 @@ metadata:
   labels:
     {{- include "gitlab.standardLabels" . | nindent 4 }}
   annotations:
-    {{ include "gitlab.deploymentAnnotations" . | nindent 4 | trim }}
+    {{- include "gitlab.deploymentAnnotations" . | nindent 4 }}
 spec:
   replicas: {{ .Values.hpa.minReplicas }}
   selector:

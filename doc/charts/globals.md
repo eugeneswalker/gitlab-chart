@@ -22,6 +22,7 @@ for more information on how the global variables work.
 - [Custom Certificate Authorities](#custom-certificate-authorities)
 - [Application Resource](#application-resource)
 - [Busybox image](#busybox-image)
+- [Annotations](#annotations)
 - [Tracing](#tracing)
 
 ## Configure Host settings
@@ -1079,6 +1080,25 @@ global:
 Many charts also provide `init.image.repository` and `init.image.tag` settings
 locally that can be used to override this global setting for that specific
 chart.
+
+## Annotations
+
+Custom annotations can be applied to Deployment, Service, and Ingress objects.
+
+```yaml
+global:
+  deployment:
+    annotations:
+      environment: production
+
+  service:
+    annotations:
+      environment: production
+
+  ingress:
+    annotations:
+      environment: production
+```
 
 ## Tracing
 

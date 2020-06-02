@@ -1,0 +1,5 @@
+---
+title: Add gitlab.deploymentAnnotations template to charts in repository
+merge_request: 1351
+author:
+type: added

@@ -41,6 +41,10 @@ class HelmTemplate
     volume['projected']['sources']
   end
 
+  def resources_by_kind(kind)
+    @mapped.select{ |key, hash| hash['kind'] == kind }
+  end
+
   def exit_code()
     @exit_code.to_i
   end
