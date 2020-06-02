@@ -111,6 +111,7 @@ spec:
           {{- end }}
           {{- end }}
           volumeMounts:
+          {{- tpl (default "" .extraVolumeMounts) $ | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           {{- include "gitlab.psql.ssl.volumeMount" $ | nindent 10 }}
           {{- include "gitlab.geo.psql.ssl.volumeMount" $ | nindent 10 }}
@@ -156,6 +157,7 @@ spec:
             {{- end }}
             {{- end }}
           volumeMounts:
+          {{- tpl (default "" .extraVolumeMounts) $ | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
           - name: sidekiq-config
             mountPath: '/var/opt/gitlab/templates'
@@ -229,6 +231,7 @@ spec:
             name: metrics
 {{- end }}
           volumeMounts:
+          {{- tpl (default "" .extraVolumeMounts) $ | nindent 10 }}
           {{- include "gitlab.extraVolumeMounts" $ | nindent 10 }}
 {{- if $metricsEnabled }}
           - name: sidekiq-metrics
@@ -280,6 +283,7 @@ spec:
           resources:
             {{- toYaml ( default $resources .resources ) | nindent 12 }}
       volumes:
+      {{- tpl (default "" .extraVolumeMounts) $ | nindent 6 }}
       {{- include "gitlab.extraVolumes" $ | nindent 6 }}
       {{- include "gitlab.psql.ssl.volume" $ | nindent 6 }}
       {{- include "gitlab.geo.psql.ssl.volume" $ | nindent 6 }}

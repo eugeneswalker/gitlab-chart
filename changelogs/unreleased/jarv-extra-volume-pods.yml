@@ -1,0 +1,5 @@
+---
+title: Adds extraVolumeMounts for Sidekiq pods
+merge_request: 1380
+author:
+type: added
