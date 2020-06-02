@@ -279,7 +279,7 @@ Handles merging a set of service annotations
 */}}
 {{- define "gitlab.serviceAnnotations" -}}
 {{- $allAnnotations := merge (default (dict) (default (dict) .Values.service).annotations) .Values.global.service.annotations -}}
-{{- if $allAnnotations -}}
+{{- if $allAnnotations }}
 {{- toYaml $allAnnotations -}}
 {{- end -}}
 {{- end -}}
