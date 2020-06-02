@@ -308,6 +308,9 @@ a different pod configuration. It will not add a new pod in addition to the defa
 The `queues` value is a string containing a comma-separated list of queues to be
 processed. By default, it is not set, meaning that all queues will be processed.
 
+The string should not contain spaces: `merge,post_receive,process_commit` will
+work, but `merge, post_receive, process_commit` will not.
+
 Any queue to which jobs are added but are not represented as a part of at least
 one pod item *will not be processed*. For a complete list of all queues, see
 these files in the GitLab source:
@@ -322,6 +325,9 @@ queue names as strings.
 
 `negateQueues` is in the same format as [`queues`](#queues), but it represents
 queues to be ignored rather than processed.
+
+The string should not contain spaces: `merge,post_receive,process_commit` will
+work, but `merge, post_receive, process_commit` will not.
 
 This is useful if you have a pod processing important queues, and another pod
 processing other queues: they can use the same list of queues, with one being in
