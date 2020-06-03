@@ -164,7 +164,7 @@ deployment:
       maxUnavailable: 50%
 ```
 
-Or you can just change type of update strategy to `Recreate`, be careful it will kill all pods before schedule the new ones, WEB UI will be unavailable untill the pods will be started. In this case don't need to define RollingUpdate:
+You can also change type of update strategy to `Recreate`, be careful it will kill all pods before scheduling new ones, web UI will be unavailable until the new pods are started. In this case, we don't need to define `rollingUpdate`, only `type`:
 
 ```yaml
 deployment:
