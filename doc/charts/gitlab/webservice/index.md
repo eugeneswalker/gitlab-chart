@@ -173,6 +173,7 @@ deployment:
 ```
 
 For more details, see the [kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy)
+
 ## Using the Community Edition of this chart
 
 By default, the Helm charts use the Enterprise Edition of GitLab. If desired, you
