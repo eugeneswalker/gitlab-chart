@@ -1,3 +1,9 @@
+---
+stage: Enablement
+group: Distribution
+info: To determine the technical writer assigned to the Stage/Group associated with this page, see https://about.gitlab.com/handbook/engineering/ux/technical-writing/#designated-technical-writers
+---
+
 # `crdctl` Utility
 
 `scripts/crdctl` is a utility for managing the lifecycle of GitLab CRD. It helps you to create or delete the CRD.
