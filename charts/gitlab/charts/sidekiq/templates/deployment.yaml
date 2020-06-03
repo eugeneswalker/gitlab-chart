@@ -97,6 +97,9 @@ spec:
                   app: {{ $name }}
                   release: {{ $releaseName }}
       {{- end }}
+      {{- if or $.Values.serviceAccount.enabled $.Values.global.serviceAccount.enabled }}
+      serviceAccountName: {{ include "gitlab.serviceAccount.name" $ }}
+      {{- end }}
       initContainers:
         {{- include "gitlab.extraInitContainers" $ | nindent 8 }}
         {{- include "gitlab.certificates.initContainer" $ | nindent 8 }}

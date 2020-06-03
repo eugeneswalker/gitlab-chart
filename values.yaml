@@ -465,6 +465,14 @@ global:
     image:
       repository: busybox
       tag: latest
+
+  ## docs/charts/globals.md#service-accounts
+  serviceAccount:
+    enabled: false
+    create: true
+    annotations: {}
+    ## Name to be used for serviceAccount, otherwise defaults to chart fullname
+    # name:
   
   ## docs/charts/globals/tracing.md#tracing
   tracing:
@@ -489,9 +497,9 @@ upgradeCheck:
 
 ## Settings to for the Let's Encrypt ACME Issuer
 # certmanager-issuer:
-  ## The email address to register certificates requested from Let's Encrypt.
-  ## Required if using Let's Encrypt.
-  # email: email@example.com
+#   # The email address to register certificates requested from Let's Encrypt.
+#   # Required if using Let's Encrypt.
+#   email: email@example.com
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
