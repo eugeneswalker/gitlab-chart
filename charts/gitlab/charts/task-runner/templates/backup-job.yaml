@@ -33,6 +33,9 @@ spec:
           securityContext:
             runAsUser: {{ .Values.securityContext.runAsUser }}
             fsGroup: {{ .Values.securityContext.fsGroup }}
+          {{- if or .Values.serviceAccount.enabled .Values.global.serviceAccount.enabled }}
+          serviceAccountName: {{ include "gitlab.serviceAccount.name" . }}
+          {{- end }}
           initContainers:
             {{- include "gitlab.extraInitContainers" . | nindent 12 }}
             {{- include "gitlab.certificates.initContainer" . | nindent 12 }}

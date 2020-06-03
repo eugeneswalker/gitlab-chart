@@ -28,6 +28,7 @@ for more information on how the global variables work.
 - [Custom Certificate Authorities](#custom-certificate-authorities)
 - [Application Resource](#application-resource)
 - [Busybox image](#busybox-image)
+- [Service Accounts](#service-accounts)
 - [Annotations](#annotations)
 - [Tracing](#tracing)
 
@@ -1086,6 +1087,25 @@ global:
 Many charts also provide `init.image.repository` and `init.image.tag` settings
 locally that can be used to override this global setting for that specific
 chart.
+
+## Service Accounts
+
+GitLab Helm charts allow for the pods to run using custom [Service Accounts](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/).
+This is configured with the following settings in `global.serviceAccount`:
+
+```yaml
+global:
+  serviceAccount:
+    enabled: false
+    create: true
+    annotations: {}
+    ## Name to be used for serviceAccount, otherwise defaults to chart fullname
+    # name:
+```
+
+- Setting `global.serviceAccount.enabled` to `true` will create a custom service account for each deployment.
+- Setting `global.serviceAccount.create` to `false` will disable automatic service account creation.
+- Setting `global.serviceAccount.name` will use that name in the deployment for either auto-generated or manually created service accounts.
 
 ## Annotations
 
