@@ -1,3 +1,9 @@
+---
+stage: Enablement
+group: Distribution
+info: To determine the technical writer assigned to the Stage/Group associated with this page, see https://about.gitlab.com/handbook/engineering/ux/technical-writing/#designated-technical-writers
+---
+
 # Set up standalone PostgreSQL database
 
 We'll make use of the [Omnibus GitLab](https://about.gitlab.com/install/#ubuntu) package for Ubuntu. This package provides versions of the services that are guaranteed to be compatible with the charts' services.
