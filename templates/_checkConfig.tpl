@@ -37,6 +37,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.hostWhenNoInstall" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.serviceDesk" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.sentry" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -242,4 +243,18 @@ serviceDesk:
 {{-     end -}}
 {{-   end -}}
 {{- end -}}
-{{/* END gitlab.checkConfig.multipleRedis */}}
+{{/* END gitlab.checkConfig.serviceDesk */}}
+
+{{/*
+Ensure that sentry has a DSN configured if enabled
+*/}}
+{{- define "gitlab.checkConfig.sentry" -}}
+{{-   if $.Values.global.appConfig.sentry.enabled }}
+{{-     if (not (or $.Values.global.appConfig.sentry.dsn $.Values.global.appConfig.sentry.clientside_dsn)) }}
+sentry:
+    When enabling sentry, you must configure at least one DSN.
+    See https://docs.gitlab.com/omnibus/settings/configuration.html#error-reporting-and-logging-with-sentry
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.sentry */}}
