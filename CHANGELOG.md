@@ -125,7 +125,7 @@ entry.
 ### Fixed (3 changes)
 
 - Fixed PostgreSQL port when enabling Geo. !1304
-- Fix redis secret templating when password.enabled=false. !1312
+- Fix redis secret templating when password.enabled=false. !1313
 - Add terraform_state secret to task-runner. !1315
 
 ### Other (1 change)
