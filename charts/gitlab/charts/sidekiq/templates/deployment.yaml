@@ -286,7 +286,7 @@ spec:
           resources:
             {{- toYaml ( default $resources .resources ) | nindent 12 }}
       volumes:
-      {{- tpl (default "" .extraVolumeMounts) $ | nindent 6 }}
+      {{- tpl (default "" .extraVolumes) $ | nindent 6 }}
       {{- include "gitlab.extraVolumes" $ | nindent 6 }}
       {{- include "gitlab.psql.ssl.volume" $ | nindent 6 }}
       {{- include "gitlab.geo.psql.ssl.volume" $ | nindent 6 }}
