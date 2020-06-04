@@ -26,10 +26,10 @@ in the task runner container and as the name suggests it is a script used for do
 ### Backups
 
 The backup utility script when run without any arguments creates a backup tar and uploads it to object storage.
-You can skip parts of the backup process by using `--skip <component>` for every component that you want to skip in the backup process. Skippable components are the database (`db`), repositories (`repositories`), and any of the object storages (`artifacts`, `lfs`, `packages`, `registry` and `uploads`).
-There is also an option to manually set a part of the name of the generated backup tar via the `-t <backup-name>` command line flag, which will result in the backup file `<backup-name>_gitlab_backup.tar` to be created.
 
-The sequence of execution is:
+#### Sequence of execution
+
+Backups are made using the following steps, in order:
 
 1. Backup the database (if not skipped) using the [GitLab backup Rake task](https://gitlab.com/gitlab-org/build/CNG/blob/74dc35d4b481e86330bf6b244f88e5dd8876cc0c/gitlab-task-runner/scripts/bin/backup-utility#L120)
 1. Backup the repositories (if not skipped) using the [GitLab backup Rake task](https://gitlab.com/gitlab-org/build/CNG/blob/74dc35d4b481e86330bf6b244f88e5dd8876cc0c/gitlab-task-runner/scripts/bin/backup-utility#L123)
@@ -40,6 +40,26 @@ The sequence of execution is:
 1. Write a `backup_information.yml` file which contains some metadata identifying the version of GitLab, the time of the backup and the skipped items.
 1. Create a tar file containing individual tar files along with `backup_information.yml`
 1. Upload the resulting tar file to object storage `gitlab-backups` bucket.
+
+#### Command line arguments
+
+- `--skip <component>`
+  
+  You can skip parts of the backup process by using `--skip <component>` for every component that you want to skip in the backup process. Skippable components are the database (`db`), repositories (`repositories`), and any of the object storages (`registry`, `uploads`, `artifacts`, `lfs`, `packages`, `external_diffs`, or `terraform_state`).
+
+- `-t <timestamp-override-value>`
+  
+  This gives you partial control over the name of the backup: when you specify this flag the created backup will be named `<timestamp-override-value>_gitlab_backup.tar`. The default value is the current unix timestamp, postfixed with the current date formatted to `YYYY_mm_dd`.
+
+- `--backend <backend>`
+  
+  Configures the object storage backend to use for backups. Can be either 's3' or 'gcs'. Default is 's3'
+
+- `--storage-class <storage-class-name>`
+
+  It is also possible to specify the storage class in which the backup is stored using `--storage-class <storage-class-name>`, allowing you to save on backup storage costs. If unspecified, this will use the default of the storage backend.
+
+  NOTE: **Note:** This storage class name is passed through as-is to the storage class argument of your specified backend.
 
 #### GitLab backup bucket
 
