@@ -38,6 +38,7 @@ variables:
   POSTGRES_ENABLED: "false"
   POSTGRES_DB: $CI_ENVIRONMENT_SLUG
   GIT_CLONE_PATH: $CI_BUILDS_DIR/gitlab
+  TILLER_HISTORY_MAX: 20
 
 stages:
   - prepare
@@ -735,7 +736,7 @@ review-docs-cleanup:
 
   function install_tiller() {
     echo "Checking Tiller..."
-    helm init --upgrade --service-account tiller
+    helm init --upgrade --service-account tiller --history-max=${TILLER_HISTORY_MAX}
     kubectl rollout status -n "$TILLER_NAMESPACE" -w "deployment/tiller-deploy"
     if ! helm version --debug; then
       echo "Failed to init Tiller."
