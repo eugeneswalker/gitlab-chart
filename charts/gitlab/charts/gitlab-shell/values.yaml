@@ -9,7 +9,6 @@ image:
 service:
   name: gitlab-shell
   type: ClusterIP
-  externalPort: 22
   internalPort: 2222
   externalTrafficPolicy: Cluster
   # nodePort: xxx
