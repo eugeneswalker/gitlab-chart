@@ -279,8 +279,7 @@ settings from the [Redis chart](https://github.com/bitnami/charts/tree/master/bi
 | `gitlab.gitlab-shell.securityContext.fsGroup`                | Group ID under which the pod should be started | `1000`                                                           |
 | `gitlab.gitlab-shell.securityContext.runAsUser`              | User ID under which the pod should be started  | `1000`                                                           |
 | `gitlab.gitlab-shell.service.annotations`                    | Annotations to add to the `Service`            | {}                                                               |
-| `gitlab.gitlab-shell.service.externalPort`                   | Shell exposed port                             | `22`                                                             |
-| `gitlab.gitlab-shell.service.internalPort`                   | Shell internal port                            | `22`                                                             |
+| `gitlab.gitlab-shell.service.internalPort`                   | Shell internal port                            | `2222`                                                           |
 | `gitlab.gitlab-shell.service.name`                           | Shell service name                             | `gitlab-shell`                                                   |
 | `gitlab.gitlab-shell.service.type`                           | Shell service type                             | `ClusterIP`                                                      |
 | `gitlab.gitlab-shell.webservice.serviceName`                    | Webservice service name                           | `unicorn`                                                        |

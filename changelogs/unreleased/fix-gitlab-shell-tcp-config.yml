@@ -1,0 +1,5 @@
+---
+title: Fix GitLab Shell TCP config
+merge_request: 1393
+author:
+type: fixed
