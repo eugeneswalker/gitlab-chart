@@ -1,0 +1,5 @@
+---
+title: Add nodePort configuration in NGINX service for gitlab-shell
+merge_request: 1394
+author:
+type: added
