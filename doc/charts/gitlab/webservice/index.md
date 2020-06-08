@@ -154,7 +154,7 @@ annotations:
 ### strategy
 
 `deployment.strategy` allows you to change the deployment update strategy. It defines how the pods will be recreated when deployment is updated. When not provided, the cluster default is used.
-For example if you don't want to create extra pods when the rolling update starts and change max unavailable pods to 50%:
+For example, if you don't want to create extra pods when the rolling update starts and change max unavailable pods to 50%:
 
 ```yaml
 deployment:
