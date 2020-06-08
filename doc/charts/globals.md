@@ -573,6 +573,11 @@ global:
       bucket: gitlab-pseudo
       connection: {}
     cron_jobs: {}
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
 ```
 
 ### General application settings
@@ -940,6 +945,27 @@ global:
       expire_build_artifacts_worker:
         cron: "50 * * * *"
 ```
+
+### Sentry settings
+
+Use these settings to enable [GitLab error reporting with Sentry](https://docs.gitlab.com/omnibus/settings/configuration.html#error-reporting-and-logging-with-sentry).
+
+```yaml
+global:
+  appConfig:
+    sentry:
+      enabled:
+      dsn:
+      clientside_dsn:
+      environment:
+```
+
+| Name        | Type    | Default | Description |
+|:----------- |:-------:|:------- |:----------- |
+| `enabled`        | Boolean | `false`  | Enable or Disable the integration |
+| `dsn`            | String  |        | Sentry DSN for backend errors |
+| `clientside_dsn` | String  |        | Sentry DSN for front-end errors |
+| `environment`    | String  |        | See [Sentry environments](https://docs.sentry.io/enriching-error-data/environments/) |
 
 ## Configure Rails settings
 

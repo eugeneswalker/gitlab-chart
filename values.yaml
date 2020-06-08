@@ -329,6 +329,12 @@ global:
       providers: []
       # - secret: gitlab-google-oauth2
       #   key: provider
+    ## doc/charts/globals.md#configure-appconfig-settings
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
 
   ## End of global.appConfig
 

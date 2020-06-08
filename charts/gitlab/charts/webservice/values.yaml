@@ -221,6 +221,12 @@ global:
       providers: []
       # - secret: gitlab-google-oauth2
       #   key: provider
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
+
 redis:
   password: {}
 gitaly:
