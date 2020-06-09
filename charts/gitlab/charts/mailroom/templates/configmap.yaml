@@ -60,8 +60,8 @@ data:
         :delivery_options:
           :redis_url: {{ template "gitlab.redis.url" . }}
           :namespace: resque:gitlab
-          :queue: email_receiver
-          :worker: EmailReceiverWorker
+          :queue: service_desk_email_receiver
+          :worker: ServiceDeskEmailReceiverWorker
           {{- if .Values.global.redis.sentinels }}
           :sentinels:
             {{- range $i, $entry := .Values.global.redis.sentinels }}
