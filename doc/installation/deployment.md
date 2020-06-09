@@ -82,7 +82,8 @@ purposes only.
 
 > **NOTE: This configuration is not recommended for use in production.**
 >
-> - A single, non-resilient Deployment is used
+> - A single StatefulSet is provided by [bitnami/PostgreSQL](https://hub.helm.sh/charts/bitnami/postgresql) by default.
+> - As of 4.0.0 of these charts, replication is available internally, but _not enabled by default_. Such functionality has not been load tested by GitLab.
 
 You can read more about setting up your production-ready database in the [advanced database docs](../advanced/external-db/index.md).
 
@@ -100,13 +101,23 @@ use it as shown below.
 
 ### Redis
 
-All the Redis configuration settings have been moved and consolidated on the
+All Redis configuration settings have been moved and consolidated on the
 [charts/globals.md](../charts/globals.md#configure-redis-settings) page.
+
+> **NOTE: This configuration is not recommended for use in production.**
+>
+> - A single StatefulSet is provided by [bitnami/Redis](https://hub.helm.sh/charts/bitnami/redis) by default.
+> - As of 4.0.0 of these charts, replication is available internally, but _not enabled by default_. Such functionality has not been load tested by GitLab.
+
+You can read more about setting up a production-ready Redis instance in the [advanced Redis docs](../advanced/external-redis/index.md).
 
 ### MinIO
 
 By default this chart provides an in-cluster MinIO deployment to provide an object storage API.
-This configuration should not be used in production.
+
+> **NOTE: This configuration is not recommended for use in production.**
+>
+> - A singleton, non-resilient Deployment is provided by our [MinIO fork](../charts/minio/index.md).
 
 You can read more about setting up your production-ready object storage in the [external object storage](../advanced/external-object-storage/index.md)
 
