@@ -189,6 +189,13 @@ entry.
 - Update GitLab Version to 12.10.0.
 
 
+## 3.2.9 (2020-06-10)
+
+### Other (1 change)
+
+- Update GitLab Version to 12.9.10.
+
+
 ## 3.2.8 (2020-06-03)
 
 ### Other (1 change)
