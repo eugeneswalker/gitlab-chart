@@ -329,6 +329,17 @@ configurations **are not shared** and needs to be specified for each
 instance that uses Sentinels. Please refer to the [Sentinel configuration](#redis-sentinel-support)
 for the attributes that are used to configure Sentinel servers.
 
+### Specifying secure Redis scheme (SSL)
+
+In order to connect to Redis using SSL, the `rediss` (note the double `s`) scheme parameter is required:
+
+```yaml
+global:
+  redis:
+    scheme: rediss
+  --set global.redis.scheme=rediss
+```
+
 ## Configure Grafana integration
 
 The GitLab global Grafana settings are located under `global.grafana`. At this time, the only setting available is `global.grafana.enabled`.
