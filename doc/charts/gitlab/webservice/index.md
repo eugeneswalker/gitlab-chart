@@ -178,7 +178,7 @@ deployment:
     type: Recreate
 ```
 
-For more details, see the [kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
+For more details, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
 
 ## Using the Community Edition of this chart
 
