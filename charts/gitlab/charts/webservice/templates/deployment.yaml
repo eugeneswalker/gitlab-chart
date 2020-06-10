@@ -17,6 +17,10 @@ spec:
     matchLabels:
       app: {{ template "name" . }}
       release: {{ .Release.Name }}
+{{- if .Values.deployment.strategy }}
+  strategy:
+    {{- .Values.deployment.strategy | toYaml | nindent 4 }}
+{{- end }}
   template:
     metadata:
       labels:

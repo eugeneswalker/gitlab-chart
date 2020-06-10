@@ -42,6 +42,7 @@ to the `helm install` command using the `--set` flags.
 | `deployment.readinessProbe.timeoutSeconds`      | 2      | When the readiness probe times out             |
 | `deployment.readinessProbe.successThreshold`    | 1      | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `deployment.readinessProbe.failureThreshold`    | 3      | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded |
+| `deployment.strategy`      | `{}`                  | Allows one to configure the update strategy used by the deployment. When not provided, the cluster default is used. |
 | `enabled`                        | `true`                | Webservice enabled flag                           |
 | `extraContainers`                |                       | List of extra containers to include            |
 | `extraInitContainers`            |                       | List of extra init containers to include       |
@@ -155,6 +156,29 @@ tolerations:
 annotations:
   kubernetes.io/example-annotation: annotation-value
 ```
+
+### strategy
+
+`deployment.strategy` allows you to change the deployment update strategy. It defines how the pods will be recreated when deployment is updated. When not provided, the cluster default is used.
+For example, if you don't want to create extra pods when the rolling update starts and change max unavailable pods to 50%:
+
+```yaml
+deployment:
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+```
+
+You can also change the type of update strategy to `Recreate`, but be careful as it will kill all pods before scheduling new ones, and the web UI will be unavailable until the new pods are started. In this case, you don't need to define `rollingUpdate`, only `type`:
+
+```yaml
+deployment:
+  strategy:
+    type: Recreate
+```
+
+For more details, see the [kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
 
 ## Using the Community Edition of this chart
 
