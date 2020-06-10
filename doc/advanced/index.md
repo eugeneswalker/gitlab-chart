@@ -15,3 +15,4 @@ info: To determine the technical writer assigned to the Stage/Group associated w
 - After install, [managing Persistent Volumes](persistent-volumes/index.md)
 - Using [Red Hat UBI-based images](ubi/index.md)
 - Making use of [GitLab Geo functionality](geo/index.md)
+- Bringing your own [Docker images](custom-images/index.md)
