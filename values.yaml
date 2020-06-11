@@ -479,12 +479,18 @@ global:
     annotations: {}
     ## Name to be used for serviceAccount, otherwise defaults to chart fullname
     # name:
-  
+
   ## docs/charts/globals/tracing.md#tracing
   tracing:
     connection:
       string: ""
     urlTemplate: ""
+
+  ## docs/charts/globals.md
+  extraEnv: {}
+   # SOME_KEY: some_value
+   # SOME_OTHER_KEY: some_other_value
+
 ## End of global
 
 upgradeCheck:
