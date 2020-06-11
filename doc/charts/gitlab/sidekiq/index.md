@@ -336,6 +336,7 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `updateStrategy` |       | `{}`    | Allows one to configure the update strategy utilized by the deployment |
 | `extraVolumes` | String  |         | Configures extra volumes for the given pod. |
 | `extraVolumeMounts` | String |     | Configures extra volume mounts for the given pod. |
+| `priorityClassName` | String | `""` | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 
 ### queues
 
