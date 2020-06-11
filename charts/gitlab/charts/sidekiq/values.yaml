@@ -253,6 +253,7 @@ pods:
     # queues: ''
     # extraVolumes
     # extraVolumeMounts
+    # priorityClassName: ""
 
 ## Allow to overwrite under which User and Group we're running.
 securityContext:
