@@ -88,6 +88,7 @@ to the `helm install` command using the `--set` flags:
 | `securityContext.fsGroup`            | `1000`            | Group ID under which the pod should be started |
 | `securityContext.runAsUser`          | `1000`            | User ID under which the pod should be started  |
 | `updateStrategy`                     | `{}`              | Allows one to configure the update strategy utilized by the deployment |
+| `priorityClassName`                  | `""`              | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 
 ## Chart configuration examples
 
