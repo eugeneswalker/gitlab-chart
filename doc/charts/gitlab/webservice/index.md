@@ -108,6 +108,7 @@ to the `helm install` command using the `--set` flags.
 | `workhorse.readinessProbe.successThreshold`    | 1       | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `workhorse.readinessProbe.failureThreshold`    | 3       | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded |
 | `webServer` | `puma` | Selects web server (Webservice/Puma) that would be used for request handling |
+| `priorityClassName`                            | `""`    | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 
 ## Chart configuration examples
 
