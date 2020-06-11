@@ -49,6 +49,7 @@ to the `helm install` command using the `--set` flags.
 | `extras.google_analytics_id`     | `nil`                 | Google Analytics Id for frontend               |
 | `extraVolumeMounts`              |                       | List of extra volumes mountes to do            |
 | `extraVolumes`                   |                       | List of extra volumes to create                |
+| `extraEnv`                       |                       | List of extra environment variables to expose  |
 | `gitlab.webservice.workhorse.image` | `registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee` | Workhorse image repository |
 | `gitlab.webservice.workhorse.tag`   |                       | Workhorse image tag                            |
 | `hpa.targetAverageValue`         | `1`                   | Set the autoscaling target value               |
@@ -111,6 +112,26 @@ to the `helm install` command using the `--set` flags.
 | `webServer` | `puma` | Selects web server (Webservice/Puma) that would be used for request handling |
 
 ## Chart configuration examples
+
+### extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+extraEnv:
+  SOME_KEY: some_value
+  SOME_OTHER_KEY: some_other_value
+```
+
+When the container is started, you can confirm that the enviornment variables are exposed:
+
+```shell
+env | grep SOME
+SOME_KEY=some_value
+SOME_OTHER_KEY=some_other_value
+```
 
 ### image.pullSecrets
 

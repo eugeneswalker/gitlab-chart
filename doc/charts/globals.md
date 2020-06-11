@@ -31,6 +31,7 @@ for more information on how the global variables work.
 - [Service Accounts](#service-accounts)
 - [Annotations](#annotations)
 - [Tracing](#tracing)
+- [extraEnv](#extraenv)
 
 ## Configure Host settings
 
@@ -1205,3 +1206,19 @@ global:
 
 - `global.tracing.connection.string` is used to configure where tracing spans would be sent. You can read more about that in [GitLab tracing documentation](https://docs.gitlab.com/ee/development/distributed_tracing.html)
 - `global.tracing.urlTemplate` is used as a template for tracing info URL rendering in GitLab perfomance bar.
+
+## extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods
+that are deployed via GitLab charts (`charts/gitlab/charts`). Extra environment variables set at
+the global level will be merged into those provided at the chart level, with precedence given
+to those provided at the chart level.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+global:
+  extraEnv:
+    SOME_KEY: some_value
+    SOME_OTHER_KEY: some_other_value
+```

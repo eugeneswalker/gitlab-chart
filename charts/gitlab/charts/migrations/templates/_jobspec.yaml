@@ -31,6 +31,8 @@ spec:
         - name: configure
           command: ['sh', '/config/configure']
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
+          env:
+          {{- include "gitlab.extraEnv" . | nindent 10 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" . | nindent 10 }}
           {{- include "gitlab.psql.ssl.volumeMount" . | nindent 10 }}
@@ -80,6 +82,7 @@ spec:
             - name: ENABLE_BOOTSNAP
               value: '1'
             {{- end }}
+            {{- include "gitlab.extraEnv" . | nindent 12 }}
           volumeMounts:
             - name: migrations-config
               mountPath: '/var/opt/gitlab/templates'

@@ -36,6 +36,7 @@ to the `helm install` command using the `--set` flags.
 | `extraInitContainers`            |                       | List of extra init containers to include       |
 | `extraVolumeMounts`              |                       | List of extra volumes mountes to do            |
 | `extraVolumes`                   |                       | List of extra volumes to create                |
+| `extraEnv`                       |                       | List of extra environment variables to expose  |
 | `image.pullPolicy`               | `IfNotPresent`        | GitLab image pull policy                       |
 | `image.pullSecrets`              |                       | Secrets for the image repository               |
 | `image.repository`               | `registry.gitlab.com/gitlab-org/build/cng/gitlab-exporter` | GitLab Exporter image repository |
@@ -58,6 +59,26 @@ to the `helm install` command using the `--set` flags.
 ## Chart configuration examples
 
 ### image.pullSecrets
+
+### extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+extraEnv:
+  SOME_KEY: some_value
+  SOME_OTHER_KEY: some_other_value
+```
+
+When the container is started, you can confirm that the enviornment variables are exposed:
+
+```shell
+env | grep SOME
+SOME_KEY=some_value
+SOME_OTHER_KEY=some_other_value
+```
 
 `pullSecrets` allows you to authenticate to a private registry to pull images for a pod.
 

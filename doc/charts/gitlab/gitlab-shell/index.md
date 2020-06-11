@@ -47,6 +47,7 @@ controlled by `global.shell.port`.
 | `extraInitContainers`    |                | List of extra init containers to include |
 | `extraVolumeMounts`      |                | List of extra volumes mounts to do       |
 | `extraVolumes`           |                | List of extra volumes to create          |
+| `extraEnv`               |                | List of extra environment variables to expose |
 | `hpa.targetAverageValue` | `100m`         | Set the autoscaling target value         |
 | `image.pullPolicy`       | `Always`       | Shell image pull policy                  |
 | `image.pullSecrets`      |                | Secrets for the image repository         |
@@ -68,6 +69,26 @@ controlled by `global.shell.port`.
 | `workhorse.serviceName`    | `webservice`      | Workhorse service name (by default, Workhorse is a part of the webservice Pods / Service)                   |
 
 ## Chart configuration examples
+
+### extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+extraEnv:
+  SOME_KEY: some_value
+  SOME_OTHER_KEY: some_other_value
+```
+
+When the container is started, you can confirm that the enviornment variables are exposed:
+
+```shell
+env | grep SOME
+SOME_KEY=some_value
+SOME_OTHER_KEY=some_other_value
+```
 
 ### image.pullSecrets
 
