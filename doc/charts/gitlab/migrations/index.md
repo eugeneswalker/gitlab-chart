@@ -56,9 +56,30 @@ Table below contains all the possible charts configurations that can be supplied
 | `extraContainers`           | List of extra containers to include      |                   |
 | `extraVolumes`              | List of extra volumes to create          |                   |
 | `extraVolumeMounts`         | List of extra volumes mountes to do      |                   |
+| `extraEnv`                  | List of extra environment variables to expose |              |
 | `bootsnap.enabled`          | Enable the Bootsnap cache for Rails      | `true`            |
 
 ## Chart configuration examples
+
+### extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+extraEnv:
+  SOME_KEY: some_value
+  SOME_OTHER_KEY: some_other_value
+```
+
+When the container is started, you can confirm that the enviornment variables are exposed:
+
+```shell
+env | grep SOME
+SOME_KEY=some_value
+SOME_OTHER_KEY=some_other_value
+```
 
 ### image.pullSecrets
 

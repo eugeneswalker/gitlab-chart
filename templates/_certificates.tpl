@@ -7,13 +7,8 @@
 - name: certificates
   image: "{{ .Values.global.certificates.image.repository }}:{{ .Values.global.certificates.image.tag }}"
   {{ template "gitlab.imagePullPolicy" . }}
-  {{- if $.Values.extraEnv }}
   env:
-  {{- range $key, $value := $.Values.extraEnv }}
-  - name: {{ $key | quote }}
-    value: {{ $value | quote }}
-  {{- end }}
-  {{- end }}
+  {{- include "gitlab.extraEnv" . | nindent 2 }}
   volumeMounts:
   - name: etc-ssl-certs
     mountPath: /etc/ssl/certs

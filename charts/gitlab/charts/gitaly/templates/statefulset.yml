@@ -44,6 +44,8 @@ spec:
         - name: configure
           command: ['sh', '/config/configure']
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
+          env:
+          {{- include "gitlab.extraEnv" . | nindent 10 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" . | nindent 10 }}
           - name: gitaly-config
@@ -113,6 +115,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             {{- include "gitlab.tracing.env" . | nindent 12 }}
+            {{- include "gitlab.extraEnv" . | nindent 12 }}
           volumeMounts:
             {{- include "gitlab.extraVolumeMounts" . | nindent 12 }}
             {{- include "gitlab.certificates.volumeMount" . | nindent 12 }}

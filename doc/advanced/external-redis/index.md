@@ -52,3 +52,11 @@ those persistence classes to other Redis instances: `cache`, `queues`, `shared_s
 More detailed information on configuring the chart for using multiple Redis
 instances can be found in the [globals](../../charts/globals.md#multiple-redis-support)
 documentation.
+
+## Specifying secure Redis scheme (SSL)
+
+In order to connect to Redis using SSL, the `rediss` (note the double `s`) scheme parameter is required:
+
+```shell
+  --set global.redis.scheme=rediss
+```

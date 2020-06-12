@@ -17,6 +17,10 @@ spec:
     matchLabels:
       app: {{ template "name" . }}
       release: {{ .Release.Name }}
+{{- if .Values.deployment.strategy }}
+  strategy:
+    {{- .Values.deployment.strategy | toYaml | nindent 4 }}
+{{- end }}
   template:
     metadata:
       labels:
@@ -35,6 +39,9 @@ spec:
       {{- if .Values.tolerations }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
       {{- end }}
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
@@ -70,6 +77,8 @@ spec:
           command: ['sh']
           args: [ '-c', 'sh -x /config-webservice/configure ; sh -x /config-workhorse/configure ; mkdir -p -m 3770 /tmp/gitlab']
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
+          env:
+          {{- include "gitlab.extraEnv" . | nindent 10 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" . | nindent 10 }}
           {{- include "gitlab.psql.ssl.volumeMount" . | nindent 10 }}
@@ -116,6 +125,7 @@ spec:
             - name: ENABLE_BOOTSNAP
               value: "1"
             {{- end }}
+            {{- include "gitlab.extraEnv" . | nindent 12 }}
           volumeMounts:
             {{- include "gitlab.extraVolumeMounts" . | nindent 12 }}
             - name: webservice-config
@@ -185,6 +195,7 @@ spec:
             {{- include "gitlab.tracing.env" . | nindent 12 }}
             - name: GITLAB_TRACING_URL
               value: {{ .Values.global.tracing.urlTemplate | quote }}
+            {{- include "gitlab.extraEnv" . | nindent 12 }}
           volumeMounts:
 {{- if .Values.metrics.enabled }}
             - name: webservice-metrics
@@ -266,6 +277,7 @@ spec:
             - name: CONFIG_DIRECTORY
               value: '/srv/gitlab/config'
             {{- include "gitlab.tracing.env" . | nindent 12 }}
+            {{- include "gitlab.extraEnv" . | nindent 12 }}
           volumeMounts:
             - name: workhorse-config
               mountPath: '/var/opt/gitlab/templates'

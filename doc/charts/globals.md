@@ -31,6 +31,7 @@ for more information on how the global variables work.
 - [Service Accounts](#service-accounts)
 - [Annotations](#annotations)
 - [Tracing](#tracing)
+- [extraEnv](#extraenv)
 
 ## Configure Host settings
 
@@ -329,6 +330,17 @@ configurations **are not shared** and needs to be specified for each
 instance that uses Sentinels. Please refer to the [Sentinel configuration](#redis-sentinel-support)
 for the attributes that are used to configure Sentinel servers.
 
+### Specifying secure Redis scheme (SSL)
+
+In order to connect to Redis using SSL, the `rediss` (note the double `s`) scheme parameter is required:
+
+```yaml
+global:
+  redis:
+    scheme: rediss
+  --set global.redis.scheme=rediss
+```
+
 ## Configure Grafana integration
 
 The GitLab global Grafana settings are located under `global.grafana`. At this time, the only setting available is `global.grafana.enabled`.
@@ -573,6 +585,11 @@ global:
       bucket: gitlab-pseudo
       connection: {}
     cron_jobs: {}
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
 ```
 
 ### General application settings
@@ -941,6 +958,27 @@ global:
         cron: "50 * * * *"
 ```
 
+### Sentry settings
+
+Use these settings to enable [GitLab error reporting with Sentry](https://docs.gitlab.com/omnibus/settings/configuration.html#error-reporting-and-logging-with-sentry).
+
+```yaml
+global:
+  appConfig:
+    sentry:
+      enabled:
+      dsn:
+      clientside_dsn:
+      environment:
+```
+
+| Name        | Type    | Default | Description |
+|:----------- |:-------:|:------- |:----------- |
+| `enabled`        | Boolean | `false`  | Enable or Disable the integration |
+| `dsn`            | String  |        | Sentry DSN for backend errors |
+| `clientside_dsn` | String  |        | Sentry DSN for front-end errors |
+| `environment`    | String  |        | See [Sentry environments](https://docs.sentry.io/enriching-error-data/environments/) |
+
 ## Configure Rails settings
 
 A large portion of the GitLab suite is based upon Rails. As such, many containers within this project operate with this stack. These settings apply to all of those containers, and provide an easy access method to setting them globally versus individually.
@@ -977,9 +1015,37 @@ global:
 
 | Name        | Type    | Default | Description |
 |:----------- |:-------:|:------- |:----------- |
-| `port`      | Integer | `22`    | You can control the port used by the Ingress to pass SSH traffic, as well as the port used in SSH URLs provided from GitLab via `global.shell.port`. |
+| `port`      | Integer | `22`    | See [port](#port) below for specific documentation. |
 | `authToken` |         |         | See [authToken](gitlab/gitlab-shell/index.md#authtoken) in the GitLab Shell chart specific documentation. |
 | `hostKeys`  |         |         | See [hostKeys](gitlab/gitlab-shell/index.md#hostkeyssecret) in the GitLab Shell chart specific documentation. |
+
+### Port
+
+You can control the port used by the Ingress to pass SSH traffic, as well as the port used
+in SSH URLs provided from GitLab via `global.shell.port`. This is reflected in the
+port on which the service listens, as well as the SSH clone URLs provided in project UI.
+
+```yaml
+global:
+  shell:
+    port: 32022
+```
+
+You can combine `global.shell.port` and `nginx-ingress.controller.service.type=NodePort`
+to set a NodePort for the NGINX controller Service object. Note that if
+`nginx-ingress.controller.service.nodePorts.gitlab-shell` is set, it will
+override `global.shell.port` when setting the NodePort for NGINX.
+
+```yaml
+global:
+  shell:
+    port: 32022
+
+nginx-ingress:
+  controller:
+    service:
+      type: NodePort
+```
 
 ## Configure Webservice
 
@@ -1140,3 +1206,19 @@ global:
 
 - `global.tracing.connection.string` is used to configure where tracing spans would be sent. You can read more about that in [GitLab tracing documentation](https://docs.gitlab.com/ee/development/distributed_tracing.html)
 - `global.tracing.urlTemplate` is used as a template for tracing info URL rendering in GitLab perfomance bar.
+
+## extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods
+that are deployed via GitLab charts (`charts/gitlab/charts`). Extra environment variables set at
+the global level will be merged into those provided at the chart level, with precedence given
+to those provided at the chart level.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+global:
+  extraEnv:
+    SOME_KEY: some_value
+    SOME_OTHER_KEY: some_other_value
+```

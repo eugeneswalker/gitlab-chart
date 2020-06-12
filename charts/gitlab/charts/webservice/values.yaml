@@ -87,6 +87,12 @@ deployment:
     successThreshold: 1
     failureThreshold: 3
 
+  # strategy is used to configure the desired upgrade approach and
+  # configuration for the deployment. See the Kubernetes documentation
+  # related to this subject.
+  # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  strategy: {}
+
 workhorse:
   sentryDSN: ""
   extraArgs: ""
@@ -221,6 +227,12 @@ global:
       providers: []
       # - secret: gitlab-google-oauth2
       #   key: provider
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
+
 redis:
   password: {}
 gitaly:
@@ -282,3 +294,7 @@ serviceAccount:
   annotations: {}
   ## Name to be used for serviceAccount, otherwise defaults to chart fullname
   # name: 
+
+## Allow configuring pods' priorityClassName. This is used to control pod priority in case of eviction:
+#  https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+priorityClassName: ""

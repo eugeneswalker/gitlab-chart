@@ -1,0 +1,5 @@
+---
+title: Adds Sentry support for sidekiq and webservice
+merge_request: 1398
+author:
+type: added

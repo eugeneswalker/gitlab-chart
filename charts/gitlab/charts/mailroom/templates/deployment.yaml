@@ -59,6 +59,8 @@ spec:
         - name: configure
           command: ['sh', '/config/configure']
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
+          env:
+          {{- include "gitlab.extraEnv" . | nindent 10 }}
           volumeMounts:
           {{- include "gitlab.extraVolumeMounts" . | nindent 10 }}
           - name: mailroom-config
@@ -79,6 +81,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ coalesce .Values.image.tag (include "gitlab.parseAppVersion" (dict "appVersion" .Chart.AppVersion "prepend" "false")) }}"
           {{ template "gitlab.imagePullPolicy" . }}
+          env:
+          {{- include "gitlab.extraEnv" . | nindent 10 }}
           volumeMounts:
             - name: mailroom-config
               mountPath: /var/opt/gitlab/mail_room.yml

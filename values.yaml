@@ -329,6 +329,12 @@ global:
       providers: []
       # - secret: gitlab-google-oauth2
       #   key: provider
+    ## doc/charts/globals.md#configure-appconfig-settings
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
 
   ## End of global.appConfig
 
@@ -473,12 +479,18 @@ global:
     annotations: {}
     ## Name to be used for serviceAccount, otherwise defaults to chart fullname
     # name:
-  
+
   ## docs/charts/globals/tracing.md#tracing
   tracing:
     connection:
       string: ""
     urlTemplate: ""
+
+  ## docs/charts/globals.md
+  extraEnv: {}
+   # SOME_KEY: some_value
+   # SOME_OTHER_KEY: some_other_value
+
 ## End of global
 
 upgradeCheck:

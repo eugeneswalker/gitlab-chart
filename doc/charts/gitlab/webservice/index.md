@@ -42,12 +42,14 @@ to the `helm install` command using the `--set` flags.
 | `deployment.readinessProbe.timeoutSeconds`      | 2      | When the readiness probe times out             |
 | `deployment.readinessProbe.successThreshold`    | 1      | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `deployment.readinessProbe.failureThreshold`    | 3      | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded |
+| `deployment.strategy`      | `{}`                  | Allows one to configure the update strategy used by the deployment. When not provided, the cluster default is used. |
 | `enabled`                        | `true`                | Webservice enabled flag                           |
 | `extraContainers`                |                       | List of extra containers to include            |
 | `extraInitContainers`            |                       | List of extra init containers to include       |
 | `extras.google_analytics_id`     | `nil`                 | Google Analytics Id for frontend               |
 | `extraVolumeMounts`              |                       | List of extra volumes mountes to do            |
 | `extraVolumes`                   |                       | List of extra volumes to create                |
+| `extraEnv`                       |                       | List of extra environment variables to expose  |
 | `gitlab.webservice.workhorse.image` | `registry.gitlab.com/gitlab-org/build/cng/gitlab-workhorse-ee` | Workhorse image repository |
 | `gitlab.webservice.workhorse.tag`   |                       | Workhorse image tag                            |
 | `hpa.targetAverageValue`         | `1`                   | Set the autoscaling target value               |
@@ -108,8 +110,29 @@ to the `helm install` command using the `--set` flags.
 | `workhorse.readinessProbe.successThreshold`    | 1       | Minimum consecutive successes for the readiness probe to be considered successful after having failed |
 | `workhorse.readinessProbe.failureThreshold`    | 3       | Minimum consecutive failures for the readiness probe to be considered failed after having succeeded |
 | `webServer` | `puma` | Selects web server (Webservice/Puma) that would be used for request handling |
+| `priorityClassName`                            | `""`    | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 
 ## Chart configuration examples
+
+### extraEnv
+
+`extraEnv` allows you to expose additional environment variables in all containers in the pods.
+
+Below is an example use of `extraEnv`:
+
+```yaml
+extraEnv:
+  SOME_KEY: some_value
+  SOME_OTHER_KEY: some_other_value
+```
+
+When the container is started, you can confirm that the enviornment variables are exposed:
+
+```shell
+env | grep SOME
+SOME_KEY=some_value
+SOME_OTHER_KEY=some_other_value
+```
 
 ### image.pullSecrets
 
@@ -155,6 +178,29 @@ tolerations:
 annotations:
   kubernetes.io/example-annotation: annotation-value
 ```
+
+### strategy
+
+`deployment.strategy` allows you to change the deployment update strategy. It defines how the pods will be recreated when deployment is updated. When not provided, the cluster default is used.
+For example, if you don't want to create extra pods when the rolling update starts and change max unavailable pods to 50%:
+
+```yaml
+deployment:
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+```
+
+You can also change the type of update strategy to `Recreate`, but be careful as it will kill all pods before scheduling new ones, and the web UI will be unavailable until the new pods are started. In this case, you don't need to define `rollingUpdate`, only `type`:
+
+```yaml
+deployment:
+  strategy:
+    type: Recreate
+```
+
+For more details, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
 
 ## Using the Community Edition of this chart
 

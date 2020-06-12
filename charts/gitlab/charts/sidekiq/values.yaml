@@ -180,6 +180,12 @@ global:
       configMap:
       bucket:
       connection: {}
+    sentry:
+      enabled: false
+      dsn:
+      clientside_dsn:
+      environment:
+
 gitaly:
   # host: '0.0.0.0'
   # port: 8075
