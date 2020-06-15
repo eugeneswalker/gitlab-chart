@@ -62,14 +62,7 @@ data:
           :namespace: resque:gitlab
           :queue: service_desk_email_receiver
           :worker: ServiceDeskEmailReceiverWorker
-          {{- if .Values.global.redis.sentinels }}
-          :sentinels:
-            {{- range $i, $entry := .Values.global.redis.sentinels }}
-            -
-              :host: {{ $entry.host }}
-              :port: {{ $entry.port}}
-            {{- end }}
-          {{- end }}
+          {{- include "gitlab.mailroom.redis.sentinels" . | nindent 10 }}
         :arbitration_method: redis
         :arbitration_options:
           :redis_url: {{ template "gitlab.redis.url" . }}

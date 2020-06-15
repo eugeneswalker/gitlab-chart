@@ -1,0 +1,5 @@
+---
+title: Fix sentinel configuration for service_desk mailroom service
+merge_request: 1412
+author:
+type: fixed
