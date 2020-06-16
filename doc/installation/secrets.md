@@ -36,6 +36,7 @@ documentation.
 
 - [TLS certificates](tls.md)
 - [Registry authentication certificates](#registry-authentication-certificates)
+- [Registry sensitive notification headers](#registry-sensitive-notification-headers)
 - [SSH Host Keys](#ssh-host-keys)
 - Passwords:
   - [Initial root password](#initial-root-password)
@@ -81,6 +82,26 @@ kubectl create secret generic <name>-registry-secret --from-file=registry-auth.k
 ```
 
 This secret is referenced by the `global.registry.certificate.secret` setting.
+
+### Registry sensitive notification headers
+
+Check [documentation regarding configuring Registry notifications](../charts/globals.md#configure-registry-settings)
+for more details.
+
+The secret content should be a list of items, even if it contains a single item.
+If the content is just a string, the charts **WILL NOT** convert it to a list as
+needed.
+
+Consider the example where `registry-authorization-header` secret with value
+`RandomFooBar` is created.
+
+```shell
+kubectl create secret generic registry-authorization-header --from-literal="value=[RandomFooBar]"
+```
+
+By default, the key used within the secret is "value". However, users can use a
+different key, but must ensure that it's specified as `key` under the header map
+item.
 
 ### SSH Host Keys
 

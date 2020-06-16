@@ -388,6 +388,22 @@ global:
     httpSecret: {}
       # secret:
       # key:
+    # https://docs.docker.com/registry/notifications/#configuration
+    notifications: {}
+      # endpoints:
+      #   - name: FooListener
+      #     url: https://foolistener.com/event
+      #     timeout: 500ms
+      #     threshold: 10
+      #     backoff: 1s
+      #     headers:
+      #       FooBar: ['1', '2']
+      #       Authorization:
+      #         secret: gitlab-registry-authorization-header
+      #       SpecificPassword:
+      #         secret: gitlab-registry-specific-password
+      #         key: password
+      # events: {}
 
   ## GitLab Runner
   ## Secret created according to doc/installation/secrets.md#gitlab-runner-secret

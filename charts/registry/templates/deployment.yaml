@@ -145,5 +145,6 @@ spec:
                   path: storage/{{ .Values.storage.extraKey }}
                 {{- end }}
           {{- end }}
+          {{- include "registry.notifications.secrets" $ | nindent 10 }}
       {{- include "gitlab.certificates.volumes" . | nindent 6 }}
 {{- end -}}
