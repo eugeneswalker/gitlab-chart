@@ -88,6 +88,7 @@ to the `helm install` command using the `--set` flags:
 | `securityContext.fsGroup`            | `1000`            | Group ID under which the pod should be started |
 | `securityContext.runAsUser`          | `1000`            | User ID under which the pod should be started  |
 | `updateStrategy`                     | `{}`              | Allows one to configure the update strategy utilized by the deployment |
+| `priorityClassName`                  | `""`              | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 
 ## Chart configuration examples
 
@@ -335,6 +336,7 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `updateStrategy` |       | `{}`    | Allows one to configure the update strategy utilized by the deployment |
 | `extraVolumes` | String  |         | Configures extra volumes for the given pod. |
 | `extraVolumeMounts` | String |     | Configures extra volume mounts for the given pod. |
+| `priorityClassName` | String | `""` | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 
 ### queues
 
