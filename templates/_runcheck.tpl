@@ -29,8 +29,8 @@ if [ -d "${secrets_dir}" ]; then
     fi
   fi
 fi
-MIN_VERSION=12.10
-CHART_MIN_VERSION=3.3
+MIN_VERSION=13.0
+CHART_MIN_VERSION=4.0
 
 # Only run check for semver releases
 if ! awk 'BEGIN{exit(!(ARGV[1] ~ /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/))}' "$GITLAB_VERSION"; then
