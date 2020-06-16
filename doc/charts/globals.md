@@ -351,8 +351,7 @@ The GitLab chart connects to the deployed Prometheus instance.
 
 ## Configure Registry settings
 
-The global Registry settings are located under the `global.registry` key. For more
-details on these settings, see the documentation within the [registry chart](registry/index.md).
+The global Registry settings are located under the `global.registry` key.
 
 ```yaml
 global:
@@ -360,7 +359,44 @@ global:
     bucket: registry
     certificate:
     httpSecret:
+    notifications: {}
 ```
+
+For more details on `bucket`, `certificate`, and `httpSecret` settings, see the documentation within the [registry chart](registry/index.md).
+
+### notifications
+
+This setting is used to configure
+[Registry notifications](https://docs.docker.com/registry/configuration/#notifications).
+It takes in a map (following upstream specification), but with an added feature
+of providing sensitive headers as Kubernetes secrets. For example, consider the
+following snippet where the Authorization header contains sensitive data while
+other headers contain regular data:
+
+```yaml
+global:
+  registry:
+    notifications:
+      events:
+        includereferences: true
+      endpoints:
+        - name: CustomListener
+          url: https://mycustomlistener.com
+          timeout: 500mx
+          threshold: 5
+          backoff: 1s
+          headers:
+            X-Random-Config: [plain direct]
+            Authorization:
+              secret: registry-authorization-header
+              key: password
+```
+
+In this example, the header `X-Random-Config` is a regular header and its value
+can be provided in plaintext in the `values.yml` file or via `--set` flag.
+However, the header `Authorization` is a sensitive one, so mounting it from a
+Kubernetes secret is preferred. For details regarding the structure of the
+secret, refer the [secrets documentation](../installation/secrets.md#registry-sensitive-notification-headers)
 
 ## Configure Gitaly settings
 

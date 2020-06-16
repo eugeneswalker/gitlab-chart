@@ -38,6 +38,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.serviceDesk" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.sentry" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.registry.notifications" .) -}}
 {{- /* prepare output */}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
@@ -258,3 +259,13 @@ sentry:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.sentry */}}
+
+{{/*
+Ensure Registry notifications settings are in global scope
+*/}}
+{{- define "gitlab.checkConfig.registry.notifications" }}
+{{- if hasKey $.Values.registry "notifications" }}
+Registry: Notifications should be defined in the global scope. Use `global.registry.notifications` setting instead of `registry.notifications`.
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.registryl.notifications */}}
