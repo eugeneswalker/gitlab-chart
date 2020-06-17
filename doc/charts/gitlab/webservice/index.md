@@ -261,36 +261,13 @@ resources:
 
 ### Redis
 
-The Redis documentation has been consolidated in the [globals](../../globals.md#multiple-redis-support)
+The Redis documentation has been consolidated in the [globals](../../globals.md#configure-redis-settings)
 page. Please consult this page for the latest Redis configuration options.
 
 ### PostgreSQL
 
-```YAML
-psql:
-  host: psql.example.com
-  serviceName: pgbouncer
-  port: 5432
-  database: gitlabhq_production
-  username: gitlab
-  preparedStatements: false
-  pool: 10
-  password:
-    secret: gitlab-postgres
-    key: psql-password
-```
-
-| Name              | Type    | Default               | Description |
-|:----------------- |:-------:|:--------------------- |:----------- |
-| `host`            | String  |                       | The hostname of the PostgreSQL server with the database to use. This can be omitted if `postgresql.install=true` (default non-production). |
-| `serviceName`     | String  |                       | The name of the `service` which is operating the PostgreSQL database. If this is present, and `host` is not, the chart will template the hostname of the service in place of the `host` value. |
-| `database`        | String  | `gitlabhq_production` | The name of the database to use on the PostgreSQL server. |
-| `password.key`    | String  |                       | The `password.key` attribute for PostgreSQL defines the name of the key in the secret (below) that contains the password. |
-| `password.secret` | String  |                       | The `password.secret` attribute for PostgreSQL defines the name of the Kubernetes `Secret` to pull from. |
-| `pool`            | Integer | `10`                  | How many connections are made to the database. |
-| `port`            | Integer | `5432`                | The port on which to connect to the PostgreSQL server. |
-| `username`        | String  | `gitlab`              | The username with which to authenticate to the database. |
-| `preparedStatements`| Bool  | `false`               | If prepared statements should be used when communicating with the PostgreSQL server. |
+The PostgreSQL documentation has been consolidated in the [globals](../../globals.md#configure-postgresql-settings)
+page. Please consult this page for the latest PostgreSQL configuration options.
 
 ### Gitaly
 

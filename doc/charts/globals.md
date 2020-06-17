@@ -137,21 +137,40 @@ be separately updated to versions compatible with the GitLab version.
 
 ## Configure PostgreSQL settings
 
-The GitLab global PostgreSQL settings are located under the `global.psql` key. For
-more details, see the documentation within the [webservice chart](gitlab/webservice/index.md#postgresql).
+The GitLab global PostgreSQL settings are located under the `global.psql` key.
 
-```yaml
+```YAML
 global:
   psql:
-    host: db.example.com
-    # serviceName:
+    host: psql.example.com
+    # serviceName: pgbouncer
     port: 5432
+    database: gitlabhq_production
+    username: gitlab
     preparedStatements: false
     pool: 10
     password:
       secret: gitlab-postgres
       key: psql-password
 ```
+
+| Name              | Type    | Default               | Description |
+|:----------------- |:-------:|:--------------------- |:----------- |
+| `host`            | String  |                       | The hostname of the PostgreSQL server with the database to use. This can be omitted if using PostgreSQL deployed by this chart. |
+| `serviceName`     | String  |                       | The name of the `service` which is operating the PostgreSQL database. If this is present, and `host` is not, the chart will template the hostname of the service in place of the `host` value. |
+| `database`        | String  | `gitlabhq_production` | The name of the database to use on the PostgreSQL server. |
+| `password.key`    | String  |                       | The `password.key` attribute for PostgreSQL defines the name of the key in the secret (below) that contains the password. |
+| `password.secret` | String  |                       | The `password.secret` attribute for PostgreSQL defines the name of the Kubernetes `Secret` to pull from. |
+| `pool`            | Integer | `10`                  | How many connections are made to the database. |
+| `port`            | Integer | `5432`                | The port on which to connect to the PostgreSQL server. |
+| `username`        | String  | `gitlab`              | The username with which to authenticate to the database. |
+| `preparedStatements`| Bool  | `false`               | If prepared statements should be used when communicating with the PostgreSQL server. |
+
+### PostgreSQL SSL
+
+NOTE: **Note**: Currently, SSL support is Mutal TLS only.
+See [issue #2034](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/2034)
+and [issue #1817](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1817).
 
 If you want to connect GitLab with a PostgreSQL database over mutual TLS, create a secret
 containing the client key, client certificate and server certificate authority as different
@@ -160,13 +179,80 @@ secret keys. Then describe the secret's structure using the `global.psql.ssl` ma
 ```yaml
 global:
   psql:
-    host: db.example.com
-    # ... further settings like in the previous example ...
     ssl:
       secret: db-example-ssl-secrets # Name of the secret
-      clientKey: key.pem             # Secret key of the certificate's key
       clientCertificate: cert.pem    # Secret key storing the certificate
+      clientKey: key.pem             # Secret key of the certificate's key
       serverCA: server-ca.pem        # Secret key containing the CA for the database server
+```
+
+
+| Name                | Type    | Default | Description |
+|:-----------------   |:-------:|:------- |:----------- |
+| `secret`            | String  |         | Name of the Kuberentes `Secret` containing the following keys |
+| `clientCertificate` | String  |         | Name of the key witin the `Secret` containing the client certificate. |
+| `clientKey`         | String  |         | Name of the key within the `Secret` containing the client certificate's key file. |
+| `serverCA`          | String  |         | Name of the key within the `Secret` containing the certificate authority for the server. |
+
+
+### PostgreSQL load balancing
+
+NOTE: **Note**: This feature currently requires the use of an
+[external PostgreSQL](../advanced/external-db/), as this chart does not
+deploy PostgreSQL in an HA fashion.
+
+GitLab's Rails components have the ability to [make use of PostgreSQL
+clusters to load balance read-only queries](https://docs.gitlab.com/ee/administration/database_load_balancing.html).
+
+This feature can be configured in two fashions:
+
+- Using a static lists of _hostnames_ for the secondaries.
+- Using a DNS based service discovery mechanism.
+
+Configuration with a static list of is straight forward:
+
+```yaml
+global:
+  psql:
+    host: primary.database
+    load_balancing:
+       hosts:
+       - secondary-1.database
+       - secondary-2.database
+```
+
+Configuration of service discovery can be more complex. For a complete
+details of this configuration, the parameters and their associated
+behaviors, see [Service Discovery](https://docs.gitlab.com/ee/administration/database_load_balancing.html#service-discovery)
+in the [GitLab Administration documenation](https://docs.gitlab.com/ee/administration).
+
+```yaml
+global:
+  psql:
+    host: primary.database
+    load_balancing:
+      discover:
+        record:  secondary.postgresql.service.consul
+        # record_type: A
+        # nameserver: localhost
+        # port: 8600
+        # interval: 60
+        # disconnect_timeout: 120
+        # use_tcp: false
+```
+
+Further tuning is also available, in regards to the
+[handling of stale reads](https://docs.gitlab.com/ee/administration/database_load_balancing.html#handling-stale-reads).
+The GitLab Administration documentation covers these items in detail,
+and those properties can be added directly under `load_balancing`.
+
+```yaml
+global:
+  psql:
+    load_balancing:
+      max_replication_difference: # See documentation
+      max_replication_lag_time:   # See documentation
+      replica_check_interval:     # See documentation
 ```
 
 ## Configure Redis settings
