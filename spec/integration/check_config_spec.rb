@@ -180,6 +180,44 @@ describe 'checkConfig template' do
                      error_description: 'when Sidekiq pods use experimentalQueueSelector without cluster enabled'
   end
 
+  describe 'database.externaLoadBalancing' do
+    let(:success_values) do
+      {
+        'global' => {
+          'psql' => {
+            'host' => 'primary',
+            'password' => { 'secret' => 'bar' },
+            'load_balancing' => {
+              'hosts' => [ 'a', 'b', 'c' ]
+            }
+          }
+        },
+        'postgresql' => { 'install' => false }
+      }.merge(default_required_values)
+    end
+
+    let(:error_values) do
+      {
+        'global' => {
+          'psql' => {
+            'host' => 'primary',
+            'password' => { 'secret' => 'bar' },
+            'load_balancing' => {
+              'hosts' => [ 'a', 'b', 'c' ]
+            }
+          }
+        },
+        'postgresql' => { 'install' => true }
+      }.merge(default_required_values)
+    end
+
+    let(:error_output) { 'PostgreSQL is set to install, but database load balancing is also enabled' }
+
+    include_examples 'config validation',
+                     success_description: 'when database load balancing is configured, with PostgrSQL disabled',
+                     error_description: 'when database load balancing is configured, with PostgrSQL enabled'
+  end
+
   describe 'geo.database' do
     let(:success_values) do
       {

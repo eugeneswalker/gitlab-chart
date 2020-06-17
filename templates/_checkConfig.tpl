@@ -36,6 +36,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.hostWhenNoInstall" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.database.externalLoadBalancing" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.serviceDesk" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.sentry" .) -}}
 {{- /* prepare output */}}
@@ -225,6 +226,18 @@ postgresql:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.postgresql.deprecatedVersion */}}
+
+{{/*
+Ensure that `postgresql.install: false` when `global.psql.load_balancing` defined
+*/}}
+{{- define "gitlab.checkConfig.database.externalLoadBalancing" -}}
+{{- if and .Values.postgresql.install (kindIs "map" .Values.global.psql.load_balancing) }}
+postgresql:
+    It appears PostgreSQL is set to install, but database load balancing is also enabled. This configuration is not supported.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.database.externalLoadBalancing */}}
 
 {{/*
 Ensure that incomingEmail is enabled too if serviceDesk is enabled
