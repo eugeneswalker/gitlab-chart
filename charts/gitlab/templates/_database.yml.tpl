@@ -37,7 +37,7 @@ load_balancing:
     {{-   if index . "nameserver" }}
     nameserver: {{ .nameserver }}
     {{- end }}
-    record: {{ .record | quote }}
+    record: {{ .record | required "`psql.load_balancing.discover` requires `record` to be provided." | quote }}
     {{-   if index . "record_type" }}
     record_type: {{ .record_type | quote }}
     {{- end }}
@@ -47,7 +47,9 @@ load_balancing:
     {{-   if index . "interval" }}
     interval: {{ .interval | int }}
     {{- end }}
+    {{-   if index . "disconnect_timeout" }}
     disconnect_timeout: {{ .disconnect_timeout | int }}
+    {{- end }}
     {{-   if index . "use_tcp" }}
     use_tcp: {{ empty .use_tcp | not }}
     {{-   end -}}

@@ -231,10 +231,37 @@ postgresql:
 Ensure that `postgresql.install: false` when `global.psql.load_balancing` defined
 */}}
 {{- define "gitlab.checkConfig.database.externalLoadBalancing" -}}
-{{- if and .Values.postgresql.install (kindIs "map" .Values.global.psql.load_balancing) }}
+{{- if hasKey .Values.global.psql "load_balancing" -}}
+{{-   with .Values.global.psql.load_balancing -}}
+{{-     if and $.Values.postgresql.install (kindIs "map" .) }}
 postgresql:
     It appears PostgreSQL is set to install, but database load balancing is also enabled. This configuration is not supported.
     See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{-     end -}}
+{{-     if not (kindIs "map" .) }}
+postgresql:
+    It appears database load balacing is desired, but the current configuration is not supported.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{-     end -}}
+{{-     if and (not (hasKey . "discover") ) (not (hasKey . "hosts") ) }}
+postgresql:
+    It appears database load balacing is desired, but the current configuration is not supported.
+    You must specify `load_balancing.hosts` or `load_balancing.discover`.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{-     end -}}
+{{-     if and (hasKey . "hosts") (not (kindIs "slice" .hosts) ) }}
+postgresql:
+    Database load balancing using `hosts` is configured, but does not appear to be a list.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+    Current format: {{ kindOf .hosts }}
+{{-     end -}}
+{{-     if and (hasKey . "discover") (not (kindIs "map" .discover)) }}
+postgresql:
+    Database load balancing using `discover` is configured, but does not appear to be a map.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+    Current format: {{ kindOf .discover }}
+{{-     end -}}
+{{-   end -}}
 {{- end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.database.externalLoadBalancing */}}

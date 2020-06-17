@@ -100,7 +100,7 @@ describe 'Database configuration' do
           expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include("discover:")
           expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include("record: \"secondary.db.service\"")
         end
-      end   
+      end
     end
   end
 end
