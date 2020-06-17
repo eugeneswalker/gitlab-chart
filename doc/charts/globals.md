@@ -168,7 +168,7 @@ global:
 
 ### PostgreSQL SSL
 
-NOTE: **Note**: Currently, SSL support is Mutal TLS only.
+NOTE: **Note**: Currently, SSL support is mutual TLS only.
 See [issue #2034](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/2034)
 and [issue #1817](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/1817).
 
