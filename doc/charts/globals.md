@@ -186,14 +186,12 @@ global:
       serverCA: server-ca.pem        # Secret key containing the CA for the database server
 ```
 
-
 | Name                | Type    | Default | Description |
 |:-----------------   |:-------:|:------- |:----------- |
 | `secret`            | String  |         | Name of the Kuberentes `Secret` containing the following keys |
 | `clientCertificate` | String  |         | Name of the key witin the `Secret` containing the client certificate. |
 | `clientKey`         | String  |         | Name of the key within the `Secret` containing the client certificate's key file. |
 | `serverCA`          | String  |         | Name of the key within the `Secret` containing the certificate authority for the server. |
-
 
 ### PostgreSQL load balancing
 
