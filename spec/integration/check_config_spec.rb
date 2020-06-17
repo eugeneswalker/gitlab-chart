@@ -239,7 +239,9 @@ describe 'checkConfig template' do
             'psql' => {
               'host' => 'primary',
               'password' => { 'secret' => 'bar' },
-              'load_balancing' => {}
+              'load_balancing' => {
+                'invalid' => 'item'
+              }
             }
           },
           'postgresql' => { 'install' => false }
