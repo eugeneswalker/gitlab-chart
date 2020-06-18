@@ -245,7 +245,7 @@ postgresql:
 {{-     end -}}
 {{-     if and (not (hasKey . "discover") ) (not (hasKey . "hosts") ) }}
 postgresql:
-    It appears database load balacing is desired, but the current configuration is not supported.
+    It appears database load balancing is desired, but the current configuration is not supported.
     You must specify `load_balancing.hosts` or `load_balancing.discover`.
     See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
 {{-     end -}}
