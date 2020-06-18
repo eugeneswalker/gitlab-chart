@@ -240,7 +240,7 @@ postgresql:
 {{-     end -}}
 {{-     if not (kindIs "map" .) }}
 postgresql:
-    It appears database load balacing is desired, but the current configuration is not supported.
+    It appears database load balancing is desired, but the current configuration is not supported.
     See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
 {{-     end -}}
 {{-     if and (not (hasKey . "discover") ) (not (hasKey . "hosts") ) }}
