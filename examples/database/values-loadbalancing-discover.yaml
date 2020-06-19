@@ -2,6 +2,7 @@
 # https://docs.gitlab.com/ee/administration/database_load_balancing.html
 global:
   psql:
+    host: primary.postgresql.service.consul
     load_balancing:
       # #service-discovery
       discover:
