@@ -36,6 +36,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.hostWhenNoInstall" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.database.externalLoadBalancing" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.serviceDesk" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.sentry" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.registry.notifications" .) -}}
@@ -226,6 +227,45 @@ postgresql:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.postgresql.deprecatedVersion */}}
+
+{{/*
+Ensure that `postgresql.install: false` when `global.psql.load_balancing` defined
+*/}}
+{{- define "gitlab.checkConfig.database.externalLoadBalancing" -}}
+{{- if hasKey .Values.global.psql "load_balancing" -}}
+{{-   with .Values.global.psql.load_balancing -}}
+{{-     if and $.Values.postgresql.install (kindIs "map" .) }}
+postgresql:
+    It appears PostgreSQL is set to install, but database load balancing is also enabled. This configuration is not supported.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{-     end -}}
+{{-     if not (kindIs "map" .) }}
+postgresql:
+    It appears database load balancing is desired, but the current configuration is not supported.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{-     end -}}
+{{-     if and (not (hasKey . "discover") ) (not (hasKey . "hosts") ) }}
+postgresql:
+    It appears database load balancing is desired, but the current configuration is not supported.
+    You must specify `load_balancing.hosts` or `load_balancing.discover`.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+{{-     end -}}
+{{-     if and (hasKey . "hosts") (not (kindIs "slice" .hosts) ) }}
+postgresql:
+    Database load balancing using `hosts` is configured, but does not appear to be a list.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+    Current format: {{ kindOf .hosts }}
+{{-     end -}}
+{{-     if and (hasKey . "discover") (not (kindIs "map" .discover)) }}
+postgresql:
+    Database load balancing using `discover` is configured, but does not appear to be a map.
+    See https://docs.gitlab.com/charts/charts/globals#configure-postgresql-settings
+    Current format: {{ kindOf .discover }}
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.database.externalLoadBalancing */}}
 
 {{/*
 Ensure that incomingEmail is enabled too if serviceDesk is enabled

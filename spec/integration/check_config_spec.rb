@@ -180,6 +180,158 @@ describe 'checkConfig template' do
                      error_description: 'when Sidekiq pods use experimentalQueueSelector without cluster enabled'
   end
 
+  describe 'database.externaLoadBalancing' do
+    let(:success_values) do
+      {
+        'global' => {
+          'psql' => {
+            'host' => 'primary',
+            'password' => { 'secret' => 'bar' },
+            'load_balancing' => {
+              'hosts' => [ 'a', 'b', 'c' ]
+            }
+          }
+        },
+        'postgresql' => { 'install' => false }
+      }.merge(default_required_values)
+    end
+
+    let(:error_values) do
+      {
+        'global' => {
+          'psql' => {
+            'host' => 'primary',
+            'password' => { 'secret' => 'bar' },
+            'load_balancing' => {
+              'hosts' => [ 'a', 'b', 'c' ]
+            }
+          }
+        },
+        'postgresql' => { 'install' => true }
+      }.merge(default_required_values)
+    end
+
+    let(:error_output) { 'PostgreSQL is set to install, but database load balancing is also enabled' }
+
+    include_examples 'config validation',
+                     success_description: 'when database load balancing is configured, with PostgrSQL disabled',
+                     error_description: 'when database load balancing is configured, with PostgrSQL enabled'
+
+    describe 'database.externaLoadBalancing missing required elements' do
+      let(:success_values) do
+        {
+          'global' => {
+            'psql' => {
+              'host' => 'primary',
+              'password' => { 'secret' => 'bar' },
+              'load_balancing' => {
+                'hosts' => [ 'a', 'b', 'c' ]
+              }
+            }
+          },
+          'postgresql' => { 'install' => false }
+        }.merge(default_required_values)
+      end
+
+      let(:error_values) do
+        {
+          'global' => {
+            'psql' => {
+              'host' => 'primary',
+              'password' => { 'secret' => 'bar' },
+              'load_balancing' => {
+                'invalid' => 'item'
+              }
+            }
+          },
+          'postgresql' => { 'install' => false }
+        }.merge(default_required_values)
+      end
+
+      let(:error_output) { 'You must specify `load_balancing.hosts` or `load_balancing.discover`' }
+
+      include_examples 'config validation',
+                      success_description: 'when database load balancing is configured per requirements',
+                      error_description: 'when database load balancing is missing required elements'
+    end
+
+    describe 'database.externaLoadBalancing.hosts' do
+      let(:success_values) do
+        {
+          'global' => {
+            'psql' => {
+              'host' => 'primary',
+              'password' => { 'secret' => 'bar' },
+              'load_balancing' => {
+                'hosts' => [ 'a', 'b', 'c' ]
+              }
+            }
+          },
+          'postgresql' => { 'install' => false }
+        }.merge(default_required_values)
+      end
+
+      let(:error_values) do
+        {
+          'global' => {
+            'psql' => {
+              'host' => 'primary',
+              'password' => { 'secret' => 'bar' },
+              'load_balancing' => {
+                'hosts' => 'a'
+              }
+            }
+          },
+          'postgresql' => { 'install' => false }
+        }.merge(default_required_values)
+      end
+
+      let(:error_output) { 'Database load balancing using `hosts` is configured, but does not appear to be a list' }
+
+      include_examples 'config validation',
+                      success_description: 'when database load balancing is configured for hosts, with an array',
+                      error_description: 'when database load balancing is configured for hosts, without an array'
+    end
+
+    describe 'database.externaLoadBalancing.discover' do
+      let(:success_values) do
+        {
+          'global' => {
+            'psql' => {
+              'host' => 'primary',
+              'password' => { 'secret' => 'bar' },
+              'load_balancing' => {
+                'discover' => { 'record' => 'secondary' }
+              }
+            }
+          },
+          'postgresql' => { 'install' => false }
+        }.merge(default_required_values)
+      end
+
+      let(:error_values) do
+        {
+          'global' => {
+            'psql' => {
+              'host' => 'primary',
+              'password' => { 'secret' => 'bar' },
+              'load_balancing' => {
+                'discover' => true
+              }
+            }
+          },
+          'postgresql' => { 'install' => false }
+        }.merge(default_required_values)
+      end
+
+      let(:error_output) { 'Database load balancing using `discover` is configured, but does not appear to be a map' }
+
+      include_examples 'config validation',
+                      success_description: 'when database load balancing is configured for discover, with a map',
+                      error_description: 'when database load balancing is configured for discover, without a map'
+    end
+  end
+
   describe 'geo.database' do
     let(:success_values) do
       {
