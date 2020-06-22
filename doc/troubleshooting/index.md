@@ -90,6 +90,14 @@ the use of the application until resolved. Possible problems are:
 - Unreachable or failed authentication to the configured Redis services
 - Failure to reach a Gitaly instance
 
+## Applying configuration changes
+
+The following command will perform the neccessary operations to apply any updates made to `gitlab.yaml`:
+
+```shell
+helm upgrade <release name> <chart path> -f gitlab.yaml
+```
+
 ## Included GitLab Runner failing to register
 
 This can happen when the runner registration token has been changed in GitLab. (This often happens after you have restored a backup)
