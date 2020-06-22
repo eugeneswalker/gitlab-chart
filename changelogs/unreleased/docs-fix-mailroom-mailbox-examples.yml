@@ -1,0 +1,5 @@
+---
+title: Update mailroom example docs to show the proper syntax for .mailbox
+merge_request: 1417
+author:
+type: fixed
