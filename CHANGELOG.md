@@ -2,6 +2,46 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.1.0 (2020-06-22)
+
+### Fixed (3 changes, 1 of them is from the community)
+
+- Added validation for redis host configuration. !1381 (Julius Kvedaras)
+- Fix GitLab Shell TCP config. !1393
+- Fix sentinel configuration for service_desk mailroom service. !1412
+
+### Changed (5 changes)
+
+- Break up gitlab-shell of gitaly config. !1353
+- Bump gitlab-exporter chart to 7.0.4. !1374
+- gitlab-shell - disable all forwarding via sshd. !1391
+- Centralize database.yml template (Rails). !1408
+- Update gitlab-exporter to version 7.0.6. !1411
+
+### Added (13 changes, 5 of them are from the community)
+
+- Add tracing support to helm chart. !1234 (Dmitry Chepurovskiy)
+- Added the ability to control the serviceAccounts of GitLab sub-charts. !1303 (Mark Tew)
+- Added Service Desk email configuration. !1324
+- Add gitlab.deploymentAnnotations template to charts in repository. !1351
+- Implement extraEnv pattern. !1377
+- Adds extraVolumeMounts for Sidekiq pods. !1380
+- Support passing registry notification headers as k8s secrets. !1383
+- Add nodePort configuration in NGINX service for gitlab-shell. !1394
+- Adds Sentry support for sidekiq and webservice. !1398
+- Add option to configure priorityClassName on Webservice chart. !1405 (Dragos Sutu)
+- Add option to configure priorityClassName on Sideqik chart. !1406 (Dragos Sutu)
+- Database: support load balancing reads (#1004). !1414
+- Adds update strategy to be configured for webservice. (Stepan Kuksenko)
+
+### Other (4 changes)
+
+- Add support for enabling the btree_gist pg extension. !1372
+- Ensure upgraded to 4.0 before 4.1. !1403
+- Update GitLab Runner chart to 0.18.0. !1416
+- Update GitLab Version to 13.1.0.
+
+
 ## 4.0.5 (2020-06-10)
 
 ### Changed (1 change)

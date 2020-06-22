@@ -1,5 +1,0 @@
----
-title: Added validation for redis host configuration
-merge_request: 1381
-author: Julius Kvedaras
-type: fixed

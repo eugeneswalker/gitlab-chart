@@ -1,5 +1,0 @@
----
-title: Add support for enabling the btree_gist pg extension
-merge_request: 1372
-author:
-type: other

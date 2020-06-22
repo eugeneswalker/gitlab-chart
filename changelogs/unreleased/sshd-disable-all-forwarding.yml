@@ -1,5 +1,0 @@
----
-title: "gitlab-shell - disable all forwarding via sshd"
-merge_request: 1391
-author:
-type: changed
