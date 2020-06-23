@@ -14,7 +14,7 @@ global:
         # https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/secrets.md#imap-password-for-incoming-emails
         secret: my-incoming-mail-secret
         key: secret
-      mailBox: inbox
+      mailbox: inbox
     serviceDeskEmail:
       enabled: true
       address: project_contact+%{key}@gmail.com
@@ -27,4 +27,4 @@ global:
         # https://gitlab.com/gitlab-org/charts/gitlab/blob/master/doc/installation/secrets.md#imap-password-for-service-desk-emails
         secret: my-service-desk-email-secret
         key: secret
-      mailBox: inbox
+      mailbox: inbox
