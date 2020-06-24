@@ -2,6 +2,17 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.1.1 (2020-06-24)
+
+### Fixed (1 change)
+
+- Update mailroom example docs to show the proper syntax for .mailbox. !1417
+
+### Other (1 change)
+
+- Update GitLab Version to 13.1.1.
+
+
 ## 4.1.0 (2020-06-22)
 
 ### Fixed (3 changes, 1 of them is from the community)
