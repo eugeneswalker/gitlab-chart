@@ -112,7 +112,6 @@ persistence:
   ## Only bind to a volume with the following exppression matched labels.
   ## ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
   matchExpressions: []
-
   annotations: {}
 
 resources:

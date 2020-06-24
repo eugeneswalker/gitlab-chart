@@ -47,7 +47,7 @@ the `helm install` command using the `--set` flags.
 | `extraVolumeMounts`             |                                            | List of extra volumes mountes to do                                                                                                                                  |
 | `extraVolumes`                  |                                            | List of extra volumes to create                                                                                                                                      |
 | `extraEnv`                      |                                            | List of extra environment variables to expose                                                                                                                        |
-| `gitaly.serviceName`            |                                            | The name of the generated Gitaly service. Overrides `global.gitaly.serviceName`, and defaults to `<RELEASE-NAME>-gitaly`                                            |
+| `gitaly.serviceName`            |                                            | The name of the generated Gitaly service. Overrides `global.gitaly.serviceName`, and defaults to `<RELEASE-NAME>-gitaly`                                             |
 | `image.pullPolicy`              | `Always`                                   | Gitaly image pull policy                                                                                                                                             |
 | `image.pullSecrets`             |                                            | Secrets for the image repository                                                                                                                                     |
 | `image.repository`              | `registry.com/gitlab-org/build/cng/gitaly` | Gitaly image repository                                                                                                                                              |
@@ -57,12 +57,13 @@ the `helm install` command using the `--set` flags.
 | `internal.names[]`              | `- default`                                | Ordered names of statfulset storages                                                                                                                                 |
 | `service.externalPort`          | `8075`                                     | Gitaly service exposed port                                                                                                                                          |
 | `service.internalPort`          | `8075`                                     | Gitaly internal port                                                                                                                                                 |
-| `service.name`                  | `gitaly`                                   | The name of the Service port that Gitaly is behind in the Service object.                                                                                          |
+| `service.name`                  | `gitaly`                                   | The name of the Service port that Gitaly is behind in the Service object.                                                                                            |
 | `service.type`                  | `ClusterIP`                                | Gitaly service type                                                                                                                                                  |
 | `securityContext.fsGroup`       | `1000`                                     | Group ID under which the pod should be started                                                                                                                       |
 | `securityContext.runAsUser`     | `1000`                                     | User ID under which the pod should be started                                                                                                                        |
 | `tolerations`                   | `[]`                                       | Toleration labels for pod assignment                                                                                                                                 |
 | `persistence.accessMode`        | `ReadWriteOnce`                            | Gitaly persistence access mode                                                                                                                                       |
+| `persistence.annotations`       |                                            | Gitaly persistence annotations                                                                                                                                       |
 | `persistence.enabled`           | `true`                                     | Gitaly enable persistence flag                                                                                                                                       |
 | `persistence.matchExpressions`  |                                            | Label-expression matches to bind                                                                                                                                     |
 | `persistence.matchLabels`       |                                            | Label-value matches to bind                                                                                                                                          |
@@ -214,6 +215,7 @@ persistence:
   matchLabels: {}
   matchExpressions: []
   subPath: "/data"
+  annotations: {}
 ```
 
 | Name               | Type    | Default         | Description |
@@ -225,6 +227,7 @@ persistence:
 | `size`             | String  | `50Gi`          | The minimum volume size to request for the data persistence. |
 | `storageClass`     | String  |                 | Sets the storageClassName on the Volume Claim for dynamic provisioning. When unset or null, the default provisioner will be used. If set to a hyphen, dynamic provisioning is disabled. |
 | `subPath`          | String  |                 | Sets the path within the volume to mount, rather than the volume root. The root is used if the subPath is empty. |
+| `annotations`      | Map     |                 | Sets the annotations on the Volume Claim for dynamic provisioning. See [Kubernetes Annotations Documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) for details. |
 
 ### Running Gitaly over TLS
 
