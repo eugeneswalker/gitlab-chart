@@ -11,6 +11,12 @@ spec:
   backoffLimit: {{ .Values.backoffLimit }}
   template:
     metadata:
+      {{- if .Values.annotations }}
+      annotations:
+      {{- range $key, $value := .Values.annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
       labels:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
