@@ -223,7 +223,7 @@ global:
 Configuration of service discovery can be more complex. For a complete
 details of this configuration, the parameters and their associated
 behaviors, see [Service Discovery](https://docs.gitlab.com/ee/administration/database_load_balancing.html#service-discovery)
-in the [GitLab Administration documenation](https://docs.gitlab.com/ee/administration).
+in the [GitLab Administration documenation](https://docs.gitlab.com/ee/administration/index.html).
 
 ```yaml
 global:
