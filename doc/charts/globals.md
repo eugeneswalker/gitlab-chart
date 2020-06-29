@@ -725,7 +725,7 @@ application are described below:
 | `defaultCanCreateGroup`             | Boolean | `true`  | A flag to decide if users are allowed to create groups. |
 | `usernameChangingEnabled`           | Boolean | `true`  | A flag to decide if users are allowed to change their username. |
 | `issueClosingPattern`               | String  | (empty) | [Pattern to close issues automatically](https://docs.gitlab.com/ee/administration/issue_closing_pattern.html). |
-| `defaultTheme`                      | Integer |         | [Numeric ID of the default theme for the GitLab instance](https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/themes.rb#L14-25). It takes a number, denoting the id of the theme. |
+| `defaultTheme`                      | Integer |         | [Numeric ID of the default theme for the GitLab instance](https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/themes.rb#L17-27). It takes a number, denoting the id of the theme. |
 | `defaultProjectsFeatures.*feature*` | Boolean | `true`  | [See below](#defaultProjectsFeatures) |
 | `webHookTimeout`                    | Integer |         | Waiting time in seconds before a [hook is deemed to have failed](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#receiving-duplicate-or-multiple-web-hook-requests-triggered-by-one-event). |
 
