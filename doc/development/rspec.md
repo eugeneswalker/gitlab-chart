@@ -132,3 +132,31 @@ Return the STDERR output from the execution of `helm template` command.
 
 Return a dictionary of all values that were used in the execution of the
 `helm template` command.
+
+## Tests that require a Kubernetes cluster
+
+The majority of the RSpec tests execute `helm template` and then analyze
+the generated YAML for the correct structures given the feature being
+tested. Occasionally an RSpec test requires access to a Kubernetes cluster
+with the GitLab Helm chart deployed to it.
+
+In these cases the RSpec tests should be tagged with the `:uses_k8s` filter
+so that the tests can be ignored if a Kubernetes cluster is not available.
+The `:uses_k8s` filter can be applied at the `describe`, `context` or `it`
+blocks.
+
+```ruby
+describe 'some feature' do
+  it 'responds with data', :uses_k8s => true do
+    ...
+  end
+
+  it 'is enabled' do
+    ...
+  end
+end
+```
+
+In the above example, the first test would be executed if access to a
+Kubernetes cluster had been detected whereas the second test would always
+execute.

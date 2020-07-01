@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Restoring a backup" do
+describe "Restoring a backup", :uses_k8s => true do
   before(:all) do
     stdout, status = wait_for_dependencies
     fail stdout unless status.success?
@@ -30,7 +30,7 @@ describe "Restoring a backup" do
     wait_until_app_ready
   end
 
-  describe 'Restored gitlab instance' do
+  describe 'Restored gitlab instance', :uses_k8s => true do
     before { sign_in }
 
     it 'Home page should show projects' do
