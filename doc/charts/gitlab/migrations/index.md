@@ -43,6 +43,7 @@ Table below contains all the possible charts configurations that can be supplied
 | `init.tag`                  | initContainer image tag                  | `latest`          |
 | `enabled`                   | Migrations enable flag                   | `true`            |
 | `tolerations`               | Toleration labels for pod assignment     | `[]`              |
+| `annotations`               | Annotations for the job spec             | `{}`              |
 | `redis.serviceName`         | Redis service name                       | `redis`           |
 | `psql.serviceName`          | Name of Service providing PostgreSQL     | `release-postgresql` |
 | `psql.password.secret`      | psql secret                              | `gitlab-postgres` |

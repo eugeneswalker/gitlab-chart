@@ -18,6 +18,9 @@ init:
 # Tolerations for pod scheduling
 tolerations: []
 
+# Annotations for the job
+annotations: {}
+
 enabled: true
 initialRootPassword: {}
 redis:
