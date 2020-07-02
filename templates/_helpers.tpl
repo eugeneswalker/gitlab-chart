@@ -239,10 +239,10 @@ Uses `postgresql-password` to match upstream postgresql chart when not using an
 
 {{/*
 Return if pool should be used by PostgreSQL.
-Defaults to 10
+Defaults to 1
 */}}
 {{- define "gitlab.psql.pool" -}}
-{{- default 10 (default .Values.global.psql .Values.psql).pool | int -}}
+{{- default 1 (default .Values.global.psql .Values.psql).pool | int -}}
 {{- end -}}
 
 {{/*

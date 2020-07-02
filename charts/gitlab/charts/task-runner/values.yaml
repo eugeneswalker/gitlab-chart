@@ -39,7 +39,7 @@ global:
     # port: '5432'
     # database: 'gitlabhq_production'
     # username: 'gitlab'
-    # pool: 10
+    # pool: 1
     # preparedStatements: false
     # ssl:
     #   secret: gitlab-ssl-secret

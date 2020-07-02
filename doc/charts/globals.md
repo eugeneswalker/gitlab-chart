@@ -149,7 +149,7 @@ global:
     database: gitlabhq_production
     username: gitlab
     preparedStatements: false
-    pool: 10
+    pool: 1
     password:
       secret: gitlab-postgres
       key: psql-password
@@ -162,7 +162,7 @@ global:
 | `database`        | String  | `gitlabhq_production` | The name of the database to use on the PostgreSQL server. |
 | `password.key`    | String  |                       | The `password.key` attribute for PostgreSQL defines the name of the key in the secret (below) that contains the password. |
 | `password.secret` | String  |                       | The `password.secret` attribute for PostgreSQL defines the name of the Kubernetes `Secret` to pull from. |
-| `pool`            | Integer | `10`                  | How many connections are made to the database. |
+| `pool`            | Integer | `1`                   | How many connections are made to the database. |
 | `port`            | Integer | `5432`                | The port on which to connect to the PostgreSQL server. |
 | `username`        | String  | `gitlab`              | The username with which to authenticate to the database. |
 | `preparedStatements`| Bool  | `false`               | If prepared statements should be used when communicating with the PostgreSQL server. |
