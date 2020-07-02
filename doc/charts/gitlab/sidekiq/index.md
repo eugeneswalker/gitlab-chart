@@ -59,7 +59,7 @@ to the `helm install` command using the `--set` flags:
 | `image.tag`                          |                   | Sidekiq image tag                        |
 | `init.image.repository`              |                   | initContainer image                      |
 | `init.image.tag`                     |                   | initContainer image tag                  |
-| `logging.format`                     | `default`         | Set to json for json structured logs     |
+| `logging.format`                     | `default`         | Set to `json` for JSON-structured logs   |
 | `metrics.enabled`                    | `true`            | Toggle Prometheus metrics exporter       |
 | `psql.password.key`                  | `psql-password`   | key to psql password in psql secret      |
 | `psql.password.secret`               | `gitlab-postgres` | psql password secret                     |
