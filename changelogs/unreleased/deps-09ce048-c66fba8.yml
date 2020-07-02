@@ -1,0 +1,5 @@
+---
+title: Update GitLab Runner chart to 0.18.1
+merge_request: 1433
+author:
+type: changed
