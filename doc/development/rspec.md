@@ -3,6 +3,26 @@
 The following are notes and conventions used for creating RSpec tests for the
 GitLab chart.
 
+## Filtering RSpec tests
+
+To aid in development it is possible to filter which tests are executed by
+adding the `:focus` tag to one or more tests. With the `:focus` tag _only_
+tests that have been specifically tagged will be run. This allows quick
+development and testing of new code without having to wait for all the RSpec
+tests to execute. The following is an example of a test that has been tagged
+with`:focus`.
+
+```ruby
+describe 'some feature' do
+  it 'generates output', :focus => true do
+    ...
+  end
+end
+```
+
+The `:focus` tag can be added to `describe`, `context` or `it` blocks which
+allows a test or a group of tests to be executed.
+
 ## Generating YAML from the chart
 
 Much of the testing of the chart is that it generates the correct YAML
