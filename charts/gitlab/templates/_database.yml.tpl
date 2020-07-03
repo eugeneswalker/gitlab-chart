@@ -25,7 +25,7 @@ See https://docs.gitlab.com/ee/administration/database_load_balancing.html#enabl
 Note: Many `if` used here, allowing Rails to provide defaults inside the codebase.
 */}}
 {{- define "gitlab.database.loadBalancing" -}}
-{{- with .Values.global.psql -}}
+{{- with default .Values.global.psql .Values.psql -}}
 {{-   if kindIs "map" .load_balancing -}}
 load_balancing:
   {{-   if kindIs "slice" .load_balancing.hosts }}

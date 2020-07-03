@@ -167,6 +167,23 @@ global:
 | `username`        | String  | `gitlab`              | The username with which to authenticate to the database. |
 | `preparedStatements`| Bool  | `false`               | If prepared statements should be used when communicating with the PostgreSQL server. |
 
+### PostgreSQL per chart
+
+In some complex deployments, it may be desired to configure different parts of
+this chart with different configurations for PostgreSQL. As of `v4.2.0`, all
+properties available within `global.psql` can be set on a per-chart basis,
+for example `gitlab.sidekiq.psql`. The local settings will override global values
+when supplied, with some key settings being inherited when not present.
+
+Properties that will inherit from global:
+
+- `port`
+- `password.secret`
+- `password.key`
+
+[PostgreSQL load balancing](#postgresql-load-balancing) will _never_ inherit
+from the global, by design.
+
 ### PostgreSQL SSL
 
 NOTE: **Note**: Currently, SSL support is mutual TLS only.
