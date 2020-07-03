@@ -25,5 +25,5 @@ spec:
     resource:
       name: cpu
       targetAverageValue: {{ default $.Values.hpa.targetAverageValue $hpa.targetAverageValue }}
-{{ end -}}
+{{- end }}
 {{- end -}}
