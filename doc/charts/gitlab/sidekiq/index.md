@@ -337,6 +337,7 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `extraVolumes` | String  |         | Configures extra volumes for the given pod. |
 | `extraVolumeMounts` | String |     | Configures extra volume mounts for the given pod. |
 | `priorityClassName` | String | `""` | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
+| `hpa.targetAverageValue` | String |  | Overrides the autoscaling target value for the given pod. |
 
 ### queues
 
@@ -416,6 +417,8 @@ pods:
       limits:
         cpu: 800m
         memory: 2Gi
+    hpa:
+      targetAverageValue: 350m
 ```
 
 ## Configuring the `networkpolicy`

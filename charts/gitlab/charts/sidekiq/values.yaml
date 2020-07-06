@@ -260,6 +260,8 @@ pods:
     # extraVolumes
     # extraVolumeMounts
     # priorityClassName: ""
+    # hpa:
+    #   targetAverageValue:
 
 ## Allow to overwrite under which User and Group we're running.
 securityContext:
