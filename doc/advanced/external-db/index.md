@@ -15,14 +15,28 @@ If you do not have one, consider a cloud provided solution like [AWS Aurora](htt
 To use an external database with the `gitlab` chart, there are a few prerequisites.
 
 1. GitLab requires PostgreSQL 11.x or newer
-1. The `pg_trgm` extension must be available. GitLab will attempt to load
-   the `pg_trgm` extension if not present. If not providing an account with
+1. An empty database to use, named by default: `gitlabhq_production`. See below how to change the default name.
+1. The `pg_trgm` and `btree_gist` extensions must be available. GitLab will
+   attempt to load both extensions if not present. If not providing an account with
    Superuser flag to GitLab, please ensure this extension is loaded prior to
    proceeding with the database installation.
-1. An empty database to use, named by default: `gitlabhq_production`. See below how to change the default name.
 1. A user with full access granted to the database above.
 1. A [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) with the password for the user above.
 1. Ensure that the database is reachable from the cluster. Be sure firewall policies are in place to allow traffic.
+
+NOTE: **Note**:
+The `pg_trgm` and `btree_gist` extensions need to be added to the GitLab
+database. This means that the `CREATE EXTENSION` command should be executed
+while connected to the GitLab database (by default named `gitlabhq_production`)
+and not the PostgreSQL default database.
+
+If planning to use PostgreSQL as a load balancing cluster and using Kubernetes
+DNS for service discovery, then when installing the `bitnami/postgresql` chart
+it is recommended to install the chart with `--set slave.service.clusterIP=None`.
+This will properly setup the PostgreSQL secondary service as a headless service to
+allow DNS A records to be created for each secondary instance. Please examine the
+file [`examples/database/values-loadbalancing-discover.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/database/values-loadbalancing-discover.yaml)
+for an example of using Kubernetes DNS for service discovery.
 
 ## Configuring `gitlab` to use an external database
 
