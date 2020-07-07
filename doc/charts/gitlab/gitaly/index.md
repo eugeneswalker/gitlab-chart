@@ -206,7 +206,7 @@ NOTE: **Note:** The persistence settings for Gitaly are used in a volumeClaimTem
   that are meant to reference a single specific volume (ie volumeName). If you want
   to reference a specific volume, you need to manually create the PersistentVolumeClaim.
   
-NOTE: **Note:** You can't change these through our settings once you've deployed. In `[StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)`
+NOTE: **Note:** You can't change these through our settings once you've deployed. In [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
   the `VolumeClaimTemplate` is immutable.
 
 ```yaml
