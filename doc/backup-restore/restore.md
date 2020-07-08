@@ -10,6 +10,8 @@ info: To determine the technical writer assigned to the Stage/Group associated w
 >
 > **Note**: If you are restoring a backup taken from another instance, you must migrate your existing instance to using object storage before taking the backup. See [issue 646](https://gitlab.com/gitlab-org/charts/gitlab/-/issues/646)
 
+It is recommended that you restore a backup to the same version of GitLab on which it was created.
+
 GitLab backup restores are taken by running the `backup-utility` command on the `task-runner` pod provided in the chart.
 
 Before running the restore for the first time, you should ensure the [task-runner is properly configured](index.md) for
