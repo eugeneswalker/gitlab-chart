@@ -215,7 +215,7 @@ spec:
               value: "1"
             {{- end }}
             {{- include "gitlab.tracing.env" $ | nindent 12 }}
-            {{- include "gitlab.extraEnv" $ | nindent 12 }}
+            {{- include "sidekiq.podExtraEnv" (dict "local" . "parent" $) | nindent 12 }}
 {{- if $metricsEnabled }}
           ports:
           - containerPort: {{ $metricsPort }}
