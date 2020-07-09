@@ -743,7 +743,7 @@ application are described below:
 | `usernameChangingEnabled`           | Boolean | `true`  | A flag to decide if users are allowed to change their username. |
 | `issueClosingPattern`               | String  | (empty) | [Pattern to close issues automatically](https://docs.gitlab.com/ee/administration/issue_closing_pattern.html). |
 | `defaultTheme`                      | Integer |         | [Numeric ID of the default theme for the GitLab instance](https://gitlab.com/gitlab-org/gitlab-foss/blob/master/lib/gitlab/themes.rb#L17-27). It takes a number, denoting the id of the theme. |
-| `defaultProjectsFeatures.*feature*` | Boolean | `true`  | [See below](#defaultProjectsFeatures) |
+| `defaultProjectsFeatures.*feature*` | Boolean | `true`  | [See below](#defaultprojectsfeatures). |
 | `webHookTimeout`                    | Integer |         | Waiting time in seconds before a [hook is deemed to have failed](https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#receiving-duplicate-or-multiple-web-hook-requests-triggered-by-one-event). |
 
 #### defaultProjectsFeatures
@@ -1023,7 +1023,7 @@ global:
 | Name          | Type    | Default         | Description |
 |:------------- |:-------:|:--------------- |:----------- |
 | `bucket`      | String  | `gitlab-pseudo` | Name of the bucket to use from the object storage provider. |
-| `configMap`   | String  |                 | [See Below](#configMap). |
+| `configMap`   | String  |                 | [See Below](#configmap). |
 | `connnection` |         | `{}`            | [See Below](#connection). |
 
 #### configMap
