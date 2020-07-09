@@ -70,7 +70,7 @@ describe 'Database configuration' do
           expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include("hosts:")
           expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include("- secondary-1")
         end
-      end   
+      end
     end
 
     describe 'global.psql.load_balancing.discover' do
@@ -222,7 +222,7 @@ describe 'Database configuration' do
         expect(t.dig('ConfigMap/test-sidekiq','data','database.yml.erb')).to include('port: 5432')
         expect(t.dig('ConfigMap/test-sidekiq','data','database.yml.erb')).to include('database: gitlabhq_production')
         expect(t.dig('ConfigMap/test-sidekiq','data','database.yml.erb')).to include('username: gitlab')
-        expect(t.dig('ConfigMap/test-sidekiq','data','database.yml.erb')).to include('pool: 10')
+        expect(t.dig('ConfigMap/test-sidekiq','data','database.yml.erb')).to include('pool: 1')
         expect(t.dig('ConfigMap/test-sidekiq','data','database.yml.erb')).to include('prepared_statements: false')
         sidekiq_secret_mounts =  t.projected_volume_sources('Deployment/test-sidekiq-all-in-1-v1','init-sidekiq-secrets').select { |item|
           item['secret']['name'] == 'test-postgresql-password' && item['secret']['items'][0]['key'] == 'postgresql-password'
@@ -233,7 +233,7 @@ describe 'Database configuration' do
         expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include('port: 5432')
         expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include('database: gitlabhq_production')
         expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include('username: gitlab')
-        expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include('pool: 10')
+        expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include('pool: 1')
         expect(t.dig('ConfigMap/test-webservice','data','database.yml.erb')).to include('prepared_statements: false')
         webservice_secret_mounts =  t.projected_volume_sources('Deployment/test-webservice','init-webservice-secrets').select { |item|
           item['secret']['name'] == 'test-postgresql-password' && item['secret']['items'][0]['key'] == 'postgresql-password'
