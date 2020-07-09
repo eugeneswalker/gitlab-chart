@@ -325,7 +325,7 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `cluster`      | Bool    | `true`  | [See below](#cluster). |
 | `name`         | String  |         | Used to name the `Deployment` and `ConfigMap` for this pod. It should be kept short, and should not be duplicated between any two entries. |
 | `queues`       | String / Array |         | [See below](#queues). |
-| `negateQueues` | String / Array |         | [See below](#negateQueues). |
+| `negateQueues` | String / Array |         | [See below](#negatequeues). |
 | `experimentalQueueSelector` | Bool | `false` | Use the [experimental queue selector](https://docs.gitlab.com/ee/administration/operations/extra_sidekiq_processes.html#queue-selector-experimental). Only valid when `cluster` is enabled. |
 | `timeout`      | Integer |         | The Sidekiq shutdown timeout. The number of seconds after Sidekiq gets the TERM signal before it forcefully shuts down its processes. If not provided, it will be pulled from the chart-wide default. |
 | `resources`    |         |         | Each pod can present it's own `resources` requirements, which will be added to the `Deployment` created for it, if present. These match the Kubernetes documentation. |
