@@ -573,6 +573,7 @@ Each item of this list has 3 keys:
 - `name`: The name of the [storage](https://docs.gitlab.com/ee/administration/repository_storage_paths.html).
 - `hostname`: The host of Gitaly services.
 - `port`: (optional) The port number to reach the host on. Defaults to `8075`.
+- `tlsEnabled`: (optional) Override `global.gitaly.tls.enabled` for this particular entry.
 
 NOTE: **Note:** You must have an entry with `name: default`.
 
@@ -614,7 +615,7 @@ NOTE: **Note:** All Gitaly nodes **must** share the same authentication token.
 
 ### TLS settings
 
-Configuring Gitaly over TLS is detailed [in the Gitaly chart's documentation](gitlab/gitaly#running-gitaly-over-tls).
+Configuring Gitaly to serve via TLS is detailed [in the Gitaly chart's documentation](gitlab/gitaly#running-gitaly-over-tls).
 
 ## Configure MinIO settings
 
