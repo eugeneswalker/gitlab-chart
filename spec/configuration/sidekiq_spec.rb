@@ -21,8 +21,8 @@ describe 'Sidekiq configuration' do
   end
 
   context 'when setting extraEnv' do
-    def env(t, pod)
-      t.dig("Deployment/test-sidekiq-#{pod}-v1", 'spec', 'template', 'spec', 'containers', 0, 'env')
+    def container_name(pod)
+      "Deployment/test-sidekiq-#{pod}-v1"
     end
 
     context 'when the global value is set' do
@@ -42,13 +42,13 @@ describe 'Sidekiq configuration' do
 
         expect(global_template.exit_code).to eq(0)
 
-        expect(env(global_template, 'pod-1'))
+        expect(global_template.env(container_name('pod-1'), 'sidekiq'))
           .to include(
                 { 'name' => 'EXTRA_ENV_VAR_A', 'value' => 'global-a' },
                 { 'name' => 'EXTRA_ENV_VAR_B', 'value' => 'global-b' }
               )
 
-        expect(env(global_template, 'pod-2'))
+        expect(global_template.env(container_name('pod-2'), 'sidekiq'))
           .to include(
                 { 'name' => 'EXTRA_ENV_VAR_A', 'value' => 'global-a' },
                 { 'name' => 'EXTRA_ENV_VAR_B', 'value' => 'global-b' }
@@ -75,13 +75,13 @@ describe 'Sidekiq configuration' do
         it 'sets those environment variables on each pod' do
           expect(chart_template.exit_code).to eq(0)
 
-          expect(env(chart_template, 'pod-1'))
+          expect(chart_template.env(container_name('pod-1'), 'sidekiq'))
             .to include(
                   { 'name' => 'EXTRA_ENV_VAR_C', 'value' => 'chart-c' },
                   { 'name' => 'EXTRA_ENV_VAR_D', 'value' => 'chart-d' }
                 )
 
-          expect(env(chart_template, 'pod-2'))
+          expect(chart_template.env(container_name('pod-2'), 'sidekiq'))
             .to include(
                   { 'name' => 'EXTRA_ENV_VAR_C', 'value' => 'chart-c' },
                   { 'name' => 'EXTRA_ENV_VAR_D', 'value' => 'chart-d' }
@@ -89,10 +89,10 @@ describe 'Sidekiq configuration' do
         end
 
         it 'overrides global values' do
-          expect(env(chart_template, 'pod-1'))
+          expect(chart_template.env(container_name('pod-1'), 'sidekiq'))
             .to include('name' => 'EXTRA_ENV_VAR_A', 'value' => 'chart-a')
 
-          expect(env(chart_template, 'pod-2'))
+          expect(chart_template.env(container_name('pod-2'), 'sidekiq'))
             .to include('name' => 'EXTRA_ENV_VAR_A', 'value' => 'chart-a')
         end
 
@@ -133,26 +133,30 @@ describe 'Sidekiq configuration' do
           it 'sets those environment variables on the relevant pods' do
             expect(pod_template.exit_code).to eq(0)
 
-            expect(env(pod_template, 'pod-1'))
+            expect(pod_template.env(container_name('pod-1'), 'sidekiq'))
               .to include('name' => 'EXTRA_ENV_VAR_E', 'value' => 'pod-e')
+            expect(pod_template.env(container_name('pod-1'), 'sidekiq'))
+              .not_to include('name' => 'EXTRA_ENV_VAR_F', 'value' => 'pod-f')
 
-            expect(env(pod_template, 'pod-2'))
+            expect(pod_template.env(container_name('pod-2'), 'sidekiq'))
+              .not_to include('name' => 'EXTRA_ENV_VAR_E', 'value' => 'pod-e')
+            expect(pod_template.env(container_name('pod-2'), 'sidekiq'))
               .to include('name' => 'EXTRA_ENV_VAR_F', 'value' => 'pod-f')
           end
 
           it 'overrides global values' do
-            expect(env(pod_template, 'pod-1'))
+            expect(pod_template.env(container_name('pod-1'), 'sidekiq'))
               .to include('name' => 'EXTRA_ENV_VAR_B', 'value' => 'pod-b')
 
-            expect(env(pod_template, 'pod-2'))
+            expect(pod_template.env(container_name('pod-2'), 'sidekiq'))
               .to include('name' => 'EXTRA_ENV_VAR_B', 'value' => 'pod-b')
           end
 
           it 'overrides chart-level values' do
-            expect(env(pod_template, 'pod-1'))
+            expect(pod_template.env(container_name('pod-1'), 'sidekiq'))
               .to include('name' => 'EXTRA_ENV_VAR_C', 'value' => 'pod-c')
 
-            expect(env(pod_template, 'pod-2'))
+            expect(pod_template.env(container_name('pod-2'), 'sidekiq'))
               .to include('name' => 'EXTRA_ENV_VAR_C', 'value' => 'pod-c')
           end
         end
