@@ -127,8 +127,8 @@ pods:
     negateQueues: mailers
 ```
 
-This will set `SOME_POD_KEY` only for app containers in the `mailers`
-pod. Pod-level `extraEnv` settings are not added to init containers.
+This will set `SOME_POD_KEY` only for application containers in the `mailers`
+pod. Pod-level `extraEnv` settings are not added to [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/).
 
 ### extraVolumes
 
