@@ -112,6 +112,24 @@ SOME_KEY=some_value
 SOME_OTHER_KEY=some_other_value
 ```
 
+You can also set `extraEnv` for a specific pod:
+
+```yaml
+extraEnv:
+  SOME_KEY: some_value
+  SOME_OTHER_KEY: some_other_value
+pods:
+  - name: mailers
+    queues: mailers
+    extraEnv:
+      SOME_POD_KEY: some_pod_value
+  - name: catchall
+    negateQueues: mailers
+```
+
+This will set `SOME_POD_KEY` only for application containers in the `mailers`
+pod. Pod-level `extraEnv` settings are not added to [init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/).
+
 ### extraVolumes
 
 `extraVolumes` allows you to configure extra volumes chart-wide.
@@ -338,6 +356,7 @@ a different pod configuration. It will not add a new pod in addition to the defa
 | `extraVolumeMounts` | String |     | Configures extra volume mounts for the given pod. |
 | `priorityClassName` | String | `""` | Allow configuring pods `priorityClassName`, this is used to control pod priority in case of eviction |
 | `hpa.targetAverageValue` | String |  | Overrides the autoscaling target value for the given pod. |
+| `extraEnv` | Map | | List of extra environment variables to expose. The chart-wide value is merged into this, with values from the pod taking precedence |
 
 ### queues
 

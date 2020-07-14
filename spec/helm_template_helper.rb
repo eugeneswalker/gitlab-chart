@@ -36,6 +36,14 @@ class HelmTemplate
     volumes[0]
   end
 
+  def env(item, container_name, init: false)
+    containers = init ? 'initContainers' : 'containers'
+
+    dig(item, 'spec', 'template', 'spec', containers)
+      &.find { |container| container['name'] == container_name }
+      &.dig('env')
+  end
+
   def projected_volume_sources(item,volume_name)
     volume = find_volume(item,volume_name)
     volume['projected']['sources']
