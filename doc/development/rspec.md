@@ -138,25 +138,12 @@ Return a dictionary of all values that were used in the execution of the
 The majority of the RSpec tests execute `helm template` and then analyze
 the generated YAML for the correct structures given the feature being
 tested. Occasionally an RSpec test requires access to a Kubernetes cluster
-with the GitLab Helm chart deployed to it.
+with the GitLab Helm chart deployed to it. Tests that interact with the
+chart deployed in a Kubernetes cluster should be placed in the `features`
+directory.
 
-In these cases the RSpec tests should be tagged with the `:uses_k8s` filter
-so that the tests can be ignored if a Kubernetes cluster is not available.
-The `:uses_k8s` filter can be applied at the `describe`, `context` or `it`
-blocks.
-
-```ruby
-describe 'some feature' do
-  it 'responds with data', :uses_k8s => true do
-    ...
-  end
-
-  it 'is enabled' do
-    ...
-  end
-end
-```
-
-In the above example, the first test would be executed if access to a
-Kubernetes cluster had been detected whereas the second test would always
-execute.
+If the RSpec tests are being executed and a Kubernetes cluster is not
+available, then the tests in the `features` directory will be skipped. At
+the start of an RSpec run `kubectl get nodes` will be checked for results
+and if it returns successfully the tests in the `features` directory will
+be included.
