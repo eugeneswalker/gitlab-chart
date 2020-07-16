@@ -51,7 +51,7 @@ registry:
       enabled: false
   image:
     tag: 'v2.9.1-gitlab'
-    pullPolicy: IfoNtPresent
+    pullPolicy: IfNotPresent
   annotations:
   service:
     type: ClusterIP
