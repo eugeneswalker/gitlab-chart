@@ -78,7 +78,7 @@ with the `-f / --values` flag.
 
 ### Connecting to external Gitaly over TLS
 
-If your external [Gitaly server listens over TLS port](https://docs.gitlab.com/ee/administration/gitaly/#tls-support),
+If your external [Gitaly server listens over TLS port](https://docs.gitlab.com/ee/administration/gitaly/#enable-tls-support),
 you can make your GitLab instance communicate with it over TLS. To do this, you
 have to
 
