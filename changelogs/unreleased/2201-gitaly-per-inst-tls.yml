@@ -1,0 +1,5 @@
+---
+title: 'Gitaly: support TLS flag for external instances'
+merge_request: 1446
+author:
+type: added

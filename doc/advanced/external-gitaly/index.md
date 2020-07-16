@@ -48,9 +48,12 @@ global:
       - name: praefect                  # required
         hostname: ha.git.example.com    # required
         port: 2305                      # Praefect uses port 2305
+        tlsEnabled: false               # optional, overrides gitaly.tls.enabled
     authToken:
       secret: external-gitaly-token     # required
       key: token                        # optional, default shown
+    tls:
+      enabled: false                    # optional, default shown
 ```
 
 Example installation using the above configuration file in conjunction other
@@ -75,7 +78,7 @@ with the `-f / --values` flag.
 
 ### Connecting to external Gitaly over TLS
 
-If your external [Gitaly server listens over TLS port](https://docs.gitlab.com/ee/administration/gitaly/#tls-support),
+If your external [Gitaly server listens over TLS port](https://docs.gitlab.com/ee/administration/gitaly/#enable-tls-support),
 you can make your GitLab instance communicate with it over TLS. To do this, you
 have to
 
@@ -103,7 +106,25 @@ have to
    --set global.certificates.customCAs[0].secret=gitlab-gitaly-tls-certificate
    ```
 
-1. Enable Gitaly TLS by setting `global.gitaly.tls.enabled=true`
+1. To enable TLS for all Gitaly instances, set `global.gitaly.tls.enabled: true`.
+
+   ```yaml
+   global:
+     gitaly:
+       tls:
+         enabled: true
+   ```
+
+   To enable for instances individually, set `tlsEnabled: true` for that entry.
+
+   ```yaml
+   global:
+     gitaly:
+       external:
+         - name: default
+           hostname: node1.git.example.com
+           tlsEnabled: true
+   ```
 
 NOTE: **Note**: You can choose any valid secret name and key for this, but make
 sure the key is unique across all the secrets specified in `customCAs` to avoid
