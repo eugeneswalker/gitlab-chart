@@ -8,7 +8,7 @@ production:
   encoding: unicode
   database: {{ template "gitlab.psql.database" . }}
   username: {{ template "gitlab.psql.username" . }}
-  password: "<%= File.read("/etc/gitlab/postgres/psql-password").strip.dump[1..-2] %>"
+  password: "<%= File.read({{ template "gitlab.psql.password.file" . }}).strip.dump[1..-2] %>"
   host: {{ include "gitlab.psql.host" . | quote }}
   port: {{ template "gitlab.psql.port" . }}
   pool: {{ template "gitlab.psql.pool" . }}

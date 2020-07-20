@@ -36,6 +36,7 @@ Due to gotpl scoping, we can't make use of `range`, so we have to add action lin
 {{- $messages := append $messages (include "gitlab.checkConfig.multipleRedis" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.hostWhenNoInstall" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.postgresql.deprecatedVersion" .) -}}
+{{- $messages := append $messages (include "gitlab.checkConfig.postgresql.noPasswordFile" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.database.externalLoadBalancing" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.serviceDesk" .) -}}
 {{- $messages := append $messages (include "gitlab.checkConfig.sentry" .) -}}
@@ -227,6 +228,32 @@ postgresql:
 {{-   end -}}
 {{- end -}}
 {{/* END gitlab.checkConfig.postgresql.deprecatedVersion */}}
+
+
+{{/*
+Ensure that if `psql.password.useSecret` is set to false, a path to the password file is provided
+*/}}
+{{- define "gitlab.checkConfig.postgresql.noPasswordFile" -}}
+{{- $errorMsg := list -}}
+{{- $subcharts := pick .Values.gitlab "geo-logcursor" "gitlab-exporter" "migrations" "sidekiq" "task-runner" "webservice" -}}
+{{- range $name, $sub := $subcharts -}}
+{{-   $useSecret := include "gitlab.boolean.local" (dict "local" (pluck "useSecret" (index $sub "psql" "password") | first) "global" $.Values.global.psql.password.useSecret "default" true) -}}
+{{-   if and (not $useSecret) (not (pluck "file" (index $sub "psql" "password") ($.Values.global.psql.password) | first)) -}}
+{{-      $errorMsg = append $errorMsg (printf "%s: If `psql.password.useSecret` is set to false, you must specify a value for `psql.password.file`." $name) -}}
+{{-   end -}}
+{{-   if and (not $useSecret) ($.Values.postgresql.install) -}}
+{{-      $errorMsg = append $errorMsg (printf "%s: PostgreSQL can not be deployed with this chart when using `psql.password.useSecret` is false." $name) -}}
+{{-   end -}}
+{{- end -}}
+{{- if not (empty $errorMsg) }}
+postgresql:
+{{- range $msg := $errorMsg }}
+    {{ $msg }}
+{{- end }}
+    This configuration is not supported.
+{{- end -}}
+{{- end -}}
+{{/* END gitlab.checkConfig.postgresql.noPasswordFile */}}
 
 {{/*
 Ensure that `postgresql.install: false` when `global.psql.load_balancing` defined

@@ -91,7 +91,8 @@ data:
           - 0.0.0.0/0
         sidekiq_exporter:
   configure: |
-    {{- include "gitlab.scripts.configure.secrets" (dict "required" "redis postgres rails-secrets" "optional" "none") | nindent 4 -}}
+    {{- include "gitlab.scripts.configure.secrets" (dict "required" "redis rails-secrets" "optional" "postgres") | nindent 4 -}}
     {{- include "gitlab.psql.ssl.initScript" . | nindent 4 }}
+
 # Leave this here - This line denotes end of block to the parser.
 {{- end -}}

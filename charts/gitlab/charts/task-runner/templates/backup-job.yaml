@@ -155,11 +155,7 @@ spec:
                       - key: {{ template "gitlab.gitaly.authToken.key" . }}
                         path: gitaly/gitaly_token
                 {{- include "gitlab.redis.secrets" . | nindent 16 }}
-                - secret:
-                    name: {{ template "gitlab.psql.password.secret" . }}
-                    items:
-                      - key: {{ template "gitlab.psql.password.key" . }}
-                        path: postgres/psql-password
+                {{- include "gitlab.psql.secret" . | nindent 16 }}
                 - secret:
                     name: {{ template "gitlab.registry.certificate.secret" . }}
                     items:
