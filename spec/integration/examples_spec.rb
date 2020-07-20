@@ -5,8 +5,7 @@ describe 'example configurations' do
 
   Dir["#{root}/examples/**/*.{yaml,yml}"].each do |path|
     it "renders #{path.delete_prefix(root).delete_prefix('/')}", :aggregate_failures do
-      result = Open3.capture3('helm', 'template', 'gitlab-examples-test',
-                              '.', '-f', path, '--set', 'certmanager-issuer.email=me@example.com')
+      result = Open3.capture3("#{HelmTemplate.helm_template_call(name: 'gitlab-examples-test', path: path)} --set certmanager-issuer.email=me@example.com")
 
       stdout, stderr, exit_code = result
 
