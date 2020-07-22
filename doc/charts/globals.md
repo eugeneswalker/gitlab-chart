@@ -177,15 +177,8 @@ In some complex deployments, it may be desired to configure different parts of
 this chart with different configurations for PostgreSQL. As of `v4.2.0`, all
 properties available within `global.psql` can be set on a per-chart basis,
 for example `gitlab.sidekiq.psql`. The local settings will override global values
-when supplied, with some key settings being inherited when not present.
-
-Properties that will inherit from global:
-
-- `port`
-- `password.secret`
-- `password.key`
-- `password.useSecret`
-- `password.file`
+when supplied, inheriting any _not present_ from `global.psql`, with the exception
+of `psql.load_balancing`.
 
 [PostgreSQL load balancing](#postgresql-load-balancing) will _never_ inherit
 from the global, by design.

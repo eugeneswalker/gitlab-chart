@@ -170,8 +170,6 @@ trusted_proxies: []
 
 redis:
   password: {}
-psql:
-  password: {}
 gitaly:
   # host: '0.0.0.0'
   # port: 8075
