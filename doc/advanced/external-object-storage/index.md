@@ -30,6 +30,10 @@ to encrypt data stored in S3 buckets. Adding KMS support is being discussed in
 
 GitLab uses [fog](https://github.com/fog/fog), but [doesn't currently support Fog Azure](https://gitlab.com/gitlab-org/gitlab-foss/-/issues/55624). To make use Azure Blob Storage, you will have to set up an [Azure MinIO gateway](azure-minio-gateway.md).
 
+NOTE: **Note:**
+GitLab [does not support](https://github.com/minio/minio/issues/9978) the Azure MinIO gateway as the storage for the Docker Registry.
+Please refer to the [corresponding Azure example](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage/registry.azure.yaml) when [setting up the Docker Registry](#docker-registry-images).
+
 ## Docker Registry images
 
 Configuration of object storage for the `registry` chart is done via the `registry.storage` key, and the `global.registry.bucket` key.
@@ -45,7 +49,7 @@ the global is used by GitLab backups.
 
 Create the secret per [registry chart documentation on storage](../../charts/registry/index.md#storage), then configure the chart to make use of this secret.
 
-Examples for [S3](https://docs.docker.com/registry/storage-drivers/s3/)(any s3 compatible), [Azure](https://docs.docker.com/registry/storage-drivers/azure/) and [GCS](https://docs.docker.com/registry/storage-drivers/gcs/) drivers can be found in
+Examples for [S3](https://docs.docker.com/registry/storage-drivers/s3/)(S3 compatible storages, but Azure MinIO gateway not supported, see [Azure Blob Storage](#azure-blob-storage)), [Azure](https://docs.docker.com/registry/storage-drivers/azure/) and [GCS](https://docs.docker.com/registry/storage-drivers/gcs/) drivers can be found in
 [examples/objectstorage](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage).
 
 - [`registry.s3.yaml`](https://gitlab.com/gitlab-org/charts/gitlab/tree/master/examples/objectstorage/registry.s3.yaml)
