@@ -149,7 +149,8 @@ This overrides the upstream postegresql chart so that we can deterministically
 use the name of the service the upstream chart creates
 */}}
 {{- define "gitlab.psql.host" -}}
-{{- coalesce (pluck "host" .Values.psql .Values.global.psql | first) (pluck "serviceName" .Values.psql .Values.global.psql | first) (printf "%s-%s" $.Release.Name "postgresql") -}}
+{{- $local := pluck "psql" $.Values | first -}}
+{{- coalesce (pluck "host" $local .Values.global.psql | first) (pluck "serviceName" $local .Values.global.psql | first) (printf "%s-%s" $.Release.Name "postgresql") -}}
 {{- end -}}
 
 {{/*
@@ -180,7 +181,8 @@ Alias of gitlab.psql.host
 Return the db database name
 */}}
 {{- define "gitlab.psql.database" -}}
-{{- coalesce (pluck "database" .Values.psql .Values.global.psql | first) "gitlabhq_production" -}}
+{{- $local := pluck "psql" $.Values | first -}}
+{{- coalesce (pluck "database" $local .Values.global.psql | first) "gitlabhq_production" -}}
 {{- end -}}
 
 {{/*
@@ -189,7 +191,8 @@ If the postgresql username is provided, it will use that, otherwise it will fall
 to "gitlab" default
 */}}
 {{- define "gitlab.psql.username" -}}
-{{- coalesce (pluck "username" .Values.psql .Values.global.psql | first) "gitlab" -}}
+{{- $local := pluck "psql" $.Values | first -}}
+{{- coalesce (pluck "username" $local .Values.global.psql | first) "gitlab" -}}
 {{- end -}}
 
 {{/*
@@ -242,7 +245,8 @@ Return if prepared statements should be used by PostgreSQL.
 Defaults to false
 */}}
 {{- define "gitlab.psql.preparedStatements" -}}
-{{- eq true (default false (pluck "preparedStatements" .Values.psql .Values.global.psql | first)) -}}
+{{- $local := pluck "psql" $.Values | first -}}
+{{- eq true (default false (pluck "preparedStatements" $local .Values.global.psql | first)) -}}
 {{- end -}}
 
 {{/* ######### ingress templates */}}
