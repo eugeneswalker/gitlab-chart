@@ -149,15 +149,7 @@ This overrides the upstream postegresql chart so that we can deterministically
 use the name of the service the upstream chart creates
 */}}
 {{- define "gitlab.psql.host" -}}
-{{- with default .Values.global.psql .Values.psql -}}
-{{- if .host -}}
-{{- .host -}}
-{{- else if .serviceName -}}
-{{- .serviceName -}}
-{{- else -}}
-{{- printf "%s-%s" $.Release.Name "postgresql" -}}
-{{- end -}}
-{{- end -}}
+{{- coalesce (pluck "host" .Values.psql .Values.global.psql | first) (pluck "serviceName" .Values.psql .Values.global.psql | first) (printf "%s-%s" $.Release.Name "postgresql") -}}
 {{- end -}}
 
 {{/*
@@ -188,7 +180,7 @@ Alias of gitlab.psql.host
 Return the db database name
 */}}
 {{- define "gitlab.psql.database" -}}
-{{- coalesce (default .Values.global.psql .Values.psql).database "gitlabhq_production" -}}
+{{- coalesce (pluck "database" .Values.psql .Values.global.psql | first) "gitlabhq_production" -}}
 {{- end -}}
 
 {{/*
@@ -197,7 +189,7 @@ If the postgresql username is provided, it will use that, otherwise it will fall
 to "gitlab" default
 */}}
 {{- define "gitlab.psql.username" -}}
-{{- coalesce (default .Values.global.psql .Values.psql).username "gitlab" -}}
+{{- coalesce (pluck "username" .Values.psql .Values.global.psql | first) "gitlab" -}}
 {{- end -}}
 
 {{/*
@@ -242,7 +234,7 @@ Return if pool should be used by PostgreSQL.
 Defaults to 1
 */}}
 {{- define "gitlab.psql.pool" -}}
-{{- default 1 (default .Values.global.psql .Values.psql).pool | int -}}
+{{- default 1 (pluck "pool" .Values.psql .Values.global.psql | first) | int -}}
 {{- end -}}
 
 {{/*
@@ -250,7 +242,7 @@ Return if prepared statements should be used by PostgreSQL.
 Defaults to false
 */}}
 {{- define "gitlab.psql.preparedStatements" -}}
-{{- eq true (default false (default .Values.global.psql .Values.psql).preparedStatements) -}}
+{{- eq true (default false (pluck "preparedStatements" .Values.psql .Values.global.psql | first)) -}}
 {{- end -}}
 
 {{/* ######### ingress templates */}}
