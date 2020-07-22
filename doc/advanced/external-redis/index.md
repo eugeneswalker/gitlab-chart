@@ -38,8 +38,9 @@ helm install gitlab gitlab/gitlab  \
 ```
 
 If you are connecting to a Redis HA cluster that has Sentinel servers
-running, the `global.redis.host` attribute needs to be set to the cluster
-name as specified in the `sentinel.conf`. Sentinel servers can be referenced
+running, the `global.redis.host` attribute needs to be set to the name of
+the Redis instance group (such as `mymaster` or `resque`), as
+specified in the `sentinel.conf`. Sentinel servers can be referenced
 using the `global.redis.sentinels[0].host` and `global.redis.sentinels[0].port`
 values for the `--set` flag. The index is zero based.
 
