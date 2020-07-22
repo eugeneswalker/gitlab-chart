@@ -3,7 +3,7 @@ require 'yaml'
 
 describe 'checkConfig template' do
   let(:check) do
-    Open3.capture3('helm template gitlab-checkconfig-test . -f -',
+    Open3.capture3(HelmTemplate.helm_template_call(name: 'gitlab-checkconfig-test'),
                    chdir: File.join(__dir__, '..', '..'),
                    stdin_data: YAML.dump(values))
   end
