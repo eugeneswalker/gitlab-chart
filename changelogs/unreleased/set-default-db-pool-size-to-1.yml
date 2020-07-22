@@ -1,6 +1,0 @@
----
-title: Set default database pool size to 1 as the application will calculate the best
-  pool size based on concurrency
-merge_request:
-author:
-type: changed

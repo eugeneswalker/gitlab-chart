@@ -1,5 +1,0 @@
----
-title: Allows overriding targetAverageValue in sidekiq pods
-merge_request: 1428
-author:
-type: added

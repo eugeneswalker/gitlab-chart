@@ -2,6 +2,30 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.2.0 (2020-07-22)
+
+### Fixed (2 changes)
+
+- Restore per sub-chart configuration of PostgreSQL (#1812). !1420
+- Redis: switch encoding method for redis password in URI. !1447
+
+### Changed (2 changes)
+
+- Support extraEnv at the pod level for Sidekiq. !1443
+- Set default database pool size to 1 as the application will calculate the best pool size based on concurrency.
+
+### Added (3 changes, 1 of them is from the community)
+
+- Gitaly PVC support annotations. !1419 (Andy Ai)
+- Allows overriding targetAverageValue in sidekiq pods. !1428
+- Gitaly: support TLS flag for external instances. !1446
+
+### Other (2 changes, 1 of them is from the community)
+
+- Add an annotations support to the migrations job template. !1423 (Tiago Posse)
+- Update GitLab Version to 13.2.0.
+
+
 ## 4.1.4 (2020-07-09)
 
 ### Other (1 change)

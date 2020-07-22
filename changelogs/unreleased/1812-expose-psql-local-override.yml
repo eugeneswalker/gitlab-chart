@@ -1,5 +1,0 @@
----
-title: Restore per sub-chart configuration of PostgreSQL (#1812)
-merge_request: 1420
-author:
-type: fixed
