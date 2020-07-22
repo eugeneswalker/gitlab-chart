@@ -1,0 +1,5 @@
+---
+title: Use the global `psql` config parameters when the local `psql` configuration does not contain that config key, instead of going to the default option.
+merge_request: 1461
+author: Matthias van de Meent
+type: fixed

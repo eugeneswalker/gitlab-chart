@@ -212,7 +212,8 @@ Defaults to a release-based name and falls back to .Values.global.psql.secretNam
 */}}
 {{- define "gitlab.psql.password.secret" -}}
 {{- $local := pluck "psql" $.Values | first -}}
-{{- default (printf "%s-%s" .Release.Name "postgresql-password") (pluck "password" $local $.Values.global.psql | first ).secret | quote -}}
+{{- $localPass := pluck "password" $local | first -}}
+{{- default (printf "%s-%s" .Release.Name "postgresql-password") (pluck "secret" $localPass $.Values.global.psql.password | first ) | quote -}}
 {{- end -}}
 
 {{/*
@@ -229,7 +230,8 @@ Uses `postgresql-password` to match upstream postgresql chart when not using an
 */}}
 {{- define "gitlab.psql.password.key" -}}
 {{- $local := pluck "psql" $.Values | first -}}
-{{- default "postgresql-password" (pluck "password" $local $.Values.global.psql | first ).key | quote -}}
+{{- $localPass := pluck "password" $local | first -}}
+{{- default "postgresql-password" (pluck "key" $localPass $.Values.global.psql.password | first ) | quote -}}
 {{- end -}}
 
 {{/*
