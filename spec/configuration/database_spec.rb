@@ -1,8 +1,13 @@
 require 'spec_helper'
 require 'helm_template_helper'
 require 'yaml'
+require 'hash_deep_merge'
 
 describe 'Database configuration' do
+  def database_yml(template,chart_name)
+    template.dig("ConfigMap/test-#{chart_name}",'data','database.yml.erb')
+  end
+
   let(:default_values) do
     {
       'certmanager-issuer' => { 'email' => 'test@example.com' },
@@ -21,6 +26,48 @@ describe 'Database configuration' do
       },
       'postgresql' => { 'install' => true }
     }
+  end
+
+  describe 'global.psql settings' do
+    context 'when psql.database set globally' do
+      let(:global_values) do
+        default_values.deep_merge({
+          'global' => {
+            'psql' => {
+              'database' => 'testing'
+            }
+          }
+        })
+      end
+
+      it 'populates global database to all charts' do
+        template = HelmTemplate.new(global_values)
+        expect(database_yml(template,'webservice')).to include("database: testing")
+        expect(database_yml(template,'task-runner')).to include("database: testing")
+        expect(database_yml(template,'sidekiq')).to include("database: testing")
+      end
+
+      context 'when locally overridden in gitlab.webservice' do
+        let(:local_values) do
+          global_values.deep_merge({
+            'gitlab' => {
+              'webservice' => {
+                'psql' => {
+                  'database' => 'local'
+                }
+              }
+            }
+          })
+        end
+
+        it 'populates local database to webservice, and global to others' do
+          template = HelmTemplate.new(local_values)
+          expect(database_yml(template,'webservice')).to include("database: local")
+          expect(database_yml(template,'task-runner')).to include("database: testing")
+          expect(database_yml(template,'sidekiq')).to include("database: testing")
+        end
+      end
+    end
   end
 
   describe 'global.psql.load_balancing' do
