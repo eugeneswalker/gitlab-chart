@@ -2,6 +2,21 @@
 documentation](doc/development/changelog.md) for instructions on adding your own
 entry.
 
+## 4.2.1 (2020-07-24)
+
+### Fixed (1 change, 1 of them is from the community)
+
+- Use the global `psql` config parameters when the local `psql` configuration does not contain that config key, instead of going to the default option. !1461 (Matthias van de Meent)
+
+### Changed (1 change)
+
+- Update GitLab Runner to 0.19.1. !500
+
+### Other (1 change)
+
+- Update GitLab Version to 13.2.1.
+
+
 ## 4.2.0 (2020-07-22)
 
 ### Fixed (2 changes)
